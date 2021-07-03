@@ -1,0 +1,22 @@
+.navbar {
+  &-brand {
+    padding-top: 10px;
+    font-size: 1.7em;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  &-nav {
+    & > li {
+      margin-left: 20px;
+      &:first-child{
+        margin-left: 0px;
+      } 
+    }
+  }
+}
+
+.dropdown-item {
+  a {
+    display: block;
+  }
+}
