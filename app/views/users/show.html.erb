@@ -1,0 +1,22 @@
+<% provide(:title, @user.name) %>
+<div class='row'>
+  <aside class='col-md-4'>
+  </aside>
+  <div class='col-md-8'>
+    <h2><%= @user.name %>のプロフィール</h2>
+    <div class='row'>
+      <%= gravatar_for(@user) %>
+    </div>
+    <div class='row'>
+      <% if current_user?(@user) %>
+        <p>
+          <%= @user.email %>
+        </p>
+        <%= link_to edit_user_registration_path, class: 'btn btn-info text-white' do %>
+          <span>編集</span>
+          <i class="fas fa-user-edit"></i>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

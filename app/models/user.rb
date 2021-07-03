@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  before_save :downcase_email
+  validates :name, presence: true, length: { maximum: 20}
+  validates :email, presence: true, length: { maximum: 255 }
 
   # パスワード入力なしで自身のユーザー情報を変更可能に（devise）
   def update_without_current_password(params)
@@ -22,4 +25,11 @@ class User < ApplicationRecord
       user.name = 'ゲストユーザー'
     end
   end
+
+  private
+    def downcase_email
+      self.email = email.downcase
+    end
+
+
 end
