@@ -1,0 +1,54 @@
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  width: 90%;
+  padding: 50px 75px 50px;
+  display: block;
+  flex: 1;
+  flex-basis: auto;
+  box-sizing: border-box;
+}
+
+.devise-card {
+  border: none;
+}
+
+.form-wrap{
+  max-width: 400px;
+  width: 100%;
+  margin: 50px auto;
+}
+
+.form-title {
+  margin-bottom:20px;
+}
+
+.form-control {
+  border: 1px solid #dcdfe6;
+  font-size: inherit;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding: 75px 0;
+  }
+  .devise-card {
+    background-color: #fafafa;
+  }
+}
+
+.guest-login {
+  margin-top:10px;
+}
+
+.devise-link {
+  text-align: center;
+  padding: 15px 0px;
+  border-top: 1px dotted #dcdfe6;
+}

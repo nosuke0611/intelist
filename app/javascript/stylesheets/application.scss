@@ -1,1 +1,11 @@
 @import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import 'users/devise';
+@import 'partial/header';
+
+body {
+  padding-top: 90px;
+  background-color: #fafafa;
+  font-size: 14px;
+  color: #262626;
+}
