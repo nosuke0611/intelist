@@ -1,0 +1,8 @@
+<% provide(:title, 'Users') %>
+<h2>ユーザー一覧</h2>
+<% @users.each do |user| %>
+  <ul>
+    <%= link_to user.name, user %>
+  </ul>
+<% end %>
+<%= paginate @users %>

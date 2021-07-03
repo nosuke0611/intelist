@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   }
   root 'basic#home'
 
+  resources :users, only: %i(index show)
+
 
   # ゲストログイン用ルーティング
   devise_scope :user do
