@@ -1,0 +1,18 @@
+<% provide(:title, @title) %>
+<div class='row'>
+  <aside class='col-md-4'>
+    <%= render 'partial/users/user_aside' %>
+  </aside>
+  <div class='col-md-8'>
+    <h2><%= @controller_name %>一覧</h2>
+    <% if @users.any? %>
+      <% @users.each do |user| %>
+        <ul>
+          <%= link_to user.name, user %>
+        </ul>
+      <% end %>
+    <% else %>
+      <ul><%= @controller_name %>はまだいません</ul>
+    <% end %>
+  </div>
+</div>

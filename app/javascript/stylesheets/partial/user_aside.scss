@@ -1,0 +1,21 @@
+.stats {
+  overflow: auto;
+  margin: 20px 0px;
+  padding: 0;
+  a {
+    float: left;
+    padding: 0 10px;
+    color: gray;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
