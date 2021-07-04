@@ -31,6 +31,10 @@ module Intelist
     #
     config.time_zone = 'Asia/Tokyo'
     config.active_record.default_timezone = :local
+
+    # 認証トークンをremoteフォームに埋め込む
+    config.action_view.embed_authenticity_token_in_remote_forms = true
+
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.

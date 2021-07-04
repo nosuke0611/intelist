@@ -1,0 +1,9 @@
+<section class='user_info'>
+  <h3><%= link_to @user.name, @user %></h3>
+</section>
+<section class='user_stats'>
+  <%= render 'partial/users/stats' %>
+</section>
+<section class='user_follow'>
+  <%= render 'partial/users/follow_form' %>
+</section>

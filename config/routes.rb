@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   }
   root 'basic#home'
 
-  resources :users, only: %i(index show)
-
+  resources :users, only: %i(index show) do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :relationships, only: %i(create destroy)
 
   # ゲストログイン用ルーティング
   devise_scope :user do
