@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'フォロー機能のviewへの反映テスト', type: :system do
+RSpec.describe 'フォロー機能の映テスト', type: :system do
   let(:user) { create(:user) }
   let(:other_users) { create_list(:user, 20) }
 
