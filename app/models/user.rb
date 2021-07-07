@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   before_save :downcase_email
-  validates :name, presence: true, length: { maximum: 20}
-  validates :email, presence: true, length: { maximum: 255 }
+  validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
+  validates :email, presence: true, uniqueness: true, length: { maximum: 255 }
 
   # フォロー関連
   has_many :active_relationships, class_name: 'Relationship',

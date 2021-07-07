@@ -31,6 +31,10 @@ ja:
       models:
         user:
           attributes:
+            name:
+              blank: ':ユーザー名が入力されていません'
+              invalid: ':無効なユーザー名です'
+              taken: ':既に使用されているユーザー名です'
             email:
               blank: ':メールアドレスが入力されていません'
               invalid: ':無効なメールアドレスです'
