@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: %i(create destroy)
+  resources :items
 
   # ゲストログイン用ルーティング
   devise_scope :user do
