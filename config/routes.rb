@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   resources :users, only: %i(index show) do
     member do
       get :following, :followers
+      get :posts
     end
   end
   resources :relationships, only: %i(create destroy)
   resources :items
+  resources :posts
 
   # ゲストログイン用ルーティング
   devise_scope :user do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_07_130847) do
+ActiveRecord::Schema.define(version: 2021_07_09_135105) do
 
   create_table "item_tag_maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "item_id", null: false
@@ -25,6 +25,27 @@ ActiveRecord::Schema.define(version: 2021_07_07_130847) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_tag_maps", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "post_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_post_tag_maps_on_post_id"
+    t.index ["tag_id"], name: "index_post_tag_maps_on_tag_id"
+  end
+
+  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.boolean "complete", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_posts_on_item_id"
+    t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "relationships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -60,4 +81,8 @@ ActiveRecord::Schema.define(version: 2021_07_07_130847) do
 
   add_foreign_key "item_tag_maps", "items"
   add_foreign_key "item_tag_maps", "tags"
+  add_foreign_key "post_tag_maps", "posts"
+  add_foreign_key "post_tag_maps", "tags"
+  add_foreign_key "posts", "items"
+  add_foreign_key "posts", "users"
 end
