@@ -1,0 +1,19 @@
+<% provide(:title, '投稿一覧') %>
+<div class='row'>
+  <aside class='col-md-4'>
+    <%= render 'partial/users/user_aside' %>
+  </aside>
+  <div class='col-md-8'>
+    <h2><%= @user.name %>の投稿</h2>
+    <ul class='posts'>
+      <% if @posts.any? %>
+        <% @posts.each do |post| %>
+          <%= render 'partial/post_list', post: post %>
+        <% end %>
+      <% else %>
+        <ul>投稿はまだありません</ul>
+      <% end %>
+    </ul>
+    <%= paginate @posts %>
+  </div>
+</div>

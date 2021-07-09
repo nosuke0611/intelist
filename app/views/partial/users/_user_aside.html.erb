@@ -1,6 +1,9 @@
 <section class='user_info'>
   <h3><%= link_to @user.name, @user %></h3>
 </section>
+<section class='user_posts'>
+  <span><%= link_to "#{@post_count}件の投稿", posts_user_path(@user) %></span>
+</section>
 <section class='user_stats'>
   <%= render 'partial/users/stats' %>
 </section>
