@@ -2,9 +2,11 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :post_tag_maps, dependent: :destroy
   has_many :tags, through: :post_tag_maps
+  has_one :item
 
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
+  validates :item_id, presence: true
 
   def save_tags(tag_list)
     current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
@@ -19,5 +21,9 @@ class Post < ApplicationRecord
       add_tag = Tag.find_or_create_by(tag_name: new_tag)
       self.tags << add_tag
     end
+  end
+
+  def item
+    Item.find(self.item_id)
   end
 end
