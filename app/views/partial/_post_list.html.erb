@@ -14,6 +14,7 @@
   <span class='actions'>
     <% if current_user?(post.user) %>
       <%= link_to '削除', post, method: :delete, data: {confirm: '投稿を削除しますか?' } %>
+      <%= link_to '編集', "/posts/#{post.id}/edit" %>
     <% end %>
   </span>
 </li>
