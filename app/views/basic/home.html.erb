@@ -7,7 +7,7 @@
       <h2>タイムライン</h2>
       <div class='post'>
         <% @posts.each do |post| %>
-          <%= render 'partial/post_list', post: post %>
+          <%= render 'partial/posts/post_list', post: post %>
         <% end %>
       </div>
       <%= paginate @posts %>

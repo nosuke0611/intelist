@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: %i(create destroy)
   resources :items, only: %i(create destroy index show)
-  resources :posts, except: :index 
+  resources :posts, except: :index do
+    resources :likes, only: %i(create destroy)
+  end
 
   # ゲストログイン用ルーティング
   devise_scope :user do

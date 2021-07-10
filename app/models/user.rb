@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_many :followers, through: :passive_relationships, source: :follower
 
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :like_posts, through: :likes, source: :post
 
   # ユーザーフォロー関連メソッド
   def follow(other_user)
@@ -51,8 +53,18 @@ class User < ApplicationRecord
     end
   end
 
+  # いいね済か確認
+  def like?(post)
+    like_posts.include?(post)
+  end
+  
+  # ユーザー情報
   def post_count
-    self.posts.count
+    posts.count
+  end
+
+  def own?(object)
+    id == object.user_id
   end
 
   private

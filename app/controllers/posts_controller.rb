@@ -20,6 +20,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    @post = Post.find(params[:id])
+  end
+
   def edit
     @item = @post.item
     @tag_list = @post.tags.pluck(:tag_name)

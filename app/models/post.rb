@@ -3,6 +3,8 @@ class Post < ApplicationRecord
   has_many :post_tag_maps, dependent: :destroy
   has_many :tags, through: :post_tag_maps
   has_one :item
+  has_many :likes, dependent: :destroy
+  has_many :users, through: :likes
 
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
@@ -25,5 +27,9 @@ class Post < ApplicationRecord
 
   def item
     Item.find(self.item_id)
+  end
+
+  def liked_by(user)
+    Like.find_by(user_id: user, post_id: id)
   end
 end
