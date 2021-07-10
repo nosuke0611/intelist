@@ -51,6 +51,10 @@ class User < ApplicationRecord
     end
   end
 
+  def post_count
+    self.posts.count
+  end
+
   private
     def downcase_email
       self.email = email.downcase

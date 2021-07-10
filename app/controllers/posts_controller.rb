@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-
+  before_action :authenticate_user!, only: %i(create destroy)
+  before_action :correct_user, only: %i(edit destroy)
   def new
     @post = Post.new
   end
@@ -19,6 +20,9 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def destroy
     @post.destroy
     flash[:success] = '投稿を削除しました'
@@ -28,5 +32,10 @@ class PostsController < ApplicationController
   private
     def post_params
       params.require(:post).permit(:content)
+    end
+
+    def correct_user
+      @post = current_user.posts.find(params[:id])
+      redirect_to root_url if @post.nil?
     end
 end

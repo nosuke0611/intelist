@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: %i(create destroy)
-  resources :items
+  resources :items, only: %i(create destroy index show)
   resources :posts
 
   # ゲストログイン用ルーティング

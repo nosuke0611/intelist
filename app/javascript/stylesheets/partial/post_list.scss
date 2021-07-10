@@ -1,0 +1,43 @@
+.post {
+  display: block;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .gravatar {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+  .user-name {
+    margin-top: 5px;
+    padding-top: 0;
+  }
+  .item {
+    display: block;
+    margin-left: 70px;
+    padding-left: 10px;
+  }
+  .content {
+    display: block;
+    margin-left: 70px;
+    padding-left: 10px;
+  }
+  .tags {
+    display: block;
+    margin-left: 70px;
+    padding-left: 10px;
+  }
+  .timestamp {
+    color: gray;
+    display: block;
+    margin-left: 70px;
+    padding-left: 10px;
+  }
+  .actions {
+    display: block;
+    margin-left: 70px;
+    padding-left: 10px;
+  }
+}
