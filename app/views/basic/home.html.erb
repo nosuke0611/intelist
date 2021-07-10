@@ -4,7 +4,7 @@
       <%= render 'partial/users/user_aside' %>
     </aside>
     <div class='col-md-8'>
-      <h2><%= @user.name %>の投稿</h2>
+      <h2>タイムライン</h2>
       <div class='post'>
         <% @posts.each do |post| %>
           <%= render 'partial/post_list', post: post %>

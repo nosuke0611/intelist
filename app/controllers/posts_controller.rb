@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: %i(create destroy)
-  before_action :correct_user, only: %i(edit destroy)
+  before_action :correct_user, only: %i(edit update destroy)
   def new
     @post = Post.new
   end
@@ -21,6 +21,22 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @item = @post.item
+    @tag_list = @post.tags.pluck(:tag_name)
+  end
+
+  def update
+    @item = Item.find_or_create_by(name: params[:post][:item_name])
+    @post.item_id = @item.id
+    tag_list = params[:post][:tag_name].split(nil)
+    if @post.update(post_params)
+      @post.save_tags(tag_list)
+      flash.now[:success] = '投稿を編集しました'
+      redirect_back(fallback_location: root_path)
+    else
+      flash.now[:alert] = '投稿の編集に失敗しました'
+      render 'edit'
+    end
   end
 
   def destroy
