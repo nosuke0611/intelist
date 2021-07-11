@@ -1,5 +1,14 @@
-<% provide(:title, '投稿の編集') %>
+<% provide(:title, '投稿の詳細') %>
 <div class='post'>
   <%= render 'partial/posts/post_list', post: @post %>
 </div>
-    
+<div id="comment-post-<%= @post.id.to_s %>">
+  <%= render 'partial/posts/comment_list', post: @post %>
+</div>
+<div class="row parts" id="comment-form-post-<%= @post.id.to_s %>">
+  <%= form_with model: [@post, Comment.new], local: false, class: 'w-100' do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.text_field :comment, class: 'form-control comment-input border-0', placeholder: 'コメントを追加する', autocomplete: :off %>
+  <% end %>
+</div>

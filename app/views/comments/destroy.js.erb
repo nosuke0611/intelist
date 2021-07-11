@@ -1,0 +1,2 @@
+$('#comment-post-<%= @post.id.to_s %>').
+  html('<%= j render "partial/posts/comment_list", post: @post %>');

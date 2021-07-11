@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :items, only: %i(create destroy index show)
   resources :posts, except: :index do
     resources :likes, only: %i(create destroy)
+    resources :comments, only: %i(create destroy)
   end
 
   # ゲストログイン用ルーティング
