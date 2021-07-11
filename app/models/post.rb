@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_one :item
   has_many :likes, dependent: :destroy
   has_many :users, through: :likes
+  has_many :comments, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
