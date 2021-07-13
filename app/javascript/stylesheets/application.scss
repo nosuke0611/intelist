@@ -4,12 +4,15 @@
 @import 'partial/user_aside';
 @import 'partial/post_list';
 @import 'partial/header';
+@import 'partial/footer';
 
 body {
-  padding-top: 90px;
   background-color: #fafafa;
   font-size: 14px;
   color: #262626;
+}
+.container {
+  padding-top: 90px;
 }
 
 li {

@@ -1,28 +1,28 @@
-<header class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>
-  <div class='container'>
-    <%= link_to 'INTELIST', root_path, class: 'navbar-brand', id: 'logo' %>
-    <nav>
-      <ul class='navbar-nav align-items-center navbar-right'>
-        <li><%= link_to 'Home', root_path %></li>
-        <% if user_signed_in? %>
-          <li><%= link_to '新規投稿', new_post_path %></li>
-          <li><%= link_to 'ユーザー一覧', users_path %></li>
-          <li class='dropdown'>
-            <a href='#', class='dropdown-toggle' data-toggle='dropdown'>
-              アカウント
-            </a>
-            <ul class='dropdown-menu dropdown-menu-right'>
-              <li class='dropdown-item'><%= link_to 'プロフィール', user_path(current_user.id) %></li>
-              <li class='dropdown-item'><%= link_to '設定', edit_user_registration_path %></li>
-              <li class='dropdown-divider'></li>
-              <li class='dropdown-item'><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-            </ul>
-          </li>
-        <% else %>
-          <li><%= link_to 'ログイン', new_user_session_path, class: 'btn btn-primary' %></li>
-          <li><%= link_to '新規登録', new_user_registration_path, class: 'btn btn-primary' %></li>
-        <% end %>
-      </ul>
-    </nav>
+<nav class='navbar navbar-expand-lg navbar-dark bg-dark fixed-top'>
+  <%= link_to 'INTELIST', root_path, class: 'navbar-brand', id: 'logo' %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
+    <ul class='navbar-nav align-items-center ml-auto'>
+      <li class='nav-item'><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+      <% if user_signed_in? %>
+        <li class='nav-item'><%= link_to 'ユーザー一覧', users_path, class: 'nav-link' %></li>
+        <li class='nav-item dropdown'>
+          <a href='#', class='nva-link dropdown-toggle' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            アカウント
+          </a>
+          <ul class='dropdown-menu dropdown-menu-right' aria-labelledby="navbarDropdown" >
+            <li class='dropdown-item'><%= link_to 'プロフィール', user_path(current_user.id) %></li>
+            <li class='dropdown-item'><%= link_to '設定', edit_user_registration_path %></li>
+            <li class='dropdown-divider'></li>
+            <li class='dropdown-item'><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </li>
+      <% else %>
+        <li class='nav-item'><%= link_to 'ログイン', new_user_session_path, class: 'btn btn-primary' %></li>
+        <li class='nav-item'><%= link_to '新規登録', new_user_registration_path, class: 'btn btn-primary' %></li>
+      <% end %>
+    </ul>
   </div>
-</header>
+</nav>
