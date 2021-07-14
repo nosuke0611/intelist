@@ -1,4 +1,5 @@
-<%= form_with(model: current_user.active_relationships.find_by(followed_id: @user.id),
-              html: { method: :delete }, remote: true) do |f| %>
+<% user ||= @user %>
+<%= form_with(model: current_user.active_relationships.find_by(followed_id: user.id),
+              html: { method: :delete }, local: false) do |f| %>
   <%= f.submit 'フォロー解除', class: 'btn btn-danger', id: 'unfollow-btn' %>
 <% end %>

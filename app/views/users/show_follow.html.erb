@@ -4,13 +4,9 @@
     <%= render 'partial/users/user_aside' %>
   </aside>
   <div class='col-md-8'>
-    <h2><%= @controller_name %>一覧</h2>
+    <h2><%= "#{@user.name}の#{@controller_name}一覧" %></h2>
     <% if @users.any? %>
-      <% @users.each do |user| %>
-        <ul>
-          <%= link_to user.name, user %>
-        </ul>
-      <% end %>
+      <%= render 'partial/users/users_list' %>
     <% else %>
       <ul><%= @controller_name %>はまだいません</ul>
     <% end %>

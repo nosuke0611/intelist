@@ -1,0 +1,27 @@
+<% provide(:title, @item.name) %>
+<div class='item-name'>
+  <h3><%= @item.name %></h3>
+</div>
+<div class='tag'>
+  <ul>
+    <% @tags.each do |tag| %>
+      <li><%= tag.tag_name %></li>
+    <% end %>
+  </ul>
+<div>
+<div class='users'>
+  <ul>
+    <% @users.each do |user| %>
+      <li><%= link_to user.name, user %></li>
+    <% end %>
+  </ul>
+</div>
+<div class=>
+<div class='posts'>
+  <ul class='post'>
+    <% @item.posts.each do |post| %>
+      <%= render 'partial/posts/post_list', post: post %>
+    <% end %>
+  </ul>
+</div>
+
