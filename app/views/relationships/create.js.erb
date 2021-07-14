@@ -1,2 +1,11 @@
-$("#follow_form").html('<%= j render "users/unfollow" %>');
-$("#followers").html('<%= @user.followers.count %>');
+$('#follow-form-<%= @user.id %>').html('<%= j render "partial/users/unfollow" %>');
+$(function(){
+  if($('#followers').length){
+    $('#followers').html('<%= @user.followers.count %>');
+  }
+});
+$(function(){
+  if($('#user-<%= @user.id %>-following').length){
+    $('#user-<%= @user.id %>-following').html('<%= @user.following.count %>');
+  }
+});

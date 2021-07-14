@@ -1,5 +1,9 @@
 class ItemsController < ApplicationController
   
+  def index
+    @items = Item.page(params[:page]).per(20)
+  end
+
   def new
     @item = Item.new
   end
@@ -15,12 +19,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  def index
-    @items = Item.all
-  end
-
   def show
     @item = Item.find(params[:id])
+    @tags = @item.tags.uniq
+    @users = @item.users.uniq
   end
 
 

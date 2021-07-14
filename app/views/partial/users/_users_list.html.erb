@@ -1,0 +1,23 @@
+<table class='table'>
+  <thead>
+    <th scope='col'>ユーザー名</th>
+    <th scope='col'>投稿数</th>
+    <th scope='col'>フォロー数</th>
+    <th scope='col'>フォロワー数</th>
+    <th scope='col'></th>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <th><%= link_to user.name, user_path(user) %></th>
+        <td><%= link_to user.posts.count, posts_user_path(user) %></td>
+        <td id="user-<%= user.id %>-following"><%= link_to user.following.count, following_user_path(user) %></td>
+        <td><%= link_to user.followers.count, followers_user_path(user) %></td>
+        <td>
+          <%= render 'partial/users/follow_form',  user: user %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>

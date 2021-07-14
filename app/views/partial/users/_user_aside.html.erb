@@ -1,18 +1,18 @@
 <% @user ||= current_user %>
-<section class='user_info'>
+<section class='user-info'>
   <h3><%= link_to @user.name, @user %></h3>
 </section>
-<section class='user_posts'>
+<section class='user-posts'>
   <span><%= link_to "#{@user.post_count}件の投稿", posts_user_path(@user) %></span>
 </section>
-<section class='user_stats'>
+<section class='user-stats'>
   <%= render 'partial/users/stats' %>
 </section>
-<section class='user_follow'>
-  <%= render 'partial/users/follow_form' %>
+<section class='user-follow'>
+  <%= render 'partial/users/follow_form', user: @user %>
 </section>
-<section>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+<section class='user-newpost'>
+  <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter'>
     新規投稿
   </button>
   <%= render 'partial/posts/post_form' %>

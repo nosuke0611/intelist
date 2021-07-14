@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def following
     @user  = User.find(params[:id])
     @title = "#{@user.name}のフォロー"
-    @users = @user.following
+    @users = @user.following.page(params[:page]).per(20)
     @controller_name = 'フォロー'
     @post = Post.new
     render 'show_follow'
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def followers
     @user  = User.find(params[:id])
     @title = "#{@user.name}のフォロワー"
-    @users = @user.followers
+    @users = @user.followers.page(params[:page]).per(20)
     @controller_name = 'フォロワー'
     @post = Post.new
     render 'show_follow'

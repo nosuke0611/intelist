@@ -8,6 +8,7 @@
       <li class='nav-item'><%= link_to 'Home', root_path, class: 'nav-link' %></li>
       <% if user_signed_in? %>
         <li class='nav-item'><%= link_to 'ユーザー一覧', users_path, class: 'nav-link' %></li>
+        <li class='nav-item'><%= link_to 'アイテム一覧', items_path, class: 'nav-link' %></li>
         <li class='nav-item dropdown'>
           <a href='#', class='nva-link dropdown-toggle' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
             アカウント

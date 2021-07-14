@@ -1,9 +1,33 @@
 <% provide(:title, 'Items') %>
-<div class='list'>
-  <h2>アイテム一覧</h3>
-  <% @items.each do |item| %>
-    <ul>
-      <%= link_to item.name, item %>
-    </ul>
-  <% end %>
-</div>
+<h3>アイテム一覧</h3>
+<table class='table'>
+  <thead>
+    <th scope='col'>アイテム名</th>
+    <th scope='col'>タグ</th>
+    <th scope='col'>興味アリ</th>
+    <th scope='col'>興味を持っているフォロー</th>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <th><%= link_to item.name, item %></th>
+        <td>
+          <% item.tags.each do |tag| %>
+            <span class='btn btn-sm btn-info'><%= tag.tag_name %></span>
+          <% end %>
+        </td>
+        <td>
+          <span class='btn btn-sm btn-success'><%= item.users.count %><i class='fas fa-users'></i></span>
+        </td>
+        <td>
+          <% item.users.each do |user| %>
+            <% if current_user.following?(user) %>
+              <%= link_to user.name, user_path(user) %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @items %>
