@@ -1,11 +1,11 @@
 <% provide(:title, 'Items') %>
 <h3>アイテム一覧</h3>
-<table class='table'>
+<table class='table col-md-12'>
   <thead>
-    <th scope='col'>アイテム名</th>
-    <th scope='col'>タグ</th>
-    <th scope='col'>興味アリ</th>
-    <th scope='col'>興味を持っているフォロー</th>
+    <th scope='col' class='col-md-3'>アイテム名</th>
+    <th scope='col' class='col-md-4'>タグ</th>
+    <th scope='col' class='col-md-1'>興味アリ</th>
+    <th scope='col' class='col-md-4'>フォローの中で興味を持っているユーザー</th>
   </thead>
   <tbody>
     <% @items.each do |item| %>
@@ -13,7 +13,7 @@
         <th><%= link_to item.name, item %></th>
         <td>
           <% item.tags.each do |tag| %>
-            <span class='btn btn-sm btn-info'><%= tag.tag_name %></span>
+            <span class='btn btn-sm btn-info tag-name'><%= tag.tag_name %></span>
           <% end %>
         </td>
         <td>

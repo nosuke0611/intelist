@@ -11,8 +11,8 @@
       <tr>
         <th><%= link_to user.name, user_path(user) %></th>
         <td><%= link_to user.posts.count, posts_user_path(user) %></td>
-        <td id="user-<%= user.id %>-following"><%= link_to user.following.count, following_user_path(user) %></td>
-        <td><%= link_to user.followers.count, followers_user_path(user) %></td>
+        <td><%= link_to user.following.count, following_user_path(user) %></td>
+        <td id="user-<%= user.id %>-followers"><%= link_to user.followers.count, followers_user_path(user) %></td>
         <td>
           <%= render 'partial/users/follow_form',  user: user %>
         </td>

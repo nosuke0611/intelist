@@ -5,7 +5,7 @@ $(function(){
   }
 });
 $(function(){
-  if($('#user-<%= @user.id %>-following').length){
-    $('#user-<%= @user.id %>-following').html('<%= @user.following.count %>');
+  if($('#user-<%= @user.id %>-followers').length){
+    $('#user-<%= @user.id %>-followers').html('<%= link_to @user.followers.count, followers_user_path(@user) %>');
   }
 });
