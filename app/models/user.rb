@@ -68,6 +68,11 @@ class User < ApplicationRecord
     id == object.user_id
   end
 
+  def self.search(search)
+    return User.all unless search
+    User.where(['name Like ?', "%#{search}%"])
+  end
+
   private
     def downcase_email
       self.email = email.downcase

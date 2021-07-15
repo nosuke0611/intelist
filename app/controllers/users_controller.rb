@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i(following followers)
 
+  def index
+    @users = User.search(params[:search]).page(params[:page]).per(20)
+  end
+
   def show
     @user = User.find(params[:id])
     @post_count = @user.posts.count
-  end
-
-  def index
-    @users = User.page(params[:page]).per(20)
   end
 
   def following

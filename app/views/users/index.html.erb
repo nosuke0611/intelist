@@ -1,3 +1,21 @@
 <% provide(:title, 'Users') %>
 <h3>ユーザー一覧</h3>
-<%= render 'partial/users/users_list' %>
+<div class='row'>
+  <aside class='col-md-2'>
+    <div class='my-3'><strong>ユーザー名検索</strong></div>
+    <%= form_with url: users_path, class: 'search_form', method: :get, local:true do |f| %>
+      <div class='form-group'>
+        <%= f.text_field :search, class: 'form-control', value: params[:search], placeholder: 'ユーザー名'%>
+      </div>
+      <div class='actions'>
+        <%= f.submit '検索', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+    <div class='reset'>
+      <%= link_to 'リセット', users_path, class: 'btn btn-secondary mt-2' %>
+    </div>
+  </aside>
+  <div class='col-md-10'>
+    <%= render 'partial/users/users_list' %>
+  </div>
+</div>

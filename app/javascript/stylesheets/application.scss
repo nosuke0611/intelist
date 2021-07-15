@@ -18,3 +18,9 @@ body {
 li {
   list-style: none;
 }
+
+td {
+  .tag-name {
+    margin: 3px;
+  }
+}
