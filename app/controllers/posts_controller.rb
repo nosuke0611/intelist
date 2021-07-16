@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    @item = Item.find_or_create_by(name: params[:post][:item_name])
+    @item = Item.find_or_create_by(item_name: params[:post][:item_name])
     @post.item_id = @item.id
     tag_list = params[:post][:tag_name].split(/[[:blank:]]+/)
     if @post.save
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @item = Item.find_or_create_by(name: params[:post][:item_name])
+    @item = Item.find_or_create_by(item_name: params[:post][:item_name])
     @post.item_id = @item.id
     tag_list = params[:post][:tag_name].split(/[[:blank:]]+/)
     if @post.update(post_params)

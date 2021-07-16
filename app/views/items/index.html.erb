@@ -1,33 +1,57 @@
 <% provide(:title, 'Items') %>
 <h3>アイテム一覧</h3>
-<table class='table col-md-12'>
-  <thead>
-    <th scope='col' class='col-md-3'>アイテム名</th>
-    <th scope='col' class='col-md-4'>タグ</th>
-    <th scope='col' class='col-md-1'>興味アリ</th>
-    <th scope='col' class='col-md-4'>フォローの中で興味を持っているユーザー</th>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
-      <tr>
-        <th><%= link_to item.name, item %></th>
-        <td>
-          <% item.tags.each do |tag| %>
-            <span class='btn btn-sm btn-info tag-name'><%= tag.tag_name %></span>
-          <% end %>
-        </td>
-        <td>
-          <span class='btn btn-sm btn-success'><%= item.users.count %><i class='fas fa-users'></i></span>
-        </td>
-        <td>
-          <% item.users.each do |user| %>
-            <% if current_user.following?(user) %>
-              <%= link_to user.name, user_path(user) %>
-            <% end %>
-          <% end %>
-        </td>
-      </tr>
+<div class='row'>
+  <aside class='col-md-2'>
+    <div class='my-3'><strong>絞り込み検索</strong></div>
+    <%= form_with scope: :searched, url: items_path, class: 'search_form', method: :get, local: true do |f| %>
+      <div class='form-group'>
+        <%= f.text_field :item_name, class: 'form-control', value: @search_params[:item_name], placeholder: 'アイテム名'%>
+      </div>
+      <div class='form-group'>
+        <%= f.text_field :tag_name, class: 'form-control', value: @search_params[:tag_name], placeholder: 'タグ名'%>
+      </div>
+      <div class='form-group'>
+        <%= f.text_field :user_name, class: 'form-control', value: @search_params[:user_name], placeholder: 'ユーザー名'%>
+      </div>
+      <div class='actions'>
+        <%= f.submit '検索', class: 'btn btn-primary' %>
+      </div>
     <% end %>
-  </tbody>
-</table>
-<%= paginate @items %>
+    <div class='reset'>
+      <%= link_to 'リセット', items_path, class: 'btn btn-secondary mt-2' %>
+    </div>
+  </aside>
+  <div class='col-md-10'>
+    <table class='table col-md-12'>
+      <thead>
+        <th scope='col' class='col-md-3'>アイテム名</th>
+        <th scope='col' class='col-md-4'>タグ</th>
+        <th scope='col' class='col-md-2'>興味アリ</th>
+        <th scope='col' class='col-md-3'>興味を持っているフォロー</th>
+      </thead>
+      <tbody>
+        <% @items.uniq.each do |item| %>
+          <tr>
+            <th><%= link_to item.item_name, item %></th>
+            <td>
+              <% item.tags.uniq.each do |tag| %>
+                <span class='btn btn-sm btn-info tag-name'><%= tag.tag_name %></span>
+              <% end %>
+            </td>
+            <td>
+              <span class='btn btn-sm btn-success'><%= item.users.count %><i class='fas fa-users'></i></span>
+            </td>
+            <td>
+              <% item.users.each do |user| %>
+                <% if current_user.following?(user) %>
+                  <%= link_to user.name, user_path(user) %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= paginate @items %>
+  </div>
+</div>

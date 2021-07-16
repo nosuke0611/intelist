@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
   
   def index
-    @items = Item.page(params[:page]).per(20)
+    @search_params = item_search_params
+    @items = Item.searched(@search_params).page(params[:page]).per(20)
   end
 
   def new
@@ -28,6 +29,10 @@ class ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:name)
+      params.require(:item).permit(:item_name)
+    end
+
+    def item_search_params
+      params.fetch(:searched, {}).permit(:item_name, :tag_name, :user_name)
     end
 end

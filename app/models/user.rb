@@ -68,10 +68,8 @@ class User < ApplicationRecord
     id == object.user_id
   end
 
-  def self.search(search)
-    return User.all unless search
-    User.where(['name Like ?', "%#{search}%"])
-  end
+  # ユーザー名での絞り込み
+  scope :searched, -> (search){ where(['name Like ?', "%#{search}%"]) }
 
   private
     def downcase_email
