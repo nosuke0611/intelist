@@ -1,7 +1,7 @@
 <li id="post-<%= post.id %>">
   <%= link_to gravatar_for(post.user), post.user %>
   <strong class='user-name'><%= link_to post.user.name, post.user %></strong>
-  <span class='item'><%= link_to post.item.name, post.item %></span>
+  <span class='item'><%= link_to post.item.item_name, post.item %></span>
   <span class='content'><%= post.content %></span>
   <span class='tags'>
     <% post.tags.each do |tag| %>

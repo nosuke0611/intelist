@@ -33,4 +33,14 @@ class Post < ApplicationRecord
   def liked_by(user)
     Like.find_by(user_id: user, post_id: id)
   end
+
+  # アイテム絞り込み検索用
+  scope :has_tag_name, -> (tag_name){
+    joins(:tags).merge(Tag.where('tag_name LIKE ?', "%#{tag_name}%"))
+  }
+
+  scope :has_user_name, -> (user_name){
+    joins(:user).merge(User.where('name LIKE ?', "%#{user_name}%"))
+  }
+
 end

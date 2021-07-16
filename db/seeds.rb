@@ -19,14 +19,14 @@ followers.each { |follower| follower.follow(user) }
 
 # テストアイテム作成
 10.times do |n|
-  name = "example-item#{n+1}"
-  Item.create!(name: name)
+  item_name = "example-item#{n+1}"
+  Item.create!(item_name: item_name)
 end
 
 # テストタグ作成
 10.times do |n|
-  name = "example-tag#{n+1}"
-  Tag.create!(tag_name: name)
+  tag_name = "example-tag#{n+1}"
+  Tag.create!(tag_name: tag_name)
 end
 
 # テスト投稿作成
@@ -38,6 +38,7 @@ end
     tag_id = i+1
     post = user.posts.build(content: content)
     post.item_id = item_id
+    post.tag_ids = tag_id
     post.save
   end
 end
