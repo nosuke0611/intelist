@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @post_count = @user.posts.count
+    @myposts = Post.where(user_id: @user.id).page(params[:page]).per(20)
   end
 
   def following
@@ -28,9 +28,21 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
-  def posts
+  def myposts
     @user = User.find(params[:id])
-    @posts = @user.posts.page(params[:page]).per(20)
+    @myposts = @user.posts.page(params[:page]).per(20)
+    @post = Post.new
+  end
+
+  def favposts
+    @user = User.find(params[:id])
+    @favposts = Post.liked_by_user(@user).page(params[:page]).per(20)
+    @post = Post.new
+  end
+
+  def composts
+    @user = User.find(params[:id])
+    @composts = Post.commented_by_user(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 end

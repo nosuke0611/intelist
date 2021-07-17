@@ -43,4 +43,12 @@ class Post < ApplicationRecord
     joins(:user).merge(User.where('name LIKE ?', "%#{user_name}%"))
   }
 
+  # 投稿絞り込み用
+  scope :liked_by_user, -> (user){
+    joins(:likes).merge(Like.where(user_id: user.id))
+  }
+
+  scope :commented_by_user, ->(user){
+    joins(:comments).merge(Comment.where(user_id: user.id))
+  }
 end
