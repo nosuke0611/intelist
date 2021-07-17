@@ -1,22 +1,33 @@
 <% provide(:title, @user.name) %>
 <div class='row'>
-  <aside class='col-md-4'>
+  <aside class='col-md-3'>
     <%= render 'partial/users/user_aside' %>
   </aside>
-  <div class='col-md-8'>
-    <h2><%= @user.name %>のプロフィール</h2>
-    <div class='row'>
-      <%= gravatar_for(@user) %>
-    </div>
-    <div class='row'>
-      <% if current_user?(@user) %>
-        <p>
-          <%= @user.email %>
-        </p>
-        <%= link_to edit_user_registration_path, class: 'btn btn-info text-white' do %>
-          <span>編集</span>
-          <i class='fas fa-user-edit'></i>
-        <% end %>
+  <div class='col-md-9'>
+    <ul class='nav nav-tabs'>
+      <li class='nav-item'>
+        <%= link_to '自分の投稿', myposts_user_path, remote: true, class: 'nav-link myposts-tab active' %>
+      </li>
+      <li class='nav-item'>
+        <%= link_to 'いいねした投稿', favposts_user_path, remote: true, class: 'nav-link favposts-tab' %>
+      </li>
+      <li class='nav-item'>
+        <%= link_to 'コメントした投稿', composts_user_path, remote: true, class: 'nav-link composts-tab' %>
+      </li>
+    </ul>
+    <div class='row post-area'>
+      <% if @myposts.present? %>
+        <div class='top-area'>
+          <%= render 'partial/users/myposts'  %>
+        </div>
+      <% elsif @favposts.present? %>
+        <div class='top-area'>
+          <%= render 'partial/users/favposts' %>
+        </div>
+      <% elseif @composts.present? %>
+        <div class='top-area'>
+          <%= render 'partial/users/composts' %>
+        </div>
       <% end %>
     </div>
   </div>

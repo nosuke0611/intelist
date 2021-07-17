@@ -3,7 +3,7 @@
   <h3><%= link_to @user.name, @user %></h3>
 </section>
 <section class='user-posts'>
-  <span><%= link_to "#{@user.post_count}件の投稿", posts_user_path(@user) %></span>
+  <span><%= link_to "#{@user.post_count}件の投稿", myposts_user_path(@user) %></span>
 </section>
 <section class='user-stats'>
   <%= render 'partial/users/stats' %>
