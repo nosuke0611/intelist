@@ -10,6 +10,7 @@ import "channels"
 import '../stylesheets/application'
 import '@fortawesome/fontawesome-free/js/all'
 import 'bootstrap';
+require('tagsinput')
 
 
 Rails.start()
