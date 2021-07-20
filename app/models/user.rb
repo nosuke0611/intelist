@@ -59,11 +59,6 @@ class User < ApplicationRecord
     like_posts.include?(post)
   end
   
-  # ユーザー情報
-  def post_count
-    posts.count
-  end
-
   def own?(object)
     id == object.user_id
   end
