@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
+  counter_culture :user
   has_many :post_tag_maps, dependent: :destroy
   has_many :tags, through: :post_tag_maps
   has_one :item

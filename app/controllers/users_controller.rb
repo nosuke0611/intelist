@@ -7,7 +7,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @myposts = Post.where(user_id: @user.id).page(params[:page]).per(20)
+    @myposts = @user.posts.page(params[:page]).per(20)
+    @favposts = Post.liked_by_user(@user).page(params[:page]).per(20) unless @myposts.present?
+    @composts = Post.commented_by_user(@user).page(params[:page]).per(20) unless @favposts.present?
   end
 
   def following
