@@ -10,11 +10,14 @@ Rails.application.routes.draw do
     member do
       get :following, :followers
       get :myposts, :favposts, :composts
+      get :items
     end
   end
   resources :relationships, only: %i(create destroy)
+  
   resources :items, only: %i(create destroy index show)
   resources :posts, except: :index do
+    post :complete, :uncomplete
     resources :likes, only: %i(create destroy)
     resources :comments, only: %i(create destroy)
   end

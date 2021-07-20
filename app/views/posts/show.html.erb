@@ -1,14 +1,74 @@
 <% provide(:title, '投稿の詳細') %>
-<div class='post'>
-  <%= render 'partial/posts/post_list', post: @post %>
-</div>
-<div id="comment-post-<%= @post.id.to_s %>">
-  <%= render 'partial/posts/comment_list', post: @post %>
-</div>
-<div class="row parts" id="comment-form-post-<%= @post.id.to_s %>">
-  <%= form_with model: [@post, Comment.new], local: false, class: 'w-100' do |f| %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :post_id, value: @post.id %>
-    <%= f.text_field :comment, class: 'form-control comment-input border-0', placeholder: 'コメントを追加する', autocomplete: :off %>
-  <% end %>
+<div class='row'>
+  <div class='card post-area col-md-6' id='post-<%= @post.id %>'>
+    <ul class='list-group list-group-flush'>
+      <li class='list-group-item'>
+        <%= link_to gravatar_for(@post.user), @post.user %>
+        <strong class='user-name'><%= link_to @post.user.name, @post.user %></strong>
+      </li>
+      <li class='list-group-item item-name'><span>アイテム名｜　</span><%= link_to @post.item.item_name, @post.item %></li>
+      <li class='list-group-item item-comtent'><span>投稿内容　｜　</span><%= @post.content %></li>
+      <li class='list-group-item tags'><span>タグ　　　｜　</span>
+        <% @post.tags.each do |tag| %>
+          <span class='btn-sm btn-info'><%= tag.tag_name %></span>
+        <% end %>
+      </li>
+      <li class='list-group-item'><span>興味を持った日時｜　</span><%= l(@post.created_at) %></li>
+      <li class='list-group-item'><span>完了した日時　　｜　</span>
+        <% if @post.completed? %>
+          <%= l(@post.completed_at) %>
+          <% if current_user.own?(@post) %>
+            <%= link_to '未完了に戻す', post_uncomplete_path(@post), method: :post, class: 'btn btn-sm btn-warning ml-3' %>
+          <% end %>
+        <% else %>
+          <span>未完了</span>
+          <% if current_user.own?(@post) %>
+            <%= link_to '完了する', post_complete_path(@post), method: :post, class: 'btn btn-sm btn-primary ml-3' %>
+          <% end %>
+        <% end %>
+      </li>
+      <li class='list-group-item actions'>
+        <% if current_user.own?(@post) %>
+          <%= link_to "/posts/#{@post.id}/edit", class: 'btn btn-sm btn-success text-white' do %>
+            <i class='far fa-edit'></i>
+          <% end %>
+          <%= link_to @post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-danger text-white' do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% else %>
+          <span id="like-icon-post-<%= @post.id.to_s %>">
+            <% if current_user.like?(@post) %>
+              <%= link_to post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
+                <i class='fas fa-heart'></i>
+              <% end %>
+            <% else %>
+              <%= link_to post_likes_path(@post), method: :post, remote: true, class: 'btn' do %>
+                <i class='far fa-heart'></i>
+              <% end %>
+            <% end %>
+          </span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class='social-area col-md-6'>
+    <div class=likes>
+      <h6>いいねしたユーザー(<%= @post.likes.count %>人)</h6>
+      <% @post.likes.each do |like| %>
+        <%= link_to like.user.name, like.user %>
+      <% end %>
+    </div>
+    <div class='comments'>
+      <div id="comment-post-<%= @post.id.to_s %>">
+        <%= render 'partial/posts/comment_list', post: @post %>
+      </div>
+      <div class='parts' id='comment-form-post-<%= @post.id.to_s %>'>
+        <%= form_with model: [@post, Comment.new], local: false do |f| %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.hidden_field :post_id, value: @post.id %>
+          <%= f.text_field :comment, class: 'form-control comment-input border-radius', placeholder: 'コメントを追加する', autocomplete: :off %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

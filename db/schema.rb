@@ -50,7 +50,8 @@ ActiveRecord::Schema.define(version: 2021_07_19_164634) do
     t.text "content"
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
-    t.boolean "complete", default: false, null: false
+    t.boolean "completed", default: false, null: false
+    t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_posts_on_item_id"
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_164634) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", default: "", null: false
     t.string "profile_photo"
+    t.string "profile_text"
     t.integer "posts_count", default: 0, null: false
     t.integer "followings_count", default: 0, null: false
     t.integer "followers_count", default: 0, null: false

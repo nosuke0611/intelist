@@ -1,0 +1,31 @@
+<table class='table col-md-12'>
+  <thead>
+    <th scope='col' class='col-md-3'>アイテム名</th>
+    <th scope='col' class='col-md-4'>タグ</th>
+    <th scope='col' class='col-md-2'>興味アリ</th>
+    <th scope='col' class='col-md-3'>興味を持っているフォロー</th>
+  </thead>
+  <tbody>
+    <% @items.uniq.each do |item| %>
+      <tr>
+        <th><%= link_to item.item_name, item %></th>
+        <td>
+          <% item.tags.uniq.each do |tag| %>
+            <span class='btn btn-sm btn-info tag-name'><%= tag.tag_name %></span>
+          <% end %>
+        </td>
+        <td>
+          <span class='btn btn-sm btn-success'><%= item.users.count %><i class='fas fa-users'></i></span>
+        </td>
+        <td>
+          <% item.users.each do |user| %>
+            <% if current_user.following?(user) %>
+              <%= link_to user.name, user_path(user) %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @items %>

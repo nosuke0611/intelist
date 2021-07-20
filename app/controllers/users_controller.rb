@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  # マイページ用
   def myposts
     @user = User.find(params[:id])
     @myposts = @user.posts.page(params[:page]).per(20)
@@ -46,5 +47,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @composts = Post.commented_by_user(@user).page(params[:page]).per(20)
     @post = Post.new
+  end
+
+  def items
+    @user = User.find(params[:id])
+    @items = Item.has_user(@user.name).page(params[:page]).per(20)
   end
 end

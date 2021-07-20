@@ -4,7 +4,8 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.text :content
       t.references :user, null: false, foreign_key: true
       t.references :item, null: false, foreign_key: true
-      t.boolean :complete, default: false, null: false
+      t.boolean :completed, default: false, null: false
+      t.datetime :completed_at, default: nil
 
       t.timestamps
     end

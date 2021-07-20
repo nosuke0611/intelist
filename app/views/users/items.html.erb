@@ -1,0 +1,9 @@
+<% provide(:title, "#{@user.name}のアイテム一覧") %>
+<div class=items>
+  <% if @items.any? %>      
+    <%= render 'partial/items/items_list' %>
+  <% else %>
+    <span>アイテムはまだありません</span>
+  <% end %>
+  <%= paginate @items %>
+</div>

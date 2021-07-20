@@ -12,14 +12,14 @@
     <%= time_ago_in_words(post.created_at) %>前の投稿
   </span>
   <div class='actions'>
-    <%= link_to post_path(post), class: 'btn btn-info text-white' do %>
+    <%= link_to post_path(post), class: 'btn btn-sm btn-info text-white' do %>
       <i class='fas fa-info'></i>
     <% end %>
     <% if current_user.own?(post) %>
-      <%= link_to "/posts/#{post.id}/edit", class: 'btn btn-success text-white' do %>
+      <%= link_to "/posts/#{post.id}/edit", class: 'btn btn-sm btn-success text-white' do %>
         <i class='far fa-edit'></i>
       <% end %>
-      <%= link_to post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-danger text-white' do %>
+      <%= link_to post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-danger text-white' do %>
         <i class="fas fa-trash-alt"></i>
       <% end %>
     <% else %>

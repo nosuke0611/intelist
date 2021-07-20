@@ -35,6 +35,19 @@ class Post < ApplicationRecord
     Like.find_by(user_id: user, post_id: id)
   end
 
+  def complete
+    self.completed = true
+    self.completed_at = Time.now
+    self.save
+  end
+
+  def uncomplete
+    self.completed = false
+    self.completed_at = nil
+    self.save
+  end
+
+
   # アイテム絞り込み検索用
   scope :has_tag_name, -> (tag_name){
     joins(:tags).merge(Tag.where('tag_name LIKE ?', "%#{tag_name}%"))
