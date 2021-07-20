@@ -46,9 +46,21 @@ class PostsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def complete
+    @post = Post.find(params[:post_id])
+    @post.complete
+    redirect_to post_url(@post)
+  end
+
+  def uncomplete
+    @post = Post.find(params[:post_id])
+    @post.uncomplete
+    redirect_to post_url(@post)
+  end
+  
   private
     def post_params
-      params.require(:post).permit(:content)
+      params.require(:post).permit(:content, :completed)
     end
 
     def correct_user
