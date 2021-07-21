@@ -1,39 +1,62 @@
-<li id="post-<%= post.id %>">
-  <%= link_to gravatar_for(post.user), post.user %>
-  <strong class='user-name'><%= link_to post.user.name, post.user %></strong>
-  <span class='item'><%= link_to post.item.item_name, post.item %></span>
-  <span class='content'><%= post.content %></span>
-  <span class='tags'>
-    <% post.tags.each do |tag| %>
-      <span class='tag btn-info'><%= tag.tag_name %></span>
-    <% end %>
-  </span>
-  <span class='timestamp'>
-    <%= time_ago_in_words(post.created_at) %>前の投稿
-  </span>
-  <div class='actions'>
-    <%= link_to post_path(post), class: 'btn btn-sm btn-info text-white' do %>
-      <i class='fas fa-info'></i>
-    <% end %>
-    <% if current_user.own?(post) %>
-      <%= link_to "/posts/#{post.id}/edit", class: 'btn btn-sm btn-success text-white' do %>
-        <i class='far fa-edit'></i>
-      <% end %>
-      <%= link_to post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-danger text-white' do %>
-        <i class="fas fa-trash-alt"></i>
-      <% end %>
-    <% else %>
-      <span id="like-icon-post-<%= post.id.to_s %>">
-        <% if current_user.like?(post) %>
-          <%= link_to post_like_path(post.id, post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
-            <i class='fas fa-heart'></i>
+<li id='post-<%= post.id %>'>
+  <div class='card mb-3'>
+    <div class='card-header'>
+      <div class='dropdown'>
+        <button class='btn btn-secondary float-right dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button>
+        <div class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownMenuButton'>
+          <%= link_to '詳細', post_path(post), class: 'dropdown-item' %>
+          <% if current_user.own?(post) %>
+            <%= link_to '編集', "/posts/#{post.id}/edit", class: 'dropdown-item' %>
+            <%= link_to '削除', post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'dropdown-item' %>
           <% end %>
-        <% else %>
-          <%= link_to post_likes_path(post), method: :post, remote: true, class: 'btn' do %>
-            <i class='far fa-heart'></i>
-          <% end %>
-        <% end %>
-      </span>
-    <% end %>
+        </div>
+      </div>
+      <div class='user-info'>
+        <%= link_to gravatar_for(post.user), post.user %>
+        <strong class='user-name ml-2'><%= link_to post.user.name, post.user %></strong>
+      </div>
+    </div>
+    <div class='card-body mx-5'>
+      <div class='content-area'>
+        <div class='content pl-3 pb-1'><%= post.content %></div>
+        <div class='timestamp pl-3'><%= time_ago_in_words(post.created_at) %>前の投稿</div>
+        <ul class='list-group list-group-flush rounded'>
+          <li class='list-group-item item-name'>
+            <span>アイテム名｜　<%= link_to post.item.item_name, post.item %></span>
+          </li>
+          <li class='list-group-item tags'><span>タグ　　　｜　</span>
+            <% post.tags.each do |tag| %>
+              <span class='btn-sm btn-info'><%= tag.tag_name %></span>
+            <% end %>
+          </li>
+          <li class='actions-area'>
+            <span class='likes' id="like-icon-post-<%= post.id.to_s %>">
+              <% if current_user.like?(post) %>
+                <%= link_to post_like_path(post.id, post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
+                  <i class='fas fa-heart heart-pink'></i>
+                  <span class='pl-1'>(<%= post.likes.count %>件)</span>
+                <% end %>
+              <% else %>
+                <%= link_to post_likes_path(post), method: :post, remote: true, class: 'btn' do %>
+                  <i class='far fa-heart heart-none'></i>
+                  <span class='pl-1'>(<%= post.likes.count %>件)</span>
+                <% end %>
+              <% end %>
+            </span>
+            <%= link_to post_path(post), class: 'comments btn' do %>
+              <i class='far fa-comment'></i>
+              <span>(<%= post.comments.count %>件)</span>
+            <% end %>
+            <span class='comment-form ml-2 pt-2' id='comment-form-post-<%= post.id.to_s %>'>
+              <%= form_with model: [post, Comment.new], local: false do |f| %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :post_id, value: post.id %>
+                <%= f.text_field :comment, class: 'form-control comment-input border-radius', placeholder: 'コメントを追加する', autocomplete: :off %>
+              <% end %>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </li>
