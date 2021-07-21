@@ -1,11 +1,11 @@
 <% if user_signed_in? %>
   <div class='row'>
-    <aside class='col-md-4'>
+    <aside class='col-md-3'>
       <%= render 'partial/users/user_aside' %>
     </aside>
-    <div class='col-md-8'>
+    <div class='col-md-9'>
       <h2>タイムライン</h2>
-      <div class='post'>
+      <div class='timeline'>
         <% @posts.each do |post| %>
           <%= render 'partial/posts/post_list', post: post %>
         <% end %>
