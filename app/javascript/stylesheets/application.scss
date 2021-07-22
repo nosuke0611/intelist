@@ -1,11 +1,14 @@
+@import 'reset.scss';
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import 'tagsinput';
 @import 'users/devise';
 @import 'partial/user_aside';
+@import 'partial/timeline_aside';
 @import 'partial/post_list';
 @import 'partial/header';
 @import 'partial/footer';
+@import 'items';
 
 html {
   height: 100%;
@@ -23,15 +26,17 @@ body {
 .container {
   flex: 1;
   padding-top: 90px;
-
 }
 
 li {
   list-style: none;
 }
 
-td {
-  .tag-name {
-    margin: 3px;
-  }
+h3 {
+  margin-bottom: 15px;
+}
+
+.tag {
+  display: inline-block;
+  margin-bottom: 3px;
 }

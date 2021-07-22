@@ -1,16 +1,21 @@
 <% if user_signed_in? %>
+<h3>タイムライン</h3>
   <div class='row'>
-    <aside class='col-md-3'>
-      <%= render 'partial/users/user_aside' %>
+    <aside class='col-md-2'>
+      <%= render 'partial/posts/timeline_aside' %>
     </aside>
-    <div class='col-md-9'>
-      <h2>タイムライン</h2>
+    <div class='col-md-10'>
       <div class='timeline'>
-        <% @posts.each do |post| %>
-          <%= render 'partial/posts/post_list', post: post %>
+        <% if @following_posts.present? %>
+          <div class='feed-area'>
+            <%= render 'partial/posts/following_posts' %>
+          </div>
+        <% else %>
+          <div class='feed-area'>
+            <%= render 'partial/posts/all_posts' %>
+          </div>
         <% end %>
       </div>
-      <%= paginate @posts %>
     </div>
   </div>
 <% end %>

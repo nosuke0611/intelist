@@ -7,9 +7,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @post = Post.new
     @myposts = @user.posts.page(params[:page]).per(20)
-    @favposts = Post.liked_by_user(@user).page(params[:page]).per(20) unless @myposts.present?
-    @composts = Post.commented_by_user(@user).page(params[:page]).per(20) unless @favposts.present?
+    @favposts = Post.liked_by_user(@user).page(params[:page]).per(20) if @myposts.blank?
+    @composts = Post.commented_by_user(@user).page(params[:page]).per(20) if @favposts.blank?
   end
 
   def following

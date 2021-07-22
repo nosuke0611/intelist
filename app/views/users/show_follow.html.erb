@@ -1,9 +1,9 @@
 <% provide(:title, @title) %>
 <div class='row'>
-  <aside class='col-md-4'>
+  <aside class='col-md-2'>
     <%= render 'partial/users/user_aside' %>
   </aside>
-  <div class='col-md-8'>
+  <div class='col-md-10'>
     <h2><%= "#{@user.name}の#{@controller_name}一覧" %></h2>
     <% if @users.any? %>
       <%= render 'partial/users/users_list' %>

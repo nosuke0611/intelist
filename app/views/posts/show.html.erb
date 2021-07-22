@@ -10,7 +10,7 @@
       <li class='list-group-item item-name'><span>アイテム名｜　</span><%= link_to @post.item.item_name, @post.item %></li>
       <li class='list-group-item tags'><span>タグ　　　｜　</span>
         <% @post.tags.each do |tag| %>
-          <span class='btn-sm btn-info'><%= tag.tag_name %></span>
+          <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
         <% end %>
       </li>
       <li class='list-group-item'><span>興味を持った日時｜　</span><%= l(@post.created_at) %></li>
@@ -27,17 +27,17 @@
           <% end %>
         <% end %>
       </li>
-      <li class='list-group-item actions'>
-        <span id="like-icon-post-<%= @post.id.to_s %>">
+      <li class='list-group-item actions-area'>
+        <span class='likes' id="like-icon-post-<%= @post.id.to_s %>">
           <% if current_user.like?(@post) %>
             <%= link_to post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
-              <i class='fas fa-heart'></i>
+              <i class='fas fa-heart heart-pink'></i>
               <span class='pl-1'>(<%= @post.likes.count %>件)</span>
             <% end %>
           <% else %>
             <%= link_to post_likes_path(@post), method: :post, remote: true, class: 'btn' do %>
-              <i class='far fa-heart'></i>
-              <span class='pl-1'>(<%= @post.likes.count %>件)</span>
+              <i class='far fa-heart heart-none'></i>
+              <span class='pl-1'><%= @post.likes.count %>件)</span>
             <% end %>
           <% end %>
         </span>
@@ -59,7 +59,7 @@
         <%= link_to like.user.name, like.user %>
       <% end %>
     </div>
-    <div class='comments'>
+    <div class='comments-area'>
       <div id="comment-post-<%= @post.id.to_s %>">
         <%= render 'partial/posts/comment_list', post: @post %>
       </div>

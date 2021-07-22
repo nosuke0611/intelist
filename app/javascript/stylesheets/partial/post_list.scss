@@ -16,24 +16,24 @@
       color: gray;
       display: block;
     }
-    .likes {
-      display: inline-block;
-      font-size: 14px;
-      .heart-pink {
-        color: #ff00ff;
-        font-size: 14px;
-      }
-      span {
-        font-size: 14px;
-      }
-    }
-    .comments {
-      display: inline-block;
-      font-size: 14px;
-    }
-    .comment-form {
-      display: inline-block;
-      width: auto;
-    }
   }
+}
+.likes {
+  display: inline-block;
+  font-size: 14px;
+  .heart-pink {
+    color: #ff00ff;
+    font-size: 14px;
+  }
+  span {
+    font-size: 14px;
+  }
+}
+.comments {
+  display: inline-block;
+  font-size: 14px;
+}
+.comment-form {
+  display: inline-block;
+  width: auto;
 }

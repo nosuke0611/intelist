@@ -1,22 +1,9 @@
-.stats {
-  overflow: auto;
-  margin: 20px 0px;
-  padding: 0;
-  a {
-    float: left;
-    padding: 0 10px;
-    color: gray;
-    &:first-child {
-      padding-left: 0;
-      border: 0;
+section {
+  margin: 10px 0px;
+  .stats {
+    div {
+      margin: 3px 0px;
     }
-    &:hover {
-      text-decoration: none;
-      color: blue;
-    }
-  }
-  strong {
-    display: block;
   }
 }
 .user-newpost {

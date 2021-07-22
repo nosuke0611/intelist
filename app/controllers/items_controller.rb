@@ -1,8 +1,14 @@
 class ItemsController < ApplicationController
   
   def index
-    @search_params = item_search_params
-    @items = Item.searched(@search_params).page(params[:page]).per(20)
+    if params[:tag_name]
+      tag_name = params[:tag_name]
+      @search_params = { searched: { tag_name: tag_name } }
+      @items = Item.searched(@search_params).page(params[:page]).per(20)
+    else
+      @search_params = item_search_params
+      @items = Item.searched(@search_params).page(params[:page]).per(20)
+    end
   end
 
   def new
@@ -24,6 +30,8 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @tags = @item.tags.uniq
     @users = @item.users.uniq
+    @post = Post.new
+    @posts = @item.posts.page(params[:page]).per(20)
   end
 
 
