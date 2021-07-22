@@ -1,5 +1,5 @@
 <div class='mt-4 mb-2'>
-  <h6>コメント(<%= post.comments.count %>件)</h6>
+  <h6>コメント<span id='comment-count-<%= post.id.to_s %>'>(<%= post.comments.count %>件)</span></h6>
 </div>
 <% post.comments.each do |comment| %>
   <div class='mb-2'>

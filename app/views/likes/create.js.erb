@@ -1,2 +1,2 @@
 $('#like-icon-post-<%= @post.id.to_s %>').
-  html('<%= link_to post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: "btn" do %><i class="fas fa-heart"></i><% end %>');
+  html('<%= link_to post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: "btn" do %><i class="fas fa-heart heart-pink"></i><span class="pl-1">(<%= @post.likes.count %>件)</span><% end %>');

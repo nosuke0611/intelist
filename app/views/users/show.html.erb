@@ -1,12 +1,13 @@
 <% provide(:title, @user.name) %>
+<h3><%= @user.name %>のページ</h3>
 <div class='row'>
-  <aside class='col-md-3'>
+  <aside class='col-md-2'>
     <%= render 'partial/users/user_aside' %>
   </aside>
-  <div class='col-md-9'>
-    <ul class='nav nav-tabs'>
+  <div class='col-md-10'>
+    <ul class='nav nav-tabs mb-3'>
       <li class='nav-item'>
-        <%= link_to '自分の投稿', myposts_user_path, remote: true, class: 'nav-link myposts-tab active' %>
+        <%= link_to 'ユーザーの投稿', myposts_user_path, remote: true, class: 'nav-link myposts-tab active' %>
       </li>
       <li class='nav-item'>
         <%= link_to 'いいねした投稿', favposts_user_path, remote: true, class: 'nav-link favposts-tab' %>
@@ -15,7 +16,7 @@
         <%= link_to 'コメントした投稿', composts_user_path, remote: true, class: 'nav-link composts-tab' %>
       </li>
     </ul>
-    <div class='row post-area'>
+    <div class='post-area'>
       <% if @myposts.present? %>
         <div class='top-area'>
           <%= render 'partial/users/myposts'  %>

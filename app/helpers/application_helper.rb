@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   # Gravatarの画像をデフォルトのプロフィール画像にする(追々UPできるように修正予定)
-  def gravatar_for(user, options = { size: 80 })
+  def gravatar_for(user, options = { size: 40 })
     size         = options[:size]
     gravatar_id  = Digest::MD5::hexdigest(user.email.downcase)
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"

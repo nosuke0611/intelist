@@ -18,15 +18,15 @@
     </div>
     <div class='card-body mx-5'>
       <div class='content-area'>
-        <div class='content pl-3 pb-1'><%= post.content %></div>
-        <div class='timestamp pl-3'><%= time_ago_in_words(post.created_at) %>前の投稿</div>
+        <div class='content pl-1 pb-1'><%= post.content %></div>
+        <div class='timestamp pl-1'><%= time_ago_in_words(post.created_at) %>前の投稿</div>
         <ul class='list-group list-group-flush rounded'>
           <li class='list-group-item item-name'>
             <span>アイテム名｜　<%= link_to post.item.item_name, post.item %></span>
           </li>
           <li class='list-group-item tags'><span>タグ　　　｜　</span>
             <% post.tags.each do |tag| %>
-              <span class='btn-sm btn-info'><%= tag.tag_name %></span>
+              <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
             <% end %>
           </li>
           <li class='actions-area'>
@@ -45,7 +45,7 @@
             </span>
             <%= link_to post_path(post), class: 'comments btn' do %>
               <i class='far fa-comment'></i>
-              <span>(<%= post.comments.count %>件)</span>
+              <span id='comment-count-<%= post.id.to_s %>'>(<%= post.comments.count %>件)</span>
             <% end %>
             <span class='comment-form ml-2 pt-2' id='comment-form-post-<%= post.id.to_s %>'>
               <%= form_with model: [post, Comment.new], local: false do |f| %>

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
   root 'basic#home'
+  get '/following_posts', to: 'basic#followingtl'
+  get '/all_posts', to: 'basic#alltl'
 
   resources :users, only: %i(index show) do
     member do
