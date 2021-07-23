@@ -1,7 +1,7 @@
 $('#follow-form-<%= @user.id %>').html('<%= j render "partial/users/follow" %>');
 $(function(){
   if($('#followers').length){
-    $('#followers').html('<%= @user.followers.count %>');
+    $('#followers').html('フォロワー数｜　<%= @user.followers.count %>人');
   }
 });
 $(function(){

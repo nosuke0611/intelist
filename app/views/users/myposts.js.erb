@@ -1,4 +1,4 @@
-$('.top-area').html('<%= j render "partial/users/myposts" %>');
+$('.top-area').html('<%= j render "partial/posts/post_list", posts: @myposts %>');
 $('.myposts-tab').addClass('active');
 $('.favposts-tab').removeClass('active');
 $('.composts-tab').removeClass('active');

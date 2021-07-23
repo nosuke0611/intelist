@@ -1,0 +1,3 @@
+$('.top-area').html('<%= j render "partial/users/users_list", users: @followers_users %>');
+$('.following-tab').removeClass('active');
+$('.followers-tab').addClass('active');

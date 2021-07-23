@@ -1,0 +1,28 @@
+<% provide(:title, @user.name) %>
+<h3><%= @user.name %>の友達</h3>
+<div class='row'>
+  <aside class='col-md-2'>
+    <%= render 'partial/users/user_aside' %>
+  </aside>
+  <div class='col-md-10'>
+    <ul class='nav nav-tabs mb-3'>
+      <li class='nav-item'>
+        <%= link_to 'フォロー', following_user_path(@user, link_name: 'following'), remote: true, class: "nav-link following-tab #{' active' if params[:link_name] == 'following' }" %>
+      </li>
+      <li class='nav-item'>
+        <%= link_to 'フォロワー', followers_user_path(@user, link_name: 'followers'), remote: true, class: "nav-link followers-tab #{' active' if params[:link_name] == 'followers' }" %>
+      </li>
+    </ul>
+    <div class='relationships-area'>
+      <% if params[:link_name] == 'following' %>
+        <div class='top-area'>
+          <%= render 'partial/users/users_list', users: @following_users %>
+        </div>
+      <% elsif params[:link_name] == 'followers' %>
+        <div class='top-area'>
+          <%= render 'partial/users/users_list', users: @followers_users %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

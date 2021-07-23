@@ -1,13 +1,13 @@
 <table class='table'>
   <thead>
-    <th scope='col'>ユーザー名</th>
-    <th scope='col'>投稿数</th>
-    <th scope='col'>フォロー数</th>
-    <th scope='col'>フォロワー数</th>
-    <th scope='col'></th>
+    <th scope='col' class='col-md-3'>ユーザー名</th>
+    <th scope='col' class='col-md-2'>投稿数</th>
+    <th scope='col' class='col-md-2'>フォロー数</th>
+    <th scope='col' class='col-md-2'>フォロワー数</th>
+    <th scope='col' class='col-md-3'></th>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% users.each do |user| %>
       <tr>
         <th><%= link_to user.name, user_path(user) %></th>
         <td><%= link_to user.posts_count, myposts_user_path(user) %></td>
@@ -20,4 +20,4 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @users %>
+<%= paginate users %>

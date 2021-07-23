@@ -32,11 +32,8 @@
   <div class='posts-area col-md-10'>
     <h5>関連する投稿</h5>
     <ul class='post'>
-      <% @posts.each do |post| %>
-        <%= render 'partial/posts/post_list', post: post %>
-      <% end %>
+      <%= render 'partial/posts/post_list', posts: @posts %>
     </ul> 
-    <%= paginate @posts %>
   </div>
 </div>
 
