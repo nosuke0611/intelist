@@ -10,28 +10,33 @@ class UsersController < ApplicationController
     @post = Post.new
     @myposts = @user.posts.page(params[:page]).per(20)
     @favposts = Post.liked_by_user(@user).page(params[:page]).per(20) if @myposts.blank?
-    @composts = Post.commented_by_user(@user).page(params[:page]).per(20) if @favposts.blank?
+    @composts = Post.commented_by_user(@user).page(params[:page]).per(20) if (@myposts.blank? && @favposts.blank?) 
+  end
+
+  # フォロー/フォロワー表示
+  def relationships
+    @user = User.find(params[:id])
+    @post = Post.new
+    if params[:link_name] == 'followers'
+      @followers_users = @user.followers.page(params[:page]).per(20)
+    else
+      @following_users = @user.following.page(params[:page]).per(20)
+    end
   end
 
   def following
     @user  = User.find(params[:id])
-    @title = "#{@user.name}のフォロー"
-    @users = @user.following.page(params[:page]).per(20)
-    @controller_name = 'フォロー'
     @post = Post.new
-    render 'show_follow'
+    @following_users = @user.following.page(params[:page]).per(20) 
   end
 
   def followers
     @user  = User.find(params[:id])
-    @title = "#{@user.name}のフォロワー"
-    @users = @user.followers.page(params[:page]).per(20)
-    @controller_name = 'フォロワー'
     @post = Post.new
-    render 'show_follow'
+    @followers_users = @user.followers.page(params[:page]).per(20) 
   end
 
-  # マイページ用
+  # 投稿表示切替用
   def myposts
     @user = User.find(params[:id])
     @myposts = @user.posts.page(params[:page]).per(20)
@@ -50,6 +55,7 @@ class UsersController < ApplicationController
     @post = Post.new
   end
 
+  # マイアイテム
   def items
     @user = User.find(params[:id])
     @items = Item.has_user(@user.name).page(params[:page]).per(20)

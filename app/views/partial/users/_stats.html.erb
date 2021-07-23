@@ -1,12 +1,12 @@
 <div class='stats'>
   <div>
-    <a href='<%= following_user_path(@user) %>'>
+    <%= link_to relationships_user_path(@user, link_name: 'following') do %>
       <span>フォロー数　｜　<%= @user.followings_count %>人</span>
-    </a>
+    <% end %>
   </div>
   <div>
-    <a href='<%= followers_user_path(@user) %>'>
+    <%= link_to relationships_user_path(@user, link_name: 'followers') do %>
       <span id='followers' class='stat'>フォロワー数｜　<%= @user.followers_count %>人</strong>
-    </a>
+    <% end %>
   </div>
 </div>

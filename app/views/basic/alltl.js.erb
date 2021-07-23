@@ -1,3 +1,3 @@
-$('.feed-area').html('<%= j render "partial/posts/all_posts" %>');
+$('.feed-area').html('<%= j render "partial/posts/post_list", posts: @all_posts %>');
 $('.following-tab').removeClass('list-group-item-secondary');
 $('.all-tab').addClass('list-group-item-secondary');

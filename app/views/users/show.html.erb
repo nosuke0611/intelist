@@ -7,27 +7,27 @@
   <div class='col-md-10'>
     <ul class='nav nav-tabs mb-3'>
       <li class='nav-item'>
-        <%= link_to 'ユーザーの投稿', myposts_user_path, remote: true, class: 'nav-link myposts-tab active' %>
+        <%= link_to 'ユーザーの投稿', myposts_user_path, remote: true, class: "nav-link myposts-tab #{'active' if @myposts.present? }" %>
       </li>
       <li class='nav-item'>
-        <%= link_to 'いいねした投稿', favposts_user_path, remote: true, class: 'nav-link favposts-tab' %>
+        <%= link_to 'いいねした投稿', favposts_user_path, remote: true, class: "nav-link favposts-tab #{'active' if @favposts.present? }" %>
       </li>
       <li class='nav-item'>
-        <%= link_to 'コメントした投稿', composts_user_path, remote: true, class: 'nav-link composts-tab' %>
+        <%= link_to 'コメントした投稿', composts_user_path, remote: true, class: "nav-link composts-tab #{'active' if @composts.present? }" %>
       </li>
     </ul>
     <div class='post-area'>
       <% if @myposts.present? %>
         <div class='top-area'>
-          <%= render 'partial/users/myposts'  %>
+          <%= render 'partial/posts/post_list', posts: @myposts %>
         </div>
       <% elsif @favposts.present? %>
         <div class='top-area'>
-          <%= render 'partial/users/favposts' %>
+          <%= render 'partial/posts/post_list', posts: @favposts %>
         </div>
       <% elsif @composts.present? %>
         <div class='top-area'>
-          <%= render 'partial/users/composts' %>
+          <%= render 'partial/posts/post_list', posts: @composts %>
         </div>
       <% end %>
     </div>

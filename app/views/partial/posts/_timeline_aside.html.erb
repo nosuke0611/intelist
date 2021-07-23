@@ -1,7 +1,7 @@
 <ul class='list-group timeline-aside mb-4'>
-  <li class='list-group-item following-tab list-group-item-secondary'>
+  <li class="list-group-item following-tab <%='list-group-item-secondary' if @following_posts.present? %>">
     <%= link_to 'フォローと自分', following_posts_path, remote: true %>
-  <li class='list-group-item all-tab'>
+  <li class='list-group-item all-tab <%='list-group-item-secondary' if @following_posts.blank? %>'>
     <%= link_to 'すべてのユーザー', all_posts_path, remote: true %>
   </li>
 </ul>
