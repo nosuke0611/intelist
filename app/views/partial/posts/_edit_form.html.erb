@@ -1,29 +1,25 @@
-<div class='modal fade' id='newpostModalCenter' tabindex='-1' role='dialog' aria-labelledby='newpostModalCenterTitle' aria-hidden='true'>
+<div class='modal fade' id="editpost-<%= post.id %>-ModalCenter" tabindex='-1' role='dialog' aria-labelledby='editpost-<%= post.id %>-ModalCenterTitle' aria-hidden='true'>
   <div class='modal-dialog modal-dialog-centered' role='document'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h5 class='modal-title' id='newpostModalCenterTitle'>新規投稿</h5>
+        <h5 class='modal-title' id="editpost-<%= post.id %>-ModalCenterTitle">編集する</h5>
         <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
           <span aria-hidden='true'>&times;</span>
         </button>
       </div>
-      <%= form_with model: @post, local: true do |f| %>
+      <%= form_with model: post, local: true do |f| %>
         <div class='modal-body'>
           <div class='form-group'>
             <%= f.label :item_name, 'アイテム名' %>
-            <% if @item.blank? %>
-              <%= f.text_field :item_name, placeholder: '気になるものを入力', class: 'form-control' %>
-            <% else %>
-              <%= f.text_field :item_name, value: @item.item_name, class: 'form-control' %>
-            <% end %>
+              <%= f.text_field :item_name, value: post.item.item_name, class: 'form-control' %>
           </div>
           <div class='form-group'>
             <%= f.label :content, '投稿内容' %>
-            <%= f.text_area :content, placeholder: 'アイテムについてのコメントを入力', class: 'form-control' %>
+            <%= f.text_area :content, value: post.content, class: 'form-control' %>
           </div>
           <div class='form-group'>
             <%= f.label :tag_name, 'タグ名(複数の場合はエンターで区切る)' %>
-            <%= f.text_field :tag_name, placeholder: 'タグ名を入力', data: { role: 'tagsinput' }, class: 'form-control tags' %>
+            <%= f.text_field :tag_name, value: post.tags.pluck(:tag_name), data: { role: 'tagsinput' }, class: 'form-control tags' %>
             <script>
               $('.tags').tagsinput('refresh');
             </script>
@@ -32,7 +28,7 @@
         <div class='modal-footer'>
           <button type='button' class='btn btn-secondary' data-dismiss='modal'>キャンセル</button>
           <div class='actions'>
-            <%= f.button '投稿する', type: 'button', onclick: 'submit();', class: 'btn btn-primary w-100' %>
+            <%= f.button '編集する', type: 'button', onclick: 'submit();', class: 'btn btn-primary w-100' %>
           </div>
         </div>
       <% end %>
