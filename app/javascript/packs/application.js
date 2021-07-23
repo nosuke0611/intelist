@@ -9,9 +9,8 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import '../stylesheets/application'
 import '@fortawesome/fontawesome-free/js/all'
-import 'bootstrap';
+import 'bootstrap'
 require('tagsinput')
-
 
 Rails.start()
 Turbolinks.start()

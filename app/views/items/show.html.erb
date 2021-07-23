@@ -4,7 +4,7 @@
     <%= @item.item_name %>
   </h3>
   <span class='item-newpost ml-3'>
-    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter'>
+    <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#newpostModalCenter'>
       新規投稿
     </button>
     <%= render 'partial/posts/post_form' %>
@@ -12,7 +12,7 @@
 </div>
 <div class='row'>
   <aside class='col-md-2'>
-    <div class='card tags mb-2'>
+    <div class='card tags-list mb-2'>
       <h6 class='card-header'>関連タグ</h6>
       <div class='card-body'>
         <% @tags.each do |tag| %>

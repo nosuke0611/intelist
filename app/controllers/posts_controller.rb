@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     @item = Item.find_or_create_by(item_name: params[:post][:item_name])
     @post.item_id = @item.id
-    tag_list = params[:post][:tag_name].split(',')
+    tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.save
       @post.save_tags(tag_list)
       flash.now[:success] = '投稿に成功しました'
@@ -22,14 +22,13 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @item = @post.item
-    @tag_list = @post.tags.pluck(:tag_name)
+    @post = Post.find(params[:id])
   end
 
   def update
     @item = Item.find_or_create_by(item_name: params[:post][:item_name])
     @post.item_id = @item.id
-    tag_list = params[:post][:tag_name].split(',')
+    tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.update(post_params)
       @post.save_tags(tag_list)
       flash.now[:success] = '投稿を編集しました'

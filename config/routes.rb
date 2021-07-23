@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords'
   }
+  
   root 'basic#home'
   get '/following_posts', to: 'basic#followingtl'
   get '/all_posts', to: 'basic#alltl'
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   resources :relationships, only: %i(create destroy)
   
   resources :items, only: %i(create destroy index show)
-  resources :posts, except: :index do
+  resources :posts, except: %i(index new) do
     post :complete, :uncomplete
     resources :likes, only: %i(create destroy)
     resources :comments, only: %i(create destroy)

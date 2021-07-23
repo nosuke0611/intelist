@@ -1,20 +1,28 @@
 <% provide(:title, '投稿の編集') %>
-<div class='form-wrap card'>
-  <div class='form-title text-center'>
-    <h3>投稿の編集</h3>
+<div class='card'>
+  <div class='form-wrap'>
+    <div class='form-title text-center'>
+      <h3>投稿の編集</h3>
+    </div>
+    <%= form_with model: @post, local: true do |f| %>
+      <div class='form-group'>
+        <%= f.label :item_name, 'アイテム名' %>
+        <%= f.text_field :item_name, value: @post.item.item_name, class: 'form-control' %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :content, '投稿内容' %>
+        <%= f.text_area :content, value: @post.content, class: 'form-control' %>
+      </div>
+      <div class='form-group'>
+        <%= f.label :tag_name, 'タグ名(複数の場合はエンターで区切る)' %>
+        <%= f.text_field :tag_name, value: @post.tags.pluck(:tag_name).join(','), data: { role: 'tagsinput' }, class: 'form-control tags' %>
+        <script>
+          $('.tags').tagsinput('refresh');
+        </script>
+      </div>
+      <div class="actions">
+        <%= f.button '編集する', type: 'button', onclick: 'submit();', class: 'btn btn-primary w-100' %>
+      </div>
+    <% end %>
   </div>
-  <%= form_with model: @post,  local: true do |f| %>
-    <div class='form-group'>
-      <%= f.text_field :item_name, value: @item.item_name, class: 'form-control' %>
-    </div>
-    <div class='form-group'>
-      <%= f.text_area :content, value: @post.content, class: 'form-control' %>
-    </div>
-    <div class='form-group'>
-      <%= f.text_field :tag_name, value: @tag_list, placeholder: 'タグ名(複数の場合はスペースで区切る)', class: 'form-control' %>
-    </div>
-    <div class="actions">
-      <%= f.submit '編集する', class: 'btn btn-primary w-100' %>
-    </div>
-  <% end %>
 </div>
