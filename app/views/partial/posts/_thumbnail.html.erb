@@ -1,0 +1,9 @@
+<a href=<%= post.url %> target='_blank' rel='noopener noreferrer' class='card'>
+  <%= image_tag post.ref_image, alt: 'preview', width: '100%', class: 'bd-placeholder-img card-img-top' %>
+  <div class='card-body media-content'>
+    <h6 class='card-title'><strong><%= post.ref_title %></strong></h6>
+    <div class='card-text'>
+      <%= post.ref_description.truncate(ref_length) %>
+    </div>
+  </div>
+</a>

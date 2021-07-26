@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  include HTTParty
   belongs_to :user
   counter_culture :user
   has_many :post_tag_maps, dependent: :destroy
@@ -35,6 +36,14 @@ class Post < ApplicationRecord
     Like.find_by(user_id: user, post_id: id)
   end
 
+  def thumbnail
+    api_key = 'a3817a63136685e10ecc91455ba98ce2'
+    base_url = 'https://api.linkpreview.net'
+    alt_url = self.url
+    HTTParty.post("#{base_url}?key=#{api_key}&q=#{alt_url}").symbolize_keys
+  end
+
+  # 完了ステータス変更
   def complete
     self.completed = true
     self.completed_at = Time.now
@@ -45,8 +54,7 @@ class Post < ApplicationRecord
     self.completed = false
     self.completed_at = nil
     self.save
-  end
-
+  end 
 
   # アイテム絞り込み検索用
   scope :has_tag_name, -> (tag_name){
