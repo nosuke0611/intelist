@@ -66,11 +66,11 @@ class Post < ApplicationRecord
   }
 
   # 投稿絞り込み用
-  scope :liked_by_user, -> (user){
+  scope :all_liked_by, -> (user){
     joins(:likes).merge(Like.where(user_id: user.id))
   }
 
-  scope :commented_by_user, ->(user){
+  scope :all_commented_by, ->(user){
     joins(:comments).merge(Comment.where(user_id: user.id))
   }
 end

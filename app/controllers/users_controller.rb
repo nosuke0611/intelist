@@ -9,8 +9,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @post = Post.new
     @myposts = @user.posts.page(params[:page]).per(20)
-    @favposts = Post.liked_by_user(@user).page(params[:page]).per(20) if @myposts.blank?
-    @composts = Post.commented_by_user(@user).page(params[:page]).per(20) if (@myposts.blank? && @favposts.blank?) 
+    @favposts = Post.all_liked_by(@user).page(params[:page]).per(20) if @myposts.blank?
+    @composts = Post.all_commented_by(@user).page(params[:page]).per(20) if (@myposts.blank? && @favposts.blank?) 
   end
 
   # フォロー/フォロワー表示
@@ -45,13 +45,13 @@ class UsersController < ApplicationController
 
   def favposts
     @user = User.find(params[:id])
-    @favposts = Post.liked_by_user(@user).page(params[:page]).per(20)
+    @favposts = Post.all_liked_by(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 
   def composts
     @user = User.find(params[:id])
-    @composts = Post.commented_by_user(@user).page(params[:page]).per(20)
+    @composts = Post.all_commented_by(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 
