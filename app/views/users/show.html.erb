@@ -29,6 +29,8 @@
         <div class='top-area'>
           <%= render 'partial/posts/post_list', posts: @composts %>
         </div>
+      <% else %>
+        <span>投稿はまだありません</span>
       <% end %>
     </div>
   </div>
