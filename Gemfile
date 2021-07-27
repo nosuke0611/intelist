@@ -29,6 +29,7 @@ gem 'devise'
 gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
 gem 'counter_culture'
+gem 'httparty'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

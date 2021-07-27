@@ -51,6 +51,10 @@ ActiveRecord::Schema.define(version: 2021_07_19_164634) do
     t.bigint "user_id", null: false
     t.bigint "item_id", null: false
     t.boolean "completed", default: false, null: false
+    t.text "url"
+    t.text "ref_title"
+    t.text "ref_description"
+    t.text "ref_image"
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

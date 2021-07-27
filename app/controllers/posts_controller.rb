@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: %i(create destroy)
-  before_action :correct_user, only: %i(edit update destroy)
+  before_action :authenticate_user!
+  before_action :correct_user, except: %i(create show)
 
   def create
     @post = current_user.posts.build(post_params)
@@ -9,6 +9,8 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.save
       @post.save_tags(tag_list)
+      thumbnails = @post.thumbnail
+      @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
       flash.now[:success] = '投稿に成功しました'
       redirect_back(fallback_location: root_path)
     else
@@ -59,7 +61,7 @@ class PostsController < ApplicationController
   
   private
     def post_params
-      params.require(:post).permit(:content, :completed)
+      params.require(:post).permit(:content, :url)
     end
 
     def correct_user

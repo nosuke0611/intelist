@@ -1,57 +1,64 @@
 <% provide(:title, '投稿の詳細') %>
 <div class='row'>
-  <div class='card post-area col-md-6' id='post-<%= @post.id %>'>
-    <ul class='list-group list-group-flush'>
-      <li class='list-group-item'>
-        <%= link_to gravatar_for(@post.user), @post.user %>
-        <strong class='user-name'><%= link_to @post.user.name, @post.user %></strong>
-      </li>
-      <li class='list-group-item item-comtent'><span>投稿内容　｜　</span><%= @post.content %></li>
-      <li class='list-group-item item-name'><span>アイテム名｜　</span><%= link_to @post.item.item_name, @post.item %></li>
-      <li class='list-group-item tags-list'><span>タグ　　　｜　</span>
-        <% @post.tags.each do |tag| %>
-          <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
-        <% end %>
-      </li>
-      <li class='list-group-item'><span>興味を持った日時｜　</span><%= l(@post.created_at) %></li>
-      <li class='list-group-item'><span>完了した日時　　｜　</span>
-        <% if @post.completed? %>
-          <%= l(@post.completed_at) %>
-          <% if current_user.own?(@post) %>
-            <%= link_to '未完了に戻す', post_uncomplete_path(@post), method: :post, class: 'btn btn-sm btn-warning ml-3' %>
+  <div class='post-area col-md-6'>
+    <div class='card post-area' id='post-<%= @post.id %>'>
+      <ul class='list-group list-group-flush'>
+        <li class='list-group-item'>
+          <%= link_to gravatar_for(@post.user), @post.user %>
+          <strong class='user-name'><%= link_to @post.user.name, @post.user %></strong>
+        </li>
+        <li class='list-group-item item-comtent'><span>投稿内容　｜　</span><%= @post.content %></li>
+        <li class='list-group-item item-name'><span>アイテム名｜　</span><%= link_to @post.item.item_name, @post.item %></li>
+        <li class='list-group-item tags-list'><span>タグ　　　｜　</span>
+          <% @post.tags.each do |tag| %>
+            <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
           <% end %>
-        <% else %>
-          <span>未完了</span>
-          <% if current_user.own?(@post) %>
-            <%= link_to '完了する', post_complete_path(@post), method: :post, class: 'btn btn-sm btn-primary ml-3' %>
-          <% end %>
-        <% end %>
-      </li>
-      <li class='list-group-item actions-area'>
-        <span class='likes' id="like-icon-post-<%= @post.id.to_s %>">
-          <% if current_user.like?(@post) %>
-            <%= link_to post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
-              <i class='fas fa-heart heart-pink'></i>
-              <span class='pl-1'>(<%= @post.likes.count %>件)</span>
+        </li>
+        <li class='list-group-item'><span>興味を持った日時｜　</span><%= l(@post.created_at) %></li>
+        <li class='list-group-item'><span>完了した日時　　｜　</span>
+          <% if @post.completed? %>
+            <%= l(@post.completed_at) %>
+            <% if current_user.own?(@post) %>
+              <%= link_to '未完了に戻す', post_uncomplete_path(@post), method: :post, class: 'btn btn-sm btn-warning ml-3' %>
             <% end %>
           <% else %>
-            <%= link_to post_likes_path(@post), method: :post, remote: true, class: 'btn' do %>
-              <i class='far fa-heart heart-none'></i>
-              <span class='pl-1'><%= @post.likes.count %>件)</span>
+            <span>未完了</span>
+            <% if current_user.own?(@post) %>
+              <%= link_to '完了する', post_complete_path(@post), method: :post, class: 'btn btn-sm btn-primary ml-3' %>
             <% end %>
           <% end %>
-        </span>
-        <% if current_user.own?(@post) %>
-          <%= link_to '#', data: { toggle: 'modal', target: "#editpost-#{ @post.id }-ModalCenter" }, class: 'btn btn-sm btn-success text-white' do %>
-            <i class='far fa-edit'></i>
+        </li>
+        <li class='list-group-item actions-area'>
+          <span class='likes' id="like-icon-post-<%= @post.id.to_s %>">
+            <% if current_user.like?(@post) %>
+              <%= link_to post_like_path(@post.id, @post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
+                <i class='fas fa-heart heart-pink'></i>
+                <span class='pl-1'>(<%= @post.likes.count %>件)</span>
+              <% end %>
+            <% else %>
+              <%= link_to post_likes_path(@post), method: :post, remote: true, class: 'btn' do %>
+                <i class='far fa-heart heart-none'></i>
+                <span class='pl-1'><%= @post.likes.count %>件)</span>
+              <% end %>
+            <% end %>
+          </span>
+          <% if current_user.own?(@post) %>
+            <%= link_to '#', data: { toggle: 'modal', target: "#editpost-#{ @post.id }-ModalCenter" }, class: 'btn btn-sm btn-success text-white' do %>
+              <i class='far fa-edit'></i>
+            <% end %>
+            <%= link_to @post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-danger text-white' do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %> 
           <% end %>
-          <%= link_to @post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-danger text-white' do %>
-            <i class="fas fa-trash-alt"></i>
-          <% end %> 
-        <% end %>
-        <%= render 'partial/posts/edit_form', post: @post %>
-      </li>
-    </ul>
+          <%= render 'partial/posts/edit_form', post: @post %>
+        </li>
+      </ul>
+    </div>
+    <% if @post.url.present? %>
+    <div class='thumbnail-area mt-2'>
+      <%= render 'partial/posts/thumbnail', post: @post, ref_length: 120 %>
+    </div>
+    <% end %>
   </div>
   <div class='social-area col-md-6'>
     <div class=likes>
