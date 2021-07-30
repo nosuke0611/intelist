@@ -9,13 +9,15 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.save
       @post.save_tags(tag_list)
-      thumbnails = @post.thumbnail
-      @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+      if @post.url
+        thumbnails = @post.thumbnail
+        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+      end
       flash.now[:success] = '投稿に成功しました'
       redirect_back(fallback_location: root_path)
     else
       flash.now[:alert] = '投稿に失敗しました'
-      render 'new'
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -50,13 +52,13 @@ class PostsController < ApplicationController
   def complete
     @post = Post.find(params[:post_id])
     @post.complete
-    redirect_to post_url(@post)
+    redirect_back(fallback_location: post_url(@post))
   end
 
   def uncomplete
     @post = Post.find(params[:post_id])
     @post.uncomplete
-    redirect_to post_url(@post)
+    redirect_back(fallback_location: post_url(@post))
   end
   
   private
@@ -65,7 +67,7 @@ class PostsController < ApplicationController
     end
 
     def correct_user
-      @post = current_user.posts.find(params[:id])
+      @post = current_user.posts.find(params[:post_id])
       redirect_to root_url if @post.nil?
     end
 end

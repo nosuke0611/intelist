@@ -8,11 +8,11 @@
       <div class='timeline'>
         <% if @following_posts.present? %>
           <div class='feed-area'>
-            <%= render 'partial/posts/post_list', posts: @following_posts %>
+            <%= render 'partial/posts/posts_list', posts: @following_posts %>
           </div>
         <% else %>
           <div class='feed-area'>
-            <%= render 'partial/posts/post_list', posts: @all_posts %>
+            <%= render 'partial/posts/posts_list', posts: @all_posts %>
           </div>
         <% end %>
       </div>

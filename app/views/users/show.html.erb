@@ -19,15 +19,15 @@
     <div class='post-area'>
       <% if @myposts.present? %>
         <div class='top-area'>
-          <%= render 'partial/posts/post_list', posts: @myposts %>
+          <%= render 'partial/posts/posts_list', posts: @myposts %>
         </div>
       <% elsif @favposts.present? %>
         <div class='top-area'>
-          <%= render 'partial/posts/post_list', posts: @favposts %>
+          <%= render 'partial/posts/posts_list', posts: @favposts %>
         </div>
       <% elsif @composts.present? %>
         <div class='top-area'>
-          <%= render 'partial/posts/post_list', posts: @composts %>
+          <%= render 'partial/posts/posts_list', posts: @composts %>
         </div>
       <% else %>
         <span>投稿はまだありません</span>

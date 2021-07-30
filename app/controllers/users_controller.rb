@@ -8,12 +8,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post = Post.new
-    @myposts = @user.posts.page(params[:page]).per(20)
-    @favposts = Post.all_liked_by(@user).page(params[:page]).per(20) if @myposts.blank?
-    @composts = Post.all_commented_by(@user).page(params[:page]).per(20) if (@myposts.blank? && @favposts.blank?) 
+    @myposts = @user.posts.includes(:tags).page(params[:page]).per(20)
+    @favposts = Post.all_liked_by(@user).includes(:tags).page(params[:page]).per(20) if @myposts.blank?
+    @composts = Post.all_commented_by(@user).includes(:tags).page(params[:page]).per(20) if (@myposts.blank? && @favposts.blank?) 
   end
 
-  # フォロー/フォロワー表示
+  # マイページフォロー/フォロワー表示
   def relationships
     @user = User.find(params[:id])
     @post = Post.new
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     @followers_users = @user.followers.page(params[:page]).per(20) 
   end
 
-  # 投稿表示切替用
+  # マイページ投稿表示切替用
   def myposts
     @user = User.find(params[:id])
     @myposts = @user.posts.page(params[:page]).per(20)
@@ -56,8 +56,22 @@ class UsersController < ApplicationController
   end
 
   # マイアイテム
-  def items
+  def myitems
     @user = User.find(params[:id])
-    @items = Item.has_user(@user.name).page(params[:page]).per(20)
+    @user_posts = Post.where(user_id: @user.id)
+    @post = Post.new
+    if params[:tag_name]
+      tag_name = params[:tag_name]
+      @search_params = { searched: { tag_name: tag_name } }
+      @posts = @user_posts.searched(@search_params).page(params[:page]).per(20)
+    else
+      @search_params = post_search_params
+      @posts = @user_posts.searched(@search_params).page(params[:page]).per(20)
+    end
   end
+
+  private
+    def post_search_params
+      params.fetch(:searched, {}).permit(:item_name, :tag_name, :status)
+    end
 end
