@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     member do
       get :relationships, :following, :followers
       get :myposts, :favposts, :composts
-      get :items
+      get :myitems
     end
   end
   resources :relationships, only: %i(create destroy)

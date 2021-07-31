@@ -4,7 +4,7 @@ class Item < ApplicationRecord
 
   # 紐づいた投稿のタグをすべて取得
   def tags
-    posts = self.posts
+    posts = self.posts.includes(:tags)
     tags_array = Array.new
     posts.each do |post|
       tags_array << post.tags
@@ -14,7 +14,7 @@ class Item < ApplicationRecord
 
   # 紐づいた投稿のユーザーをすべて取得
   def users
-    posts = self.posts
+    posts = self.posts.includes(:user)
     users_array = Array.new
     posts.each do |post|
       users_array << post.user
