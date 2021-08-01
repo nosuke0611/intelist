@@ -1,0 +1,5 @@
+<% if post.completed? %>
+  <%= render 'partial/posts/complete', post: post %>
+<% else %>
+  <%= render 'partial/posts/uncomplete', post: post %>
+<% end %>

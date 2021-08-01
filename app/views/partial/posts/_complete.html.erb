@@ -1,0 +1,4 @@
+<%= l(post.completed_at) %>
+<% if current_user.own?(post) %>
+  <%= link_to '未完了に戻す', post_uncomplete_path(post), method: :post, remote: true, class: 'btn btn-sm btn-warning ml-3' %>
+<% end %>
