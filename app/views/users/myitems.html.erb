@@ -4,7 +4,7 @@
   <aside class='col-md-2'>
     <%= render 'partial/users/user_aside' %>
     <div class='my-3'><strong>絞り込み検索</strong></div>
-      <%= form_with scope: :searched, url: myitems_user_path, class: 'search_form', method: :get, local: true do |f| %>
+      <%= form_with scope: :searched, url: myitems_user_path, class: 'search_form', method: :get, local: false do |f| %>
         <div class='form-group'>
           <%= f.text_field :item_name, class: 'form-control', value: @search_params[:item_name], placeholder: 'アイテム名'%>
         </div>
@@ -33,7 +33,7 @@
       <%= link_to 'リセット', myitems_user_path, class: 'btn btn-secondary mt-2' %>
     </div>
   </aside>
-  <div class='items col-md-10'>
+  <div class='items-area col-md-10'>
     <%= render 'partial/items/myitems_list', posts: @posts %>
   </div>
 </div>

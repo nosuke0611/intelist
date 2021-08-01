@@ -1,0 +1,4 @@
+<span>未完了</span>
+<% if current_user.own?(post) %>
+  <%= link_to '完了する', post_complete_path(post), method: :post, remote:true, class: 'btn btn-sm btn-primary ml-3' %>
+<% end %>

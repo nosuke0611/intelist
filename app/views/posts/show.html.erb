@@ -16,17 +16,7 @@
         </li>
         <li class='list-group-item'><span>興味を持った日時｜　</span><%= l(@post.created_at) %></li>
         <li class='list-group-item'><span>完了した日時　　｜　</span>
-          <% if @post.completed? %>
-            <%= l(@post.completed_at) %>
-            <% if current_user.own?(@post) %>
-              <%= link_to '未完了に戻す', post_uncomplete_path(@post), method: :post, class: 'btn btn-sm btn-warning ml-3' %>
-            <% end %>
-          <% else %>
-            <span>未完了</span>
-            <% if current_user.own?(@post) %>
-              <%= link_to '完了する', post_complete_path(@post), method: :post, class: 'btn btn-sm btn-primary ml-3' %>
-            <% end %>
-          <% end %>
+          <span id='status-info-<%= @post.id %>'><%= render 'partial/posts/status_form', post: @post %></span>
         </li>
         <li class='list-group-item actions-area'>
           <span class='likes' id="like-icon-post-<%= @post.id.to_s %>">
