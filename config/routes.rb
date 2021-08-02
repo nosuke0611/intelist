@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   resources :relationships, only: %i(create destroy)
   
   resources :items, only: %i(create destroy index show)
+  get '/ranking', to: 'items#all_ranking'
+  get '/monthly_ranking', to: 'items#monthly_ranking'
+  get '/weekly_ranking', to: 'items#weekly_ranking'
+
   resources :posts, except: %i(index new) do
     post :complete, :uncomplete
     resources :likes, only: %i(create destroy)

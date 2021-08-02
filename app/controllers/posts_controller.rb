@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.save
       @post.save_tags(tag_list)
-      if @post.url
+      if @post.url.present?
         thumbnails = @post.thumbnail
         @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
       end
@@ -25,16 +25,16 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def edit
-    @post = Post.find(params[:id])
-  end
-
   def update
     @item = Item.find_or_create_by(item_name: params[:post][:item_name])
     @post.item_id = @item.id
     tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.update(post_params)
       @post.save_tags(tag_list)
+      if @post.url.present?
+        thumbnails = @post.thumbnail
+        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+      end
       flash.now[:success] = '投稿を編集しました'
       redirect_back(fallback_location: root_path)
     else
@@ -50,13 +50,11 @@ class PostsController < ApplicationController
   end
 
   def complete
-    @post = Post.find(params[:post_id])
     @post.complete
     redirect_back(fallback_location: post_url(@post))
   end
 
   def uncomplete
-    @post = Post.find(params[:post_id])
     @post.uncomplete
     redirect_back(fallback_location: post_url(@post))
   end
@@ -67,7 +65,8 @@ class PostsController < ApplicationController
     end
 
     def correct_user
-      @post = current_user.posts.find(params[:post_id])
+      @post = current_user.posts.find(params[:post_id]) if action_name == 'complete' || action_name == 'uncomplete' 
+      @post = current_user.posts.find(params[:id])      if action_name == 'update' || action_name == 'destroy'
       redirect_to root_url if @post.nil?
     end
 end

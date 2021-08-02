@@ -68,11 +68,11 @@ class Post < ApplicationRecord
 
   # アイテム絞り込み検索用
   scope :has_item_name, -> (item_name){
-    joins(:item).merge(Item.where('item_name LIKE?', "%#{item_name}%"))
+    joins(:item).merge(Item.where('item_name LIKE?', "%#{item_name}%")) if item_name.present?
   }
 
   scope :has_tag_name, -> (tag_name){
-    joins(:tags).merge(Tag.where('tag_name LIKE ?', "%#{tag_name}%"))
+    joins(:tags).merge(Tag.where('tag_name LIKE ?', "%#{tag_name}%")) if tag_name.present?
   }
 
   scope :has_user_name, -> (user_name){
@@ -89,7 +89,7 @@ class Post < ApplicationRecord
   }
 
   scope :comp_status, ->(status){
-    return                  if status == 'both'
+    return                         if status == 'both'
     return where(completed: true)  if status == 'completed'
     return where(completed: false) if status == 'uncompleted'
   }
