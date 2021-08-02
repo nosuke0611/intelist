@@ -6,7 +6,7 @@
     <th scope='col' class='col-md-3'>興味を持っているフォロー</th>
   </thead>
   <tbody>
-    <% @items.uniq.each do |item| %>
+    <% items.uniq.each do |item| %>
       <tr>
         <th><%= link_to item.item_name, item %></th>
         <td>
@@ -28,4 +28,3 @@
     <% end %>
   </tbody>
 </table>
-<%= paginate @items %>

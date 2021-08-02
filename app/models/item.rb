@@ -29,8 +29,8 @@ class Item < ApplicationRecord
       .has_tag(search_params[:tag_name])
       .has_user(search_params[:user_name])
   end
-
   scope :has_name, -> (item_name){ where('item_name LIKE ?', "%#{item_name}%") if item_name.present? }
   scope :has_tag, -> (tag_name){ joins(:posts).merge(Post.has_tag_name tag_name) if tag_name.present? }
   scope :has_user, -> (user_name){ joins(:posts).merge(Post.has_user_name user_name) if user_name.present? }
+
 end

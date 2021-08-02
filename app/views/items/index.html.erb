@@ -22,6 +22,7 @@
     </div>
   </aside>
   <div class='items-area col-md-10'>
-    <%= render 'partial/items/items_list' %>
+    <%= render 'partial/items/items_list', items: @items %>
   </div>
+  <%= paginate @items %>
 </div>

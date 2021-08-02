@@ -1,0 +1,4 @@
+$('.top-area').html("<%= j render 'partial/items/items_list', items: @weekly_items %>");
+$('.allranking-tab').removeClass('active');
+$('.monthlyranking-tab').removeClass('active');
+$('.weeklyranking-tab').addClass('active');
