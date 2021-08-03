@@ -30,19 +30,19 @@ class ItemsController < ApplicationController
     end
   end
 
-  def all_ranking
-    @selected_period = 'all'
-    @all_items = Item.joins(:posts).group(:item_id).order('count(item_id) desc').limit(10)
+  def weekly_ranking
+    @from = Time.current - 6.day
+    @weekly_items = Item.joins(:posts).group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
   end
 
   def monthly_ranking
-    from = (Time.current - 30.day).to_s
-    @monthly_items = Item.joins(:posts).group(:item_id).where('posts.created_at >= ?', from).order('count(item_id) desc').limit(10)
+    @from = Time.current - 30.day
+    @monthly_items = Item.joins(:posts).group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
   end
 
-  def weekly_ranking
-    from = (Time.current - 6.day).to_s
-    @weekly_items = Item.joins(:posts).group(:item_id).where('posts.created_at >= ?', from).order('count(item_id) desc').limit(10)
+  def all_ranking
+    @from = 'all'
+    @all_items = Item.joins(:posts).group(:item_id).order('count(item_id) desc').limit(10)
   end
 
   private
