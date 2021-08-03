@@ -22,6 +22,12 @@ class Item < ApplicationRecord
     return users_array
   end
 
+  # アイテムの期間別投稿数を取得
+  def period_count(period)
+    return self.posts.count if period == 'all'
+    self.posts.where('created_at >= ?', period).count
+  end
+
   # 絞り込み検索用
   scope :searched, -> (search_params) do
     return if search_params.blank?
@@ -32,5 +38,5 @@ class Item < ApplicationRecord
   scope :has_name, -> (item_name){ where('item_name LIKE ?', "%#{item_name}%") if item_name.present? }
   scope :has_tag, -> (tag_name){ joins(:posts).merge(Post.has_tag_name tag_name) if tag_name.present? }
   scope :has_user, -> (user_name){ joins(:posts).merge(Post.has_user_name user_name) if user_name.present? }
-
+  
 end
