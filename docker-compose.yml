@@ -3,6 +3,7 @@ services:
   app:
     build:
       context: .
+      dockerfile: Dockerfile.dev
     env_file:
       - .env
     command: bundle exec puma -C config/puma.rb
@@ -24,6 +25,7 @@ services:
   web:
     build:
       context: containers/nginx
+      dockerfile: Dockerfile.dev
     volumes:
       - public-data:/intelist/public
       - tmp-data:/intelist/tmp

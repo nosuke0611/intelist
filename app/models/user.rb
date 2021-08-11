@@ -6,6 +6,7 @@ class User < ApplicationRecord
   before_save :downcase_email
   validates :name, presence: true, uniqueness: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: true, length: { maximum: 255 }
+  mount_uploader :avatar, UseravatarUploader
 
   # フォロー関連
   has_many :active_relationships, class_name: 'Relationship',

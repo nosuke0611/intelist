@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_164634) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name", default: "", null: false
-    t.string "profile_photo"
+    t.string "avatar"
     t.string "profile_text"
     t.integer "posts_count", default: 0, null: false
     t.integer "followings_count", default: 0, null: false

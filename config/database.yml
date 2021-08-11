@@ -50,6 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: intelist_production
-  username: intelist
-  password: <%= ENV['INTELIST_DATABASE_PASSWORD'] %>
+  database: <%= ENV['PROD_DATABASE'] %>
+  username: <%= ENV['PROD_DB_USERNAME'] %>
+  password: <%= ENV['PROD_DB_PASSWORD'] %>
+  host: <%= ENV['PROD_DB_HOST'] %>
