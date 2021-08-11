@@ -15,6 +15,10 @@
           <%= f.email_field :email, placeholder: 'xxx@email.com', class: 'form-control' %>
         </div>
         <div class='form-group'>
+          <%= f.label :avatar, 'プロフィール画像' %>
+          <%= f.file_field :avatar %>
+        </div>
+        <div class='form-group'>
           <%= f.label :profile_text, '自己紹介' %>
           <%= f.text_area :profile_text, placeholder: 'こんにちは！', class: 'form-control' %>
         </div>

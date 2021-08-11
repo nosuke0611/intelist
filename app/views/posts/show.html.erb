@@ -4,8 +4,9 @@
     <div class='card post-area' id='post-<%= @post.id %>'>
       <ul class='list-group list-group-flush'>
         <li class='list-group-item'>
-          <%= link_to gravatar_for(@post.user), @post.user %>
-          <strong class='user-name'><%= link_to @post.user.name, @post.user %></strong>
+          <%= default_avatar if @post.user.avatar.blank? %>
+          <%= image_tag @post.user.avatar.url, class: 'rounded' if @post.user.avatar.present? %>
+          <strong class='user-name ml-2 align-middle'><%= link_to @post.user.name, @post.user %></strong>
         </li>
         <li class='list-group-item item-comtent'><span>投稿内容　｜　</span><%= @post.content %></li>
         <li class='list-group-item item-name'><span>アイテム名｜　</span><%= link_to @post.item.item_name, @post.item %></li>
