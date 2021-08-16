@@ -30,6 +30,8 @@ gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
 gem 'counter_culture'
 gem 'httparty'
+gem 'dotenv-rails'
+gem 'unicorn'
 
 # ユーザー画像関連
 gem 'carrierwave'
