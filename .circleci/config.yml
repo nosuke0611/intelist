@@ -8,24 +8,23 @@ jobs:
     docker:
       - image: circleci/ruby:3.0.2-node-browsers-legacy
         environment:
-          BUNDLER_VERSION: 2.2.15
-    steps:
-      - checkout
-      - ruby/install-deps
-
+          - BUNDLER_VERSION: 2.2.15
+          - DB_HOST: 127.0.0.1
+          - MYSQL_USERNAME: 'root'
+          - MYSQL_PASSWORD: ''
+          - MYSQL_PORT: 3306
+          - RAILS_ENV: test
+      - image: circleci/mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+          - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+          - MYSQL_ROOT_HOST: '%'
   test:
     parallelism: 3
     docker:
       - image: circleci/ruby:3.0.2-node-browsers-legacy
         environment:
-          DB_HOST: 127.0.0.1
-          RAILS_ENV: test
-          BUNDLER_VERSION: 2.2.15
-      - image: circleci/mysql:8.0
-        command: --default-authentication-plugin=mysql_native_password
-        environment:
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
-          MYSQL_ROOT_HOST: '%'
+      
     steps:
       - checkout
       - ruby/install-deps
@@ -35,10 +34,20 @@ jobs:
           command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
-      # Run rspec in parallel
-      - ruby/rspec-test
-      - ruby/rubocop-check
-
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+      - run:
+          name: RSpec
+          command: |
+            mkdir /tmp/test-results
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
+              circleci tests split --split-by=timings)"
+            bundle exec rspec \
+              --format progress \
+              --out /tmp/test-results/rspec.xml \
+              --format progress \
+              $TEST_FILES
 workflows:
   version: 2
   build_and_test:
