@@ -113,18 +113,6 @@ Style/Documentation:
 Style/ExponentialNotation:
   Enabled: true
 
-# https://rubocop.readthedocs.io/en/stable/cops_style/#stylehasheachmethods
-Style/HashEachMethods:
-  Enabled: true
-
-# https://rubocop.readthedocs.io/en/stable/cops_style/#stylehashtransformkeys
-Style/HashTransformKeys:
-  Enabled: true
-
-# https://rubocop.readthedocs.io/en/stable/cops_style/#stylehashtransformvalues
-Style/HashTransformValues:
-  Enabled: true
-
 Style/IfUnlessModifier:
   Enabled: false
 
