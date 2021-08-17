@@ -47,6 +47,8 @@ group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem 'bullet'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
 end
 
 group :development do
@@ -60,8 +62,6 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'rubocop', require: false
-  gem 'rubocop-rails'
 
 end
 
