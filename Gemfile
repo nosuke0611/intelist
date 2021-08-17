@@ -46,6 +46,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "rspec-rails"
   gem "factory_bot_rails"
+  gem 'bullet'
 end
 
 group :development do
@@ -60,6 +61,9 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
+
 end
 
 group :test do

@@ -31,12 +31,12 @@ class ItemsController < ApplicationController
   end
 
   def weekly_ranking
-    @from = Time.current - 6.day
+    @from = Time.current - 6.days
     @weekly_items = Item.joins(:posts).group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
   end
 
   def monthly_ranking
-    @from = Time.current - 30.day
+    @from = Time.current - 30.days
     @monthly_items = Item.joins(:posts).group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
   end
 

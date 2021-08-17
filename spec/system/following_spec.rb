@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'フォロー機能の映テスト', type: :system do
+RSpec.describe 'フォロー機能のテスト', type: :system do
   let(:user) { create(:user) }
   let(:other_users) { create_list(:user, 20) }
 
@@ -10,20 +10,6 @@ RSpec.describe 'フォロー機能の映テスト', type: :system do
       user.passive_relationships.create!(follower_id: other_user.id)
     end
     sign_in (user)
-  end
-
-  scenario 'フォロー/フォロワー数の変動を確認' do
-    visit following_user_path(user)
-    find_by_id('following').click
-    expect(user.following.count).to eq 10
-    user.following.each do |u|
-      expect(page).to have_link u.name, href: user_path(u)
-    end
-    find_by_id('followers').click
-    expect(user.followers.count).to eq 10
-    user.followers.each do |u|
-      expect(page).to have_link u.name, href: user_path(u)
-    end
   end
 
   scenario 'フォロー解除ボタンクリック時にフォロー数が－１' do

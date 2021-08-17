@@ -65,7 +65,7 @@ RSpec.configure do |config|
 
   #sign_inヘルパーを使用可能に
   config.include Devise::Test::IntegrationHelpers, type: :request
-  config.include Devise::Test::IntegrationHelpers, type: :system 
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
 
 require 'capybara/rspec'
