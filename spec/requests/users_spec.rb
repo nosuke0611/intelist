@@ -5,12 +5,12 @@ RSpec.describe 'Users', type: :request do
     context '未ログインユーザーによるアクセス' do
       let(:user) { create(:user) }
       it 'フォロー一覧にアクセスできずログインページへリダイレクト' do
-        get following_user_path(user)
+        get relationships_user_path(user)
         expect(response).to redirect_to new_user_session_path
       end
 
       it 'フォロワー一覧にアクセスできずログインページへリダイレクト' do
-        get followers_user_path(user)
+        get relationships_user_path(user)
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -19,13 +19,13 @@ RSpec.describe 'Users', type: :request do
       let(:user) { create(:user) }
       it 'フォロー一覧ページアクセスできる' do
         sign_in user
-        get following_user_path(user)
+        get relationships_user_path(user)
         expect(response).to have_http_status '200'
       end
 
       it 'フォロワー一覧ページアクセスできる' do
         sign_in user
-        get followers_user_path(user)
+        get relationships_user_path(user)
         expect(response).to have_http_status '200'
       end
     end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: %i(following followers)
+  before_action :authenticate_user!, only: %i(relationships)
 
   def index
     @users = User.searched(params[:search]).page(params[:page]).per(20)
