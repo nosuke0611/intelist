@@ -20,6 +20,11 @@ AllCops:
     - 'vendor/**/*'
     - !ruby/regexp /old_and_unused\.rb$/
 
+Rails/FilePath:
+  Exclude:
+    - 'lib/tasks/dev.rake'
+    - 'spec/rails_helper.rb'
+
 # 日本語でのコメントを許可
 AsciiComments:
   Enabled: false

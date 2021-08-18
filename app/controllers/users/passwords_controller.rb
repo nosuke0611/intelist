@@ -7,4 +7,11 @@ class Users::PasswordsController < Devise::PasswordsController
     end
   end
 
+  def create
+    super
+    create_internal
+  end
+
+  def create_internal; end
+
 end
