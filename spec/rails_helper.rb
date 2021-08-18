@@ -66,6 +66,11 @@ RSpec.configure do |config|
   #sign_inヘルパーを使用可能に
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
+
+  #CircleCI上でsystemspecが通るようヘッドレスドライバーを使用
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium, using: :headless_chrome, screen_size: [1920, 1080]
+  end
 end
 
 require 'capybara/rspec'

@@ -7,6 +7,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def update
+    super
+    update_internal
+  end
+
+  def destroy
+    super
+    destroy_internal
+  end
+
+  def update_internal; end
+
+  def destroy_internal; end
+
   protected
     # パスワード入力なしで自身のユーザー情報を変更可能に
     def update_resource(resource, params)

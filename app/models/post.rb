@@ -10,8 +10,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   default_scope -> { order(created_at: :desc) }
-  validates :user_id, presence: true
-  validates :item_id, presence: true, uniqueness: { scope: :user_id }
+  validates :user_id, presence: true, uniqueness: { scope: :item_id } # rubocop:disable Rails/UniqueValidationWithoutIndex
+  validates :item_id, presence: true
 
   def save_tags(tag_list)
     current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
@@ -48,7 +48,7 @@ class Post < ApplicationRecord
   # 完了ステータス変更
   def complete
     self.completed = true
-    self.completed_at = Time.now
+    self.completed_at = Time.now.to_i
     self.save
   end
 

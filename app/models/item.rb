@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  has_many :posts
+  has_many :posts, dependent: :nullify
   has_many :users, through: :posts
 
   # 紐づいた投稿のタグをすべて取得
