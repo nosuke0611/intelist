@@ -10,8 +10,7 @@ set :branch, 'main'
 set :deploy_to, "/var/www/rails/intelist"
 
 # Default value for :linked_files is [] (シンボリックリンク用のファイル)
-set :linked_files, %w[config/master.key]
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/settings.yml', '.env')
+set :linked_files, %w{config/master.key .env}
 
 # Default value for linked_dirs is []（シンボリック用のフォルダ）
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
