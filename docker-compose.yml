@@ -12,6 +12,7 @@ services:
       - public-data:/intelist/public
       - tmp-data:/intelist/tmp
       - log-data:/intelist/log
+      - ~/.ssh:/root/.ssh
     depends_on:
       - db
   db:
