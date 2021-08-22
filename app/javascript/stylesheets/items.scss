@@ -6,3 +6,16 @@
   display: inline-block;
   margin-bottom: 10px;
 }
+
+.item-info-area {
+  .top-area {
+    .link-cards {
+      //display: flex;
+      //flex-direction: row;
+      //flex-wrap: wrap;
+      .card {
+        #width: 25%;
+      }
+    }
+  }
+}

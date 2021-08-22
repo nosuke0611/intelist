@@ -2,7 +2,7 @@
   max-width: 960px;
   margin: 0 auto;
   width: 90%;
-  padding: 50px 75px 50px;
+  padding: 50px 75px;
   display: block;
   flex: 1;
   flex-basis: auto;
@@ -11,16 +11,15 @@
 
 .devise-card {
   border: none;
+  max-width: 600px;
+  margin: 50px;
+  float: center;
 }
 
 .form-wrap{
   max-width: 400px;
   width: 100%;
   margin: 50px auto;
-}
-
-.form-title {
-  margin-bottom:20px;
 }
 
 .form-control {
@@ -41,10 +40,6 @@
   .devise-card {
     background-color: #fafafa;
   }
-}
-
-.guest-login {
-  margin-top:10px;
 }
 
 .devise-link {

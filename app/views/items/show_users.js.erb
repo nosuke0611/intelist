@@ -1,0 +1,4 @@
+$('.top-area').html("<%= j render 'partial/users/users_list', users: @related_users %>");
+$('.show-posts-tab').removeClass('active');
+$('.show-links-tab').removeClass('active');
+$('.show-users-tab').addClass('active');

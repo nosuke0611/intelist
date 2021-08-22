@@ -1,0 +1,12 @@
+<div class='link-cards row'>
+  <% posts.each do |post| %>
+    <% if post.url.present? %>
+      <div class='col-md-4'>
+        <%= render 'partial/posts/thumbnail', post: post, ref_length: 60 %>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @no_linked_posts_count == 0 %>
+    <span>関連リンクはまだありません</span>
+  <% end %>
+</div>

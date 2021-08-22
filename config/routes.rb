@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: %i(create destroy)
   
-  resources :items, only: %i(create destroy index show)
+  resources :items, only: %i(create destroy index show) do
+    member do
+      get :show_links, :show_users
+    end
+  end
   get '/ranking', to: 'items#weekly_ranking'
   get '/monthly_ranking', to: 'items#monthly_ranking'
   get '/all_ranking', to: 'items#all_ranking'
