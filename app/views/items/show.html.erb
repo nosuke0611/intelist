@@ -1,6 +1,6 @@
 <% provide(:title, @item.item_name) %>
 <div class='titel-area mb-4'>
-  <h3 class='item-title'>
+  <h3 class='item-title page-title'>
     <%= @item.item_name %>
   </h3>
   <span class='item-newpost ml-3'>
@@ -20,20 +20,36 @@
         <% end %>
       </div>
     </div>
-    <div class='card users mb-4'>
-      <h6 class='card-header'>気になっているユーザー</h6>
-      <div class='card-body'>
-        <% @users.each do |user| %>
-          <span><%= link_to user.name, user %></span>
-        <% end %>
-      </div>
-    </div>
   </aside>
   <div class='posts-area col-md-10'>
-    <h5>関連する投稿</h5>
-    <ul class='post'>
-      <%= render 'partial/posts/posts_list', posts: @posts %>
-    </ul> 
+    <ul class='nav nav-tabs mb-3'>
+      <li class='nav-item'>
+        <%= link_to '関連する投稿', item_path, remote: true, class: "nav-link show-posts-tab #{'active' if @show_posts.present? }" %>
+      </li>
+      <li class='nav-item'>
+        <%= link_to '関連リンク一覧', show_links_item_path, remote: true, class: "nav-link show-links-tab #{'active' if @linked_posts.present? }" %>
+      </li>
+      <li class='nav-item'>
+        <%= link_to '関連するユーザー', show_users_item_path, remote: true, class: "nav-link show-users-tab #{'active' if @related_users.present? }" %>
+      </li>
+    </ul>
+    <div class='itme-info-area'>
+      <% if @show_posts.present? %>
+        <div class='top-area'>
+          <%= render 'partial/posts/posts_list', posts: @show_posts %>
+        </div>
+      <% elsif @linked_posts.present? %>
+        <div class='top-area'>
+          <%= render 'partial/items/links_list', posts: @linked_posts %>
+        </div>
+      <% elsif @related_users.present? %>
+        <div class='top-area'>
+          <%= render 'partial/users/users_list', users: @related_users %>
+        </div>
+      <% else %>
+        <span>投稿はまだありません</span>
+      <% end %>
+    </div>
   </div>
 </div>
 

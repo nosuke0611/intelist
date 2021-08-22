@@ -16,7 +16,23 @@ class ItemsController < ApplicationController
     @tags = @item.tags.uniq
     @users = @item.users.uniq
     @post = Post.new
-    @posts = @item.posts.page(params[:page]).per(20)
+    @show_posts = @item.posts.page(params[:page]).per(20)
+  end
+
+  def show_links
+    @item = Item.find(params[:id])
+    @tags = @item.tags.uniq
+    @post = Post.new
+    @linked_posts = @item.posts.page(params[:page]).per(20)
+    @no_linked_posts_count = @item.posts.where.not(url: nil).count
+  end
+
+  def show_users
+    @item = Item.find(params[:id])
+    @tags = @item.tags.uniq
+    @post = Post.new
+    @users = @item.users.uniq
+    @related_users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
   end
 
   def create
