@@ -2,7 +2,7 @@
   <div class='modal-dialog modal-dialog-centered' role='document'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h5 class='modal-title' id="editpost-<%= post.id %>-ModalCenterTitle">編集する</h5>
+        <h5 class='modal-title' id="editpost-<%= post.id %>-ModalCenterTitle">投稿の編集</h5>
         <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
           <span aria-hidden='true'>&times;</span>
         </button>
@@ -31,7 +31,7 @@
         </div>
         <div class='modal-footer'>
           <button type='button' class='btn btn-secondary' data-dismiss='modal'>キャンセル</button>
-          <div class='actions'>
+          <div class='actions' id='post-edit-btn'>
             <%= f.button '編集する', type: 'button', onclick: 'submit();', class: 'btn btn-primary w-100' %>
           </div>
         </div>

@@ -11,6 +11,7 @@ import '../stylesheets/application'
 import '@fortawesome/fontawesome-free/js/all'
 import 'bootstrap'
 require('tagsinput')
+import './post_loading'
 
 Rails.start()
 Turbolinks.start()
