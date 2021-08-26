@@ -23,9 +23,7 @@ Rails.application.routes.draw do
       get :show_links, :show_users
     end
   end
-  get '/ranking', to: 'items#weekly_ranking'
-  get '/monthly_ranking', to: 'items#monthly_ranking'
-  get '/all_ranking', to: 'items#all_ranking'
+  get '/ranking', to: 'items#ranking'
 
   resources :posts, except: %i(index new) do
     post :complete, :uncomplete

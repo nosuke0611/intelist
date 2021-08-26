@@ -20,18 +20,10 @@ jobs:
           - MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          paths:
-          - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run: mv config/database.yml.ci config/database.yml 
       - run:
           name: Wait for DB
