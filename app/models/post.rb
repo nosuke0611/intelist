@@ -48,7 +48,7 @@ class Post < ApplicationRecord
   # 完了ステータス変更
   def complete
     self.completed = true
-    self.completed_at = Time.now.to_i
+    self.completed_at = Time.current
     self.save
   end
 
@@ -57,6 +57,10 @@ class Post < ApplicationRecord
     self.completed_at = nil
     self.save
   end 
+
+  def completed?
+    self.completed
+  end
 
   # マイアイテム絞り込み用
   scope :searched, -> (search_params) do
