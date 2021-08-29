@@ -1,22 +1,22 @@
 <% if user_signed_in? %>
-<h3 class='page-title'>タイムライン</h3>
-  <div class='row'>
-    <aside class='col-md-2'>
-      <%= render 'partial/posts/timeline_aside' %>
-    </aside>
-    <div class='col-md-10'>
-      <div class='timeline'>
-        <% if @following_posts.present? %>
-          <div class='feed-area'>
-            <%= render 'partial/posts/posts_list', posts: @following_posts %>
-          </div>
-        <% else %>
-          <div class='feed-area'>
-            <%= render 'partial/posts/posts_list', posts: @all_posts %>
-          </div>
-        <% end %>
+  <h3 class='page-title'>タイムライン</h3>
+    <div class='row'>
+      <aside class='col-md-2'>
+        <%= render 'partial/posts/timeline_aside' %>
+      </aside>
+      <div class='col-md-10'>
+        <div class='timeline'>
+          <% if @following_posts.present? %>
+            <div class='feed-area'>
+              <%= render 'partial/posts/posts_list', posts: @following_posts %>
+            </div>
+          <% else %>
+            <div class='feed-area'>
+              <%= render 'partial/posts/posts_list', posts: @all_posts %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
 <% else %>
 <% end %>
