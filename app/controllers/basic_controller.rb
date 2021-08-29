@@ -1,4 +1,6 @@
 class BasicController < ApplicationController
+  before_action :authenticate_user!, except: :home
+  
   def home  
     if user_signed_in?
       @following_posts = Post.includes(:user, :tags).where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).per(20)

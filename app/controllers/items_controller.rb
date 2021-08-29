@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-  
+  before_action :authenticate_user!
+
   def index
     if params[:tag_name]
       tag_name = params[:tag_name]
