@@ -1,26 +1,30 @@
-<table class='table col-md-12'>
-  <thead>
-    <th scope='col' class='col-md-1'>順位</th>
-    <th scope='col' class='col-md-2'>アイテム名</th>
-    <th scope='col' class='col-md-2'>タグ</th>
-    <th scope='col' class='col-md-1'>投稿数</th>
-    <th scope='col' class='col-md-3'>参考リンク</th>
-  </thead>
-  <tbody>
-    <% items.each.with_index(1) do |item, i| %>
-      <tr>
-        <th><%= i %>位</th>
-        <td><%= link_to item.item_name, item %></td>
-        <td>
-          <% item.tags.uniq.each do |tag| %>
-            <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
-          <% end %>
-        </td>
-        <td><%= item.period_count(@from) %>件</td>
-        <td>
-          <%= render 'partial/posts/thumbnail', post: item.posts.first, ref_length: 60 if item.posts.first.url.present? %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if items.present? %>
+  <table class='table col-md-12'>
+    <thead>
+      <th scope='col' class='col-md-1'>順位</th>
+      <th scope='col' class='col-md-2'>アイテム名</th>
+      <th scope='col' class='col-md-2'>タグ</th>
+      <th scope='col' class='col-md-1'>投稿数</th>
+      <th scope='col' class='col-md-3'>参考リンク</th>
+    </thead>
+    <tbody>
+      <% items.each.with_index(1) do |item, i| %>
+        <tr>
+          <th><%= i %>位</th>
+          <td><%= link_to item.item_name, item %></td>
+          <td>
+            <% item.tags.uniq.each do |tag| %>
+              <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
+            <% end %>
+          </td>
+          <td><%= item.period_count(@from) %>件</td>
+          <td>
+            <%= render 'partial/posts/thumbnail', post: item.posts.first, ref_length: 60 if item.posts.first.url.present? %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <span>投稿はまだありません</span>
+<% end %>
