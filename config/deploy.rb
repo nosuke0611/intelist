@@ -23,7 +23,7 @@ set :rbenv_ruby, '3.0.2'
 set :log_level, :debug
 
 # プロセス番号を記載したファイルの場所
-set :unicorn_pid, -> { "#{shared_path}/tmp/pids/unicorn.pid" }
+set :unicorn_pid, -> { "#{current_path}/tmp/pids/unicorn.pid" }
 
 # Unicornの設定ファイルの場所
 set :unicorn_config_path, -> { "#{current_path}/config/unicorn.prod.rb" }
