@@ -24,7 +24,7 @@
             <%= f.radio_button :period, :weekly %>週間
           </label>
           <label class='btn btn-outline-secondary'>
-            <%= f.radio_button :period, :only_follow %>月間
+            <%= f.radio_button :period, :monthly %>月間
           </label>
           <label class='btn btn-outline-secondary'>
             <%= f.radio_button :period, :all %>全期間
@@ -38,11 +38,7 @@
   </div>
 </div>
 <div class='items-area'>
-  <% if @items.present? %>
-    <div class='top-area'>
-      <%= render 'partial/items/items_ranking', items: @items %>
-    </div>
-  <% else %>
-    <span>投稿はまだありません</span>
-  <% end %>
+  <div class='top-area'>
+    <%= render 'partial/items/items_ranking', items: @items %>
+  </div>
 </div>
