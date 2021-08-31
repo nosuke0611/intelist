@@ -41,3 +41,29 @@ li {
   display: inline-block;
   margin-bottom: 3px;
 }
+
+.top-fluid-box {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('../images/top-bgimage.png');
+  background-size: 70%;
+  background-repeat: repeat;
+  .top-fluid-box-inner {
+    .card {
+      width: 360px;
+      .card-title {
+        font-size: 1.7em;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+      .btn {
+        width: 180px;
+        margin: 10px;
+        display: block;
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 <% if user_signed_in? %>
-  <h3 class='page-title'>タイムライン</h3>
+  <div class='loggedin-toppage'>
+    <h3 class='page-title'>タイムライン</h3>
     <div class='row'>
       <aside class='col-md-2'>
         <%= render 'partial/posts/timeline_aside' %>
@@ -18,5 +19,18 @@
         </div>
       </div>
     </div>
+  </div>
 <% else %>
+  <div class='top-fluid-box'>
+    <div class='container top-fluid-box-inner'>
+      <div class='card'>
+        <div class='card-body'>
+          <h5 class='card-title'>INTELIST</h5>
+          <h6 class='card-text mb-4'>気になるものをまとめて管理</h6>
+          <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-primary' %>
+          <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success' %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

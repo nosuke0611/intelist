@@ -10,8 +10,11 @@ import "channels"
 import '../stylesheets/application'
 import '@fortawesome/fontawesome-free/js/all'
 import 'bootstrap'
-require('tagsinput')
+import './tagsinput'
 import './post_loading'
+
+const images = require.context('../images', true)
+const imagePath = (name) => images(name, true)
 
 Rails.start()
 Turbolinks.start()
