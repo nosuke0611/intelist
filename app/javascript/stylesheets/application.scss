@@ -10,6 +10,7 @@
 @import 'partial/header';
 @import 'items';
 @import 'ranking';
+@import 'home';
 
 html {
   height: 100%;
@@ -26,7 +27,7 @@ body {
 
 .container {
   flex: 1;
-  padding-top: 90px;
+  padding-top: 66px;
 }
 
 li {
@@ -34,36 +35,10 @@ li {
 }
 
 .page-title {
-  margin-bottom: 15px;
+  margin: 15px 0px;
 }
 
 .tag {
   display: inline-block;
   margin-bottom: 3px;
-}
-
-.top-fluid-box {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  background-image: url('../images/top-bgimage.png');
-  background-size: 70%;
-  background-repeat: repeat;
-  .top-fluid-box-inner {
-    .card {
-      width: 360px;
-      .card-title {
-        font-size: 1.7em;
-        font-weight: bold;
-        letter-spacing: 2px;
-      }
-      .btn {
-        width: 180px;
-        margin: 10px;
-        display: block;
-      }
-    }
-  }
 }

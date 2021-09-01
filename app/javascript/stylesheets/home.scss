@@ -1,0 +1,27 @@
+.top-fluid-area {
+  width: 100vw;
+  height: 380px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: url('../images/top-bgimage.jpg');
+  background-repeat: repeat-x;
+  .top-fluid-area-inner {
+    .login-box {
+      width: 326px;
+      .app-title {
+        font-size: 1.7em;
+        font-weight: bold;
+        letter-spacing: 2px;
+      }
+      .btn {
+        width: 180px;
+        margin: 10px;
+        display: block;
+      }
+    }
+  }
+}
+.start-area {
+  margin: 20px 0px;
+}

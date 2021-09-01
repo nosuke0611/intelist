@@ -21,15 +21,47 @@
     </div>
   </div>
 <% else %>
-  <div class='top-fluid-box'>
-    <div class='container top-fluid-box-inner'>
-      <div class='card'>
+  <div class='top-fluid-area'>
+    <div class='container top-fluid-area-inner'>
+      <div class='card login-box'>
         <div class='card-body'>
-          <h5 class='card-title'>INTELIST</h5>
+          <h4 class='card-title'>INTELIST</h4>
           <h6 class='card-text mb-4'>気になるものをまとめて管理</h6>
           <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-primary' %>
           <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success' %>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class='container'>
+    <div class='row feature-area'>
+      <div class='card feature-box col-md-3 mr-5'>
+        <div class='card-body'>
+          <h5 class='card-title'>タイムライン機能</h5>
+          <h6>画像挿入予定…</h6>
+          <p class='card-text'>タイムラインで投稿を確認し、他のユーザーがリアルタイムで気になっているものを確認できます</p>
+        </div>
+      </div>
+      <div class='card feature-box col-md-3 mr-5'>
+        <div class='card-body'>
+          <h5 class='card-title'>ランキング機能</h5>
+          <h6>画像挿入予定…</h6>
+          <p class='card-text'>期間指定したランキングで、人気のアイテムを確認できます</p>
+        </div>
+      </div>
+      <div class='card feature-box col-md-3 mr-5'>
+        <div class='card-body'>
+          <h5 class='card-title'>リスト機能</h5>
+          <h6>画像挿入予定…</h6>
+          <p class='card-text'>自分の気になっているものを後からリストで確認できます</p>
+        </div>
+      </div>
+    </div>
+    <div class='start-area'>
+      <h5 class='row mb-3'>さあ始めよう！</h5>
+      <div>
+        <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-primary mr-3' %>
+        <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success' %>
       </div>
     </div>
   </div>
