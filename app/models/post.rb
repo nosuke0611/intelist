@@ -28,6 +28,12 @@ class Post < ApplicationRecord
     end
   end
 
+  def create_thumbnails
+    return if self.url.blank?
+    thumbnails = self.thumbnail
+    self.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+  end
+
   # 投稿に紐づくアイテム名を表示(idではなく)
   def item
     Item.find(self.item_id)

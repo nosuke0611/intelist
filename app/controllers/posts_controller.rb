@@ -4,25 +4,25 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    @item = Item.find_or_create_by(item_name: params[:post][:item_name])
-    @post.item_id = @item.id
-    tag_list = params[:post][:tag_name].split(/,|\s/)
-    if @post.save
-      @post.save_tags(tag_list)
-      if @post.url.present?
-        thumbnails = @post.thumbnail
-        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+    if params[:post][:item_name].present?
+      @item = Item.find_or_create_by(item_name: params[:post][:item_name])
+      @post.item_id = @item.id
+      tag_list = params[:post][:tag_name].split(/,|\s/)
+      if @post.save
+        @post.save_tags(tag_list)
+        @post.create_thumbnails
+        flash[:notice] = '投稿に成功しました'
+      else
+        flash[:alert] = '投稿に失敗しました'
       end
-      flash.now[:success] = '投稿に成功しました'
-      redirect_back(fallback_location: root_path)
     else
-      flash.now[:alert] = '投稿に失敗しました'
-      redirect_back(fallback_location: root_path)
+      flash[:alert] = 'アイテム名は必須です' 
     end
+    redirect_back(fallback_location: root_path)
   end
 
   def show
-    @post = Post.find(params[:id])
+    @post = Post.includes([:user, { comments: [:user] }]).find(params[:id])
   end
 
   def update
@@ -35,17 +35,17 @@ class PostsController < ApplicationController
         thumbnails = @post.thumbnail
         @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
       end
-      flash.now[:success] = '投稿を編集しました'
+      flash[:notice] = '投稿を編集しました'
       redirect_back(fallback_location: root_path)
     else
-      flash.now[:alert] = '投稿の編集に失敗しました'
+      flash[:alert] = '投稿の編集に失敗しました'
       render 'edit'
     end
   end
 
   def destroy
     @post.destroy
-    flash[:success] = '投稿を削除しました'
+    flash[:notice] = '投稿を削除しました'
     if request.referer&.include?('posts')
       redirect_to root_path
     else

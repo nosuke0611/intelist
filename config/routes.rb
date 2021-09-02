@@ -18,14 +18,14 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: %i(create destroy)
   
-  resources :items, only: %i(create destroy index show) do
+  resources :items, only: %i(destroy index show) do
     member do
       get :show_links, :show_users
     end
   end
   get '/ranking', to: 'items#ranking'
 
-  resources :posts, except: %i(index new) do
+  resources :posts, except: %i(index new edit) do
     post :complete, :uncomplete
     resources :likes, only: %i(create destroy)
     resources :comments, only: %i(create destroy)

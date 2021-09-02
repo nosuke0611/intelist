@@ -6,7 +6,7 @@
           <div class='user-info float-left'>
             <%= default_avatar if post.user.avatar.blank? %>
             <%= image_tag post.user.avatar.url, class: 'rounded' if post.user.avatar.present? %>
-            <strong class='user-name ml-2 align-middle'><%= link_to post.user.name, post.user %></strong>
+            <%= link_to post.user.name, post.user, class: 'user-name ml-2 align-middle' %>
           </div>
           <div class='actions float-right'>
             <%= link_to '詳細', post_path(post), class: 'btn-sm btn-info' %>
@@ -23,8 +23,8 @@
               <div class='content pl-1 pb-1'><%= post.content %></div>
               <div class='timestamp pl-1'><%= time_ago_in_words(post.created_at) %>前の投稿</div>
               <ul class='list-group list-group-flush rounded'>
-                <li class='list-group-item item-name'>
-                  <span>アイテム名｜　<%= link_to post.item.item_name, post.item %></span>
+                <li class='list-group-item'>
+                  <span>アイテム名｜　<strong><%= link_to post.item.item_name, post.item, class: 'item-name' %></strong></span>
                 </li>
                 <li class='list-group-item tags-list'><span>タグ　　　｜　</span>
                   <% post.tags.each do |tag| %>
@@ -56,6 +56,9 @@
                       <%= f.text_field :comment, class: 'form-control comment-input border-radius', placeholder: 'コメントを追加する', autocomplete: :off %>
                     <% end %>
                   </span>
+                  <div id="comment-post-<%= post.id.to_s %>" class='ml-2 pt-2'>
+                    <%= render 'partial/posts/comment_list', post: post %>
+                  </div>
                 </li>
               </ul>
             </div>

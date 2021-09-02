@@ -1,16 +1,23 @@
-<div class='mt-4 mb-2'>
-  <h6>コメント<span id='comment-count-<%= post.id.to_s %>'>(<%= post.comments.count %>件)</span></h6>
-</div>
-<% post.comments.each do |comment| %>
+<% if controller_name == 'posts' && action_name == 'show' %>
+  <% comments = post.comments %>
+<% else %>
+  <% comments = post.comments.first(2) %>
+  <% all_counts = post.comments.count %>
+  <% other_counts = all_counts - 2 %>
+<% end %>
+<% comments.each do |comment| %>
   <div class='mb-2'>
-    <span>
+    <span  class='mr-1'>
       <strong>
         <%= link_to comment.user.name, user_path(comment.user), class: 'no-text-decoration black-color' %>
       </strong>
     </span>
-    <span><%= comment.comment %></span>
+    <span class='mr-1'><%= comment.comment %></span>
     <% if comment.user == current_user %>
       <%= link_to '削除する', post_comment_path(post.id, comment), method: :delete, remote: true, class: 'delete-comment' %>
     <% end %>
   </div>
+<% end %>
+<% if other_counts&. > 0 %>
+  <%= link_to "コメント他 #{other_counts} 件", post_path(post) %>
 <% end %>
