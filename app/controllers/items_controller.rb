@@ -36,17 +36,6 @@ class ItemsController < ApplicationController
     @related_users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
   end
 
-  def create
-    @item = Item.new(item_params)
-    if @item.save
-      flash.now[:success] = 'アイテム作成に成功しました'
-      redirect_back(fallback_location: root_path)
-    else
-      flash.now[:alert] = 'アイテム作成に失敗しました'
-      render 'new'
-    end
-  end
-
   def ranking
     @base_items = if params[:follow_status] == 'only_follow'
       Item.joins(:posts).where(posts: { user_id: current_user.following_ids })

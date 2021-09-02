@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   # マイアイテム
   def myitems
     @user = User.find(params[:id])
-    @user_posts = Post.where(user_id: @user.id)
+    @user_posts = Post.includes(:tags).where(user_id: @user.id)
     @post = Post.new
     if params[:tag_name]
       tag_name = params[:tag_name]
