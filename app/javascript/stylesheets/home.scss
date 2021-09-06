@@ -30,6 +30,11 @@
   }
   .feature-area {
     margin: 15px 0px;
+    .card {
+      .image-area {
+        height: 380px;
+      }
+    }
   }
 
   .start-area {
