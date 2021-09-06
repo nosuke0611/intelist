@@ -21,8 +21,8 @@
     </div>
   </div>
 <% else %>
-  <div class='top-fluid-area'>
-    <div class='container top-fluid-area-inner'>
+  <div class='top-fluid-wrapper'>
+    <div class='container top-fluid-wrapper-inner'>
       <div class='card login-box'>
         <div class='card-body'>
           <h4 class='card-title'>INTELIST</h4>
@@ -33,32 +33,44 @@
       </div>
     </div>
   </div>
-  <div class='container'>
-    <div class='row feature-area'>
-      <div class='card feature-box col-md-3 mr-5'>
+  <div class='container contents-wrapper'>
+    <div class='summary-area text-center'>
+      <h4>INTELISTとは</h4>
+      <p>「この前Aさんに勧めてもらった本は何だっけ」「Bさんと行きたいと話していた場所が思い出せない」</p>
+      <p>「〇〇に行きたいといっていたのはCさんとDさんどっちだっけ」というようなド忘れの経験はありませんか？</p>
+      <p>INTELISTは、ジャンル問わずやりたいことをシェア・リスト化しておけるSNSアプリです！</p>
+    </div>
+    <div class='card-deck feature-area text-center'>
+      <div class='card feature-box '>
         <div class='card-body'>
           <h5 class='card-title'>タイムライン機能</h5>
-          <h6>画像挿入予定…</h6>
+          <div class='image-area'>
+            <img src='<%= asset_pack_path 'media/images/top-timelineimage.jpg' %>' class='bd-placeholder-img card-img-middle' width='100%'>
+          </div>
           <p class='card-text'>タイムラインで投稿を確認し、他のユーザーがリアルタイムで気になっているものを確認できます</p>
         </div>
       </div>
-      <div class='card feature-box col-md-3 mr-5'>
+      <div class='card feature-box '>
         <div class='card-body'>
           <h5 class='card-title'>ランキング機能</h5>
-          <h6>画像挿入予定…</h6>
+          <div class='image-area'>
+            <img src='<%= asset_pack_path 'media/images/top-rankingimage.jpg' %>' class='bd-placeholder-img card-img-middle' width='100%'>
+          </div>
           <p class='card-text'>期間指定したランキングで、人気のアイテムを確認できます</p>
         </div>
       </div>
-      <div class='card feature-box col-md-3 mr-5'>
+      <div class='card feature-box '>
         <div class='card-body'>
           <h5 class='card-title'>リスト機能</h5>
-          <h6>画像挿入予定…</h6>
+          <div class='image-area'>
+            <img src='<%= asset_pack_path 'media/images/top-myitemimage.jpg' %>' class='bd-placeholder-img card-img-middle' width='100%'>
+          </div>
           <p class='card-text'>自分の気になっているものを後からリストで確認できます</p>
         </div>
       </div>
     </div>
-    <div class='start-area'>
-      <h5 class='row mb-3'>さあ始めよう！</h5>
+    <div class='start-area text-center'>
+      <h4 class='mb-3'>さあ始めよう！</h4>
       <div>
         <%= link_to '新規登録', new_user_registration_path, class: 'btn btn-primary mr-3' %>
         <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success' %>

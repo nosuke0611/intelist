@@ -1,18 +1,23 @@
 <table class='table'>
   <thead>
+    <th scope='col' class='col-md-1'></th>
     <th scope='col' class='col-md-3'>ユーザー名</th>
     <th scope='col' class='col-md-2'>投稿数</th>
     <th scope='col' class='col-md-2'>フォロー数</th>
     <th scope='col' class='col-md-2'>フォロワー数</th>
-    <th scope='col' class='col-md-3'></th>
+    <th scope='col' class='col-md-2'></th>
   </thead>
   <tbody>
     <% users.each do |user| %>
       <tr>
-        <th><%= link_to user.name, user_path(user) %></th>
-        <td><%= link_to user.posts_count, user_path(user) %></td>
-        <td><%= link_to user.followings_count, relationships_user_path(user, link_name: 'following') %></td>
-        <td id="user-<%= user.id %>-followers"><%= link_to user.followers_count, relationships_user_path(user, link_name: 'followers') %></td>
+        <td class='align-middle'>
+          <%= default_avatar if user.avatar.blank? %>
+          <%= image_tag user.avatar.url, class: 'rounded' if user.avatar.present? %>
+        </td>
+        <th class='align-middle'><%= link_to user.name, user_path(user) %></th>
+        <td class='align-middle'><%= link_to user.posts_count, user_path(user) %></td>
+        <td class='align-middle'><%= link_to user.followings_count, relationships_user_path(user, link_name: 'following') %></td>
+        <td id="user-<%= user.id %>-followers" class='align-middle'><%= link_to user.followers_count, relationships_user_path(user, link_name: 'followers') %></td>
         <td>
           <%= render 'partial/users/follow_form',  user: user %>
         </td>
