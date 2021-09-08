@@ -18,7 +18,7 @@
           </div>
           <div>
             <%= f.radio_button :status, :completed, checked: (@search_params[:status] == 'completed') %>
-            <%= f.label :status_completed, '完了済みのみ' %>
+            <%= f.label :status_completed, '完了済のみ' %>
           </div>
           <div>
             <%= f.radio_button :status, :uncompleted, checked: (@search_params[:status] == 'uncompleted') %>
