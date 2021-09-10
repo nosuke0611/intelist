@@ -1,4 +1,8 @@
-<span>未完了</span>
+<% if controller_name == 'posts' %>
+  <span class='mr-3'>未完了</span>
+<% else %>
+  <div class='mb-2'>未完了</div>
+<% end %>
 <% if current_user.own?(post) %>
-  <%= link_to '完了する', post_complete_path(post), method: :post, remote:true, class: 'btn btn-sm btn-primary ml-3' %>
+  <%= link_to '完了する', post_complete_path(post), method: :post, remote:true, class: 'btn btn-sm btn-primary' %>
 <% end %>
