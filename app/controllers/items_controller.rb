@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
     @tags = @item.tags.uniq
     @users = @item.users.uniq
     @post = Post.new
-    @show_posts = @item.posts.page(params[:page]).per(20)
+    @show_posts = @item.posts.includes([:user, :tags, { comments: [:user] }]).page(params[:page]).per(20)
   end
 
   def show_links

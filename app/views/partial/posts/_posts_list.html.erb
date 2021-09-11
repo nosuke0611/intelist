@@ -9,10 +9,10 @@
             <%= link_to post.user.name, post.user, class: 'user-name ml-2 align-middle' %>
           </div>
           <div class='actions float-right'>
-            <%= link_to '詳細', post_path(post), class: 'btn-sm btn-info' %>
+            <%= link_to '詳細', post_path(post), class: 'btn btn-sm btn-outline-info' %>
             <% if current_user.own?(post) %>
-              <%= link_to '編集', '#', data: { toggle: 'modal', target: "#editpost-#{ post.id }-ModalCenter" }, class: 'btn-sm btn-success edit-btn' %>
-              <%= link_to '削除', post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn-sm btn-danger' %>
+              <%= link_to '編集', '#', data: { toggle: 'modal', target: "#editpost-#{ post.id }-ModalCenter" }, class: 'btn btn-sm btn-outline-success edit-btn' %>
+              <%= link_to '削除', post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-outline-danger delete-btn' %>
             <% end %>
             <%= render 'partial/posts/edit_form', post: post %>
           </div>
@@ -22,7 +22,7 @@
             <div class='card-body content-area'>
               <div class='content pl-1 pb-1'><%= post.content %></div>
               <div class='timestamp pl-1'><%= time_ago_in_words(post.created_at) %>前の投稿</div>
-              <ul class='list-group list-group-flush rounded'>
+              <ul class='list-group list-group-flush'>
                 <li class='list-group-item'>
                   <span>アイテム名｜　<strong><%= link_to post.item.item_name, post.item, class: 'item-name' %></strong></span>
                 </li>
@@ -36,12 +36,12 @@
                     <% if current_user.like?(post) %>
                       <%= link_to post_like_path(post.id, post.liked_by(current_user)), method: :delete, remote: true, class: 'btn' do %>
                         <i class='fas fa-heart heart-pink'></i>
-                        <span class='pl-1'>(<%= post.likes.count %>件)</span>
+                        <span class='pl-1'> (<%= post.likes.count %>件)</span>
                       <% end %>
                     <% else %>
                       <%= link_to post_likes_path(post), method: :post, remote: true, class: 'btn' do %>
                         <i class='far fa-heart heart-none'></i>
-                        <span class='pl-1'>(<%= post.likes.count %>件)</span>
+                        <span class='pl-1'> (<%= post.likes.count %>件)</span>
                       <% end %>
                     <% end %>
                   </span>

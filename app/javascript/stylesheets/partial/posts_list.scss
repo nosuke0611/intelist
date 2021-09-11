@@ -12,13 +12,17 @@
       margin-top: 5px;
       padding-top: 0;
     }
-    .timestamp {
-      color: gray;
-      display: block;
-    }
-    .item-name {
-      font-size: 16px;
-    }
+  }
+}
+.card {
+  .timestamp {
+    color: gray;
+    display: block;
+  }
+}
+strong {
+  .item-name {
+    font-size: 16px;
   }
 }
 .likes {

@@ -8,9 +8,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post = Post.new
-    @myposts = @user.posts.includes(:tags).page(params[:page]).per(20)
-    @favposts = Post.all_liked_by(@user).includes(:tags).page(params[:page]).per(20) if @myposts.blank?
-    @composts = Post.all_commented_by(@user).includes(:tags).page(params[:page]).per(20) if (@myposts.blank? && @favposts.blank?) 
+    @myposts = @user.posts.includes([:tags, { comments: [:user] }]).page(params[:page]).per(20)
+    @favposts = Post.all_liked_by(@user).includes([:tags, { comments: [:user] }]).page(params[:page]).per(20) if @myposts.blank?
+    @composts = Post.all_commented_by(@user).includes([:tags, { comments: [:user] }]).page(params[:page]).per(20)\
+      if (@myposts.blank? && @favposts.blank?) 
   end
 
   # マイページフォロー/フォロワー表示
@@ -39,19 +40,19 @@ class UsersController < ApplicationController
   # マイページ投稿表示切替用
   def myposts
     @user = User.find(params[:id])
-    @myposts = @user.posts.page(params[:page]).per(20)
+    @myposts = @user.posts.includes([:tags, { comments: [:user] }]).page(params[:page]).per(20)
     @post = Post.new
   end
 
   def favposts
     @user = User.find(params[:id])
-    @favposts = Post.all_liked_by(@user).page(params[:page]).per(20)
+    @favposts = Post.includes([:tags, { comments: [:user] }]).all_liked_by(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 
   def composts
     @user = User.find(params[:id])
-    @composts = Post.all_commented_by(@user).page(params[:page]).per(20)
+    @composts = Post.includes([:tags, { comments: [:user] }]).all_commented_by(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 

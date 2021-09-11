@@ -1,2 +1,7 @@
+$(function(){
+  if($('.like-users-list').length){
+    $('.like-users-list').html('<% @post.likes.each do |like| %><%= link_to like.user.name, like.user %><% end %>');
+  }
+});
 $('#like-icon-post-<%= @post.id.to_s %>').
-  html('<%= link_to post_likes_path(@post), method: :post, remote: true, class: "btn" do %><i class="far fa-heart heart-none"></i><span class="pl-1">(<%= @post.likes.count %>件)</span><% end %>');
+  html('<%= link_to post_likes_path(@post), method: :post, remote: true, class: "btn" do %><i class="far fa-heart heart-none"></i><span class="pl-1"> (<%= @post.likes.count %>件)</span><% end %>');
