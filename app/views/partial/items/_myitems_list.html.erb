@@ -20,20 +20,10 @@
             <%= l post.created_at, format: :date %>
           </td>
           <td>
-            <% if post.completed? %>
-              <div><%= "#{l(post.completed_at, format: :date)}に完了" %></div>
-              <% if current_user.own?(post) %>
-                <div><%= link_to '未完了に戻す', post_uncomplete_path(post), method: :post, class: 'btn btn-sm btn-warning mt-2' %></div>
-              <% end %>
-            <% else %>
-              <div>未完了</div>
-              <% if current_user.own?(post) %>
-                <div><%= link_to '完了する', post_complete_path(post), method: :post, class: 'btn btn-sm btn-primary mt-2' %></div>
-              <% end %>
-            <% end %>
+            <span id='status-info-<%= post.id %>'><%= render 'partial/posts/status_form', post: post %></span>
           </td>
           <td>
-            <%= link_to '詳細', post_path(post), class: 'btn-sm btn-info info-link' %>
+            <%= link_to '詳細', post_path(post), class: 'btn btn-sm btn-outline-info info-link' %>
           </td>
         </tr>
       <% end %>

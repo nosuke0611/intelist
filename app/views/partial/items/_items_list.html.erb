@@ -2,7 +2,7 @@
   <thead>
     <th scope='col' class='col-md-3'>アイテム名</th>
     <th scope='col' class='col-md-4'>タグ</th>
-    <th scope='col' class='col-md-2'>興味アリ</th>
+    <th scope='col' class='col-md-2'>投稿数</th>
     <th scope='col' class='col-md-3'>興味を持っているフォロー</th>
   </thead>
   <tbody>
@@ -14,9 +14,7 @@
             <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
           <% end %>
         </td>
-        <td>
-          <span class='btn btn-sm btn-success'><%= item.users.count %><i class='fas fa-users'></i></span>
-        </td>
+        <td><%= item.users.count %></td>
         <td>
           <% item.users.each do |user| %>
             <% if current_user.following?(user) %>

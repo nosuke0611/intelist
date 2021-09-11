@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes([:user, { comments: [:user] }]).find(params[:id])
+    @post = Post.includes([:user, { comments: [:user], likes: [:user] }]).find(params[:id])
   end
 
   def update
