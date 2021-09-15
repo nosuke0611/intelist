@@ -1,0 +1,12 @@
+<% provide(:title, '通知一覧') %>
+<h3 class='page-title'>通知一覧</h3>
+<% notifications = @notifications.where.not(visitor_id: current_user.id) %>
+<ul class='list-group'>
+  <% if notifications.exists? %>
+    <% notifications.each do |notification| %>
+      <li class='list-group-item'><%= render 'partial/notifications/notifications_list', notification: notification %></li>
+    <% end %>
+  <% else %>
+    <li class='list-group-item'><span>通知はありません<span></li>
+  <% end %>
+<%= paginate notifications %>

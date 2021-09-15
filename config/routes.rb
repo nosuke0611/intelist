@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
   end
   resources :relationships, only: %i(create destroy)
+  resources :notifications, only: :index
   
   resources :items, only: %i(destroy index show) do
     member do

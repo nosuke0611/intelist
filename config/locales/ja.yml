@@ -47,6 +47,8 @@ ja:
             current_password:
               blank: ':パスワードが入力されていません'
               invalid: ':パスワードが間違っています'
+      messages:
+        record_invalid: '無効な登録です'
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

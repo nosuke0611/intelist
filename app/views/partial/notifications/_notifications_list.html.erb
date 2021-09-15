@@ -1,0 +1,44 @@
+<% visitor = notification.visitor %>
+<% visited = notification.visited %>
+<div class='mx-auto'>
+  <div class='form-inline'>
+    <span>
+      <%= link_to user_path(visitor) do %>
+        <%= default_avatar if visitor.avatar.blank? %>
+        <%= image_tag visitor.avatar.url, class: 'icon_mini' if visitor.avatar.present? %>
+        <strong>
+          <%= visitor.name %>
+        </strong>
+      <% end %>
+      <span>さんが</span>
+      <% case notification.action %>
+        <% when 'follow' then %>
+          <span>あなたをフォローしました</span>
+        <% when 'like' then %>
+          <%= link_to "あなたの投稿「#{notification.post.item.item_name}」", notification.post, style: 'font-weight: bold;' %>
+          <span>にいいねしました</span>
+        <% when 'comment' then %>
+          <% if notification.post.user_id == visited.id %>
+            <%= link_to "あなたの投稿「#{notification.post.item.item_name}」", notification.post, style: 'font-weight: bold;' %>
+          <% else %>
+            <span>
+              <%= link_to post_path(notification.post) do %>
+                <%= default_avatar if visitor.avatar.blank? %>
+                <%= image_tag visitor.avatar.url, class: 'icon_mini' if visitor.avatar.present? %>
+                <strong>
+                  <%= visitor.name %>さんの投稿
+                </strong>
+              <% end %>
+            </span>
+          <% end %>
+          <span>にコメントしました</span>
+          <p class='text-muted mt-1 ml-5 mb-0'>
+            <%= Comment.find_by(id: notification.comment_id)&.comment %>
+          </p>
+      <% end %>
+    </span>
+  </div>
+  <div class='small text-muted text-right'>
+    <%= l(notification.created_at) %>
+  </div>
+</div>
