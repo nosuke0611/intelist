@@ -16,7 +16,11 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship',
                                    foreign_key: 'followed_id',
                                    dependent: :destroy
+  # 通知関連
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
   # rubocop:enable Rails/InverseOf
+
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
@@ -38,6 +42,18 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # フォロー通知作成
+  def create_notification_follow!(current_user)
+    temp = Notification.where(["visitor_id = ? and visited_id = ? and action = ? ", current_user.id, id, 'follow'])
+    return if temp.present?
+
+    notification = current_user.active_notifications.new(
+      visited_id: id,
+      action: 'follow'
+    )
+    notification.save if notification.valid?
+  end
+
   # パスワード入力なしで自身のユーザー情報を変更可能に（devise）
   def update_without_current_password(params)
     if params[:password].blank? && params[:password_confirmation].blank?
@@ -52,7 +68,7 @@ class User < ApplicationRecord
   # ゲストユーザー機能用
   def self.guest
     find_or_create_by!(email: 'guestuser@example.com') do |user|
-      user.password = SecureRandom.urlsafe_base64
+      user.password = SecureRandom.urlsafe_base64(15)
       user.name = 'ゲストユーザー'
     end
   end

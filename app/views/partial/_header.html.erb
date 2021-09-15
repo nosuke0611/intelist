@@ -16,6 +16,16 @@
             <li class='dropdown-item'><%= link_to 'アイテム一覧', items_path %></li>
           </ul>
         </li>
+        <li class='nav-item'>
+          <%= link_to notifications_path, class: 'nav-link' do %>
+            <% if unchecked_notifications.any? %>
+              <span>通知</span>
+              <span class='badge badge-pill badge-light ml-1'><%= unchecked_notifications.count %></span>
+            <% else %>
+              <span>通知</span>
+            <% end %>
+          <% end %>
+        </li>
         <li class='nav-item dropdown'>
           <a href='#', class='nav-link dropdown-toggle' id='navbarDropdown2' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
             アカウント
