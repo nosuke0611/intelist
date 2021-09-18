@@ -27,11 +27,18 @@ body {
 
 .container {
   flex: 1;
-  padding-top: 66px;
+  padding-top: 81px;
 }
 
-.page-title {
-  margin: 15px 0px;
+.title-area {
+  .user-icon {
+    float: left;
+    display: inline-block;
+  }
+  .page-title {
+    margin: 15px 0px;
+    display: inline-block;
+  }
 }
 
 .alert {

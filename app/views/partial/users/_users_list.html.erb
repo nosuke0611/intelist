@@ -11,8 +11,7 @@
     <% users.each do |user| %>
       <tr>
         <td class='align-middle'>
-          <%= default_avatar if user.avatar.blank? %>
-          <%= image_tag user.avatar.url, class: 'rounded' if user.avatar.present? %>
+          <%= show_avatar(user) %>
         </td>
         <th class='align-middle'><%= link_to user.name, user_path(user) %></th>
         <td class='align-middle'><%= link_to user.posts_count, user_path(user) %></td>
