@@ -34,12 +34,6 @@ services:
       - 80:80
     depends_on:
       - app
-    environment:
-      - "SELENIUM_DRIVER_URL=http://selenium_chrome:4444/wd/hub"
-  selenium_chrome:
-    image: selenium/standalone-chrome-debug
-    logging:
-      driver: none
 volumes:
   public-data:
   tmp-data:

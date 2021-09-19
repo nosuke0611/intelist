@@ -30,6 +30,11 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
+# STDOUT(標準出力)への書き出し
+# Rails.logger = Logger.new($stdout)
+# ActiveRecord::Base.logger = Logger.new($stdout)
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -68,9 +73,9 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :system
 
   #CircleCI上でsystemspecが通るようヘッドレスドライバーを使用
-  config.before(:each, type: :system, js: true) do
-    driven_by :selenium, using: :headless_chrome, screen_size: [1920, 1080]
-  end
+  #config.before(:each, type: :system, js: true) do
+  #  driven_by :selenium, using: :headless_chrome, screen_size: [1920, 1080]
+  #end
 end
 
 require 'capybara/rspec'

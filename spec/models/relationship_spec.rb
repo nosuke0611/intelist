@@ -1,23 +1,27 @@
 require 'rails_helper'
 
 RSpec.describe Relationship, type: :model do
-  describe 'バリデーションの確認' do
+  describe 'Relationshipモデルの登録処理' do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) }
     let(:relationship) { user.active_relationships.build(followed_id: other_user.id) }
 
-    it '正常なテストデータで正しくRelationshipが出来上がる' do
-      expect(relationship).to be_valid
+    context 'バリデーションを通過する例' do
+      it '正しいデータであれば正常に登録される' do
+        expect(relationship).to be_valid
+      end
     end
 
-    it "フォロワーIDがnilの場合エラーになる" do
-      relationship.follower_id = nil
-      expect(relationship).to be_invalid
-    end
+    context 'バリデーションを通過しない例' do
+      it "フォロワーIDがnilの場合エラーになる" do
+        relationship.follower_id = nil
+        expect(relationship).to be_invalid
+      end
 
-    it "フォローIDがnilの場合エラーになる" do
-      relationship.followed_id = nil
-      expect(relationship).to be_invalid
+      it "フォローIDがnilの場合エラーになる" do
+        relationship.followed_id = nil
+        expect(relationship).to be_invalid
+      end
     end
 
   end
