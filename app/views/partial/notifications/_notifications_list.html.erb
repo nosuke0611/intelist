@@ -4,8 +4,7 @@
   <div class='form-inline'>
     <span>
       <%= link_to user_path(visitor) do %>
-        <%= default_avatar if visitor.avatar.blank? %>
-        <%= image_tag visitor.avatar.url, class: 'icon_mini' if visitor.avatar.present? %>
+        <%= show_avatar(visitor) %>
         <strong>
           <%= visitor.name %>
         </strong>
@@ -23,8 +22,7 @@
           <% else %>
             <span>
               <%= link_to post_path(notification.post) do %>
-                <%= default_avatar if visitor.avatar.blank? %>
-                <%= image_tag visitor.avatar.url, class: 'icon_mini' if visitor.avatar.present? %>
+                <%= show_avatar(visitor, '30x30') %>
                 <strong>
                   <%= visitor.name %>さんの投稿
                 </strong>

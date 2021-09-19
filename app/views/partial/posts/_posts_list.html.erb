@@ -4,8 +4,7 @@
       <div class='card mb-3'>
         <div class='card-header'>
           <div class='user-info float-left'>
-            <%= default_avatar if post.user.avatar.blank? %>
-            <%= image_tag post.user.avatar.url, class: 'rounded' if post.user.avatar.present? %>
+            <%= show_avatar(post.user) %>
             <%= link_to post.user.name, post.user, class: 'user-name ml-2 align-middle' %>
           </div>
           <div class='actions float-right'>

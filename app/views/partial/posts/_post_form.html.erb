@@ -1,3 +1,10 @@
+<button type='button' class='btn btn-primary newpost-create-btn' id='newpost-create-btn' data-toggle='modal' data-target='#newpostModalCenter'>
+  <% if @item.blank? %>
+    新規投稿
+  <% else %>
+    <%= @item.item_name %>について新規投稿
+  <% end %>
+</button>
 <div class='modal fade' id='newpostModalCenter' tabindex='-1' role='dialog' aria-labelledby='newpostModalCenterTitle' aria-hidden='true'>
   <div class='modal-dialog modal-dialog-centered' role='document'>
     <div class='modal-content'>
@@ -12,28 +19,28 @@
           <div class='form-group'>
             <%= f.label :item_name, 'アイテム名' %>
             <% if @item.blank? %>
-              <%= f.text_field :item_name, placeholder: '気になるものを入力', class: 'form-control' %>
+              <%= f.text_field :item_name, placeholder: '気になるものを入力', class: 'form-control', id: 'newpost-itemname' %>
             <% else %>
-              <%= f.text_field :item_name, value: @item.item_name, class: 'form-control' %>
+              <%= f.text_field :item_name, value: @item.item_name, class: 'form-control', id: 'newpost-itemname' %>
             <% end %>
           </div>
           <div class='form-group'>
             <%= f.label :content, '投稿内容' %>
-            <%= f.text_area :content, placeholder: 'アイテムについてのコメントを入力', class: 'form-control' %>
+            <%= f.text_area :content, placeholder: 'アイテムについてのコメントを入力', class: 'form-control', id: 'newpost-content' %>
           </div>
           <div class='form-group'>
             <%= f.label :url, '参考URL' %>
-            <%= f.text_field :url, placeholder: '参考URLを入力', class: 'form-control' %>
+            <%= f.text_field :url, placeholder: '参考URLを入力', class: 'form-control', id: 'newpost-url' %>
           </div>
           <div class='form-group'>
             <%= f.label :tag_name, 'タグ名(複数の場合はエンターもしくは,で区切る)' %>
-            <%= f.text_field :tag_name, placeholder: 'タグ名を入力', data: { role: 'tagsinput' }, class: 'form-control tags-form' %>
+            <%= f.text_field :tag_name, placeholder: 'タグ名を入力', data: { role: 'tagsinput' }, class: 'form-control tags-form', id: 'newpost-tags' %>
           </div>
         </div>
         <div class='modal-footer'>
           <button type='button' class='btn btn-secondary' data-dismiss='modal'>キャンセル</button>
-          <div class='actions' id='post-submit-btn'>
-            <%= f.button '投稿する', type: 'button', onclick: 'submit();', class: 'btn btn-primary w-100' %>
+          <div class='actions post-submit-btn'>
+            <%= f.button '投稿する', type: 'button', onclick: 'submit();', class: 'btn btn-primary w-100', id: 'post-submit-btn' %>
           </div>
         </div>
       <% end %>

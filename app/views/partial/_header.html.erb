@@ -28,7 +28,8 @@
         </li>
         <li class='nav-item dropdown'>
           <a href='#', class='nav-link dropdown-toggle' id='navbarDropdown2' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-            アカウント
+            <%= show_avatar(current_user, '25x25') %>
+            <%= current_user.name %>
           </a>
           <ul class='dropdown-menu dropdown-menu-right' aria-labelledby='navbarDropdown2' >
             <li class='dropdown-item'><%= link_to '自分の投稿', user_path(current_user) %></li>

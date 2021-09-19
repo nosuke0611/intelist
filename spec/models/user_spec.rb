@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'バリデーションの確認' do
+  describe 'Userモデルの登録処理' do
     let(:user) { build(:user) }
 
-    context 'バリデーションを通過する' do
-      it '有効な情報でユーザーが有効になる' do
+    context 'バリデーションを通過する例' do
+      it '有効な情報でであれば正常に登録される' do
         expect(user).to be_valid
       end
     end
 
-    context 'バリデーションを通過しない' do
+    context 'バリデーションを通過しない例' do
       it 'nameがnilの場合無効になる' do
         user.name = nil
         user.valid?
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
 
     before { user.follow(other_user) }
 
-    describe 'フォロー機能' do
+    context 'userがother_userのフォローに成功した場合' do
       it 'userのフォローにother_userが存在する' do
         expect(user.following?(other_user)).to be_truthy
       end
@@ -50,12 +50,12 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'フォロー解除機能' do
-      it 'フォロー解除が成功し、userのフォローからother_userが消える' do
+    context 'userがother_userのフォロー解除に成功した場合' do
+      it 'userのフォローからother_userが消える' do
         user.unfollow(other_user)
         expect(user.following?(other_user)).to be_falsy
       end
-      it 'フォロー解除が成功し、other_userのフォロワーからuserが消える' do
+      it 'other_userのフォロワーからuserが消える' do
         user.unfollow(other_user)
         expect(other_user.followers.include?(user)).to be_falsy
       end
