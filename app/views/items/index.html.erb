@@ -5,20 +5,20 @@
     <div class='my-3'><strong>絞り込み検索</strong></div>
     <%= form_with scope: :searched, url: items_path, class: 'search_form', method: :get, local: false do |f| %>
       <div class='form-group'>
-        <%= f.text_field :item_name, class: 'form-control', value: @search_params[:item_name], placeholder: 'アイテム名'%>
+        <%= f.text_field :item_name, value: @search_params[:item_name], placeholder: 'アイテム名', class: 'form-control', id: 'search-itemname' %>
       </div>
       <div class='form-group'>
-        <%= f.text_field :tag_name, class: 'form-control', value: @search_params[:tag_name], placeholder: 'タグ名'%>
+        <%= f.text_field :tag_name, value: @search_params[:tag_name], placeholder: 'タグ名', class: 'form-control', id: 'search-tagname' %>
       </div>
       <div class='form-group'>
-        <%= f.text_field :user_name, class: 'form-control', value: @search_params[:user_name], placeholder: 'ユーザー名'%>
+        <%= f.text_field :user_name, value: @search_params[:user_name], placeholder: 'ユーザー名', class: 'form-control', id: 'search-username' %>
       </div>
       <div class='actions'>
-        <%= f.submit '検索', class: 'btn btn-primary' %>
+        <%= f.submit '検索', class: 'btn btn-primary', id: 'search-submit-btn' %>
       </div>
     <% end %>
     <div class='reset'>
-      <%= link_to 'リセット', items_path, class: 'btn btn-secondary mt-2' %>
+      <%= link_to 'リセット', items_path, class: 'btn btn-secondary mt-2', id: 'search-reset-btn' %>
     </div>
   </aside>
   <div class='items-area col-md-10'>
