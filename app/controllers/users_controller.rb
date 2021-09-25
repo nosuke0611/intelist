@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post = Post.new
-    @myposts = @user.posts.includes([:tags, { comments: [:user] }]).page(params[:page]).per(20)
-    @favposts = Post.all_liked_by(@user).includes([:tags, { comments: [:user] }]).page(params[:page]).per(20) if @myposts.blank?
-    @composts = Post.all_commented_by(@user).includes([:tags, { comments: [:user] }]).page(params[:page]).per(20)\
+    @myposts = @user.posts.includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20)
+    @favposts = Post.all_liked_by(@user).includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20) if @myposts.blank?
+    @composts = Post.all_commented_by(@user).includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20)\
       if (@myposts.blank? && @favposts.blank?) 
   end
 

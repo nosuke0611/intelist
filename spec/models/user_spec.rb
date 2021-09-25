@@ -39,7 +39,9 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) }
 
-    before { user.follow(other_user) }
+    before(:each) do
+      user.follow(other_user)
+    end
 
     context 'userがother_userのフォローに成功した場合' do
       it 'userのフォローにother_userが存在する' do

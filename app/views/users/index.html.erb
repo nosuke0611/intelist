@@ -5,14 +5,14 @@
     <div class='my-3'><strong>ユーザー名検索</strong></div>
     <%= form_with url: users_path, class: 'search_form', method: :get, local: false do |f| %>
       <div class='form-group'>
-        <%= f.text_field :search, class: 'form-control', value: params[:search], placeholder: 'ユーザー名'%>
+        <%= f.text_field :search, value: params[:search], placeholder: 'ユーザー名', class: 'form-control',id: 'search-username' %>
       </div>
       <div class='actions'>
-        <%= f.submit '検索', class: 'btn btn-primary' %>
+        <%= f.submit '検索', class: 'btn btn-primary', id: 'search-submit-btn' %>
       </div>
     <% end %>
     <div class='reset'>
-      <%= link_to 'リセット', users_path, class: 'btn btn-secondary mt-2' %>
+      <%= link_to 'リセット', users_path, class: 'btn btn-secondary mt-2', id: 'search-reset-btn' %>
     </div>
   </aside>
   <div class='users-area col-md-10'>

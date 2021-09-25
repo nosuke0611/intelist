@@ -5,9 +5,10 @@ RSpec.describe Post, type: :model do
   let(:user) { create(:user) }
   let(:item) { create(:item) }
     
-  describe 'Postモデルの登録処理' do
-    context 'バリデーションを通過する例' do
-      it '正しいデータであれば正常に登録される' do
+  describe 'Postモデルのバリデーション確認' do
+    # バリデーションを通過するケース
+    context 'ユーザー、アイテム、投稿内容がある場合' do
+      it '正常に投稿できる' do
         testpost = user.posts.build(
           user_id: user.id,
           item_id: item.id,
@@ -17,16 +18,19 @@ RSpec.describe Post, type: :model do
       end
     end
 
-    context 'バリデーションを通過しない例' do
-      it 'ユーザーがいないとエラーとなる' do
+    # バリデーションを通過しないケース
+    context 'ユーザーがいない場合' do
+      it '投稿が作成できない' do
         testpost = Post.new(
           item_id: item.id,
           content: 'testcontent'
         )
         expect(testpost.save).to be_falsey
       end
+    end
 
-      it 'アイテムがないとエラーになる' do
+    context 'アイテムがない場合' do
+      it '投稿が作成できない' do
         testpost = user.posts.build(
           user_id: user.id,
           content: 'testcontent'
