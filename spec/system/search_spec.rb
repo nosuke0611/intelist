@@ -36,16 +36,14 @@ RSpec.describe '検索機能のテスト', type: :system do
 
     describe 'アイテム一覧画面での検索機能テスト', js: true do
       let(:items) { create_list(:item, 3) }
-      let(:tags) { create_list(:tag, 3) }
       DatabaseCleaner.strategy = :truncation
       before(:each) do
         DatabaseCleaner.start
         sign_in user
-        tagslist = tags
         itemslist = items
         3.times do |i|
           user.posts.create(
-            item_id: itemslist.find(i+1)
+            item_id: itemslist.find(i + 1)
           )
         end
         itemslist.first.update(item_name: 'テストアイテム')

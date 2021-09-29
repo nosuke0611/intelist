@@ -63,4 +63,25 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'ユーザー検索メソッドの動作確認' do
+    let(:user) { create(:user, name: 'テストユーザー') }
+    let(:other_users) { create_list(:user, 3) }
+    before(:each) do
+      user
+      other_users
+    end
+
+    context 'いずれかのユーザー名に含まれる文字列で検索した場合' do
+      it 'ユーザー名に検索文字列を含むユーザーのみを返す' do
+        expect(User.searched('テスト')).to include(user)
+        expect(User.searched('テスト')).not_to include(other_users)
+      end
+    end
+    context 'どのユーザー名とも合致しない文字列で検索した場合' do
+      it '空のコレクションを返す' do
+        expect(User.searched('BLANK')).to be_empty
+      end
+    end
+  end
 end
