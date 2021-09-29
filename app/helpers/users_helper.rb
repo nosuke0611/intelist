@@ -8,7 +8,7 @@ module UsersHelper
     if user.avatar.blank?
       image_tag(ENV['DEFAULT_AVATAR'], size: size, class: 'icon-mini rounded user-icon')
     else
-      image_tag(user.avatar.url, size: size, class: 'icon-mini roundet user-icon')
+      image_tag(user.avatar.url, size: size, class: 'icon-mini rounded user-icon')
     end
   end
 end
