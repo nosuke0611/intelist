@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @users = User.searched(params[:search]).page(params[:page]).per(20)
+    @user_search_params = user_search_params
+    @users = User.searched(@user_search_params).page(params[:page]).per(20).order("#{sort_column} #{sort_direction}")
   end
 
   def show
@@ -59,7 +60,7 @@ class UsersController < ApplicationController
   # マイアイテム
   def myitems
     @user = User.find(params[:id])
-    @user_posts = Post.includes(:tags).where(user_id: @user.id)
+    @user_posts = Post.includes(:tags, :item).where(user_id: @user.id)
     @post = Post.new
     if params[:tag_name]
       tag_name = params[:tag_name]
@@ -71,8 +72,29 @@ class UsersController < ApplicationController
     end
   end
 
+  # ソート用メソッド（デフォルトはid降順）
+  def sort_column
+    User.column_names.include?(params[:column]) ? params[:column] : 'id'
+  end
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
+  
+  # ソート時に検索条件を引き継ぐためのメソッド
+  def take_user_search_params
+    { searched: {
+        user_name: @user_search_params.try(:[], :user_name),
+    }}
+  end
+  
+  helper_method :sort_column, :sort_direction, :take_user_search_params
+
   private
     def post_search_params
       params.fetch(:searched, {}).permit(:item_name, :tag_name, :status)
+    end
+
+    def user_search_params
+      params.fetch(:searched, {}).permit(:user_name)
     end
 end

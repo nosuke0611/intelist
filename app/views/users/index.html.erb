@@ -3,9 +3,9 @@
 <div class='row'>
   <aside class='col-md-2'>
     <div class='my-3'><strong>ユーザー名検索</strong></div>
-    <%= form_with url: users_path, class: 'search_form', method: :get, local: false do |f| %>
+    <%= form_with scope: :searched, url: users_path, class: 'search_form', method: :get, local: false do |f| %>
       <div class='form-group'>
-        <%= f.text_field :search, value: params[:search], placeholder: 'ユーザー名', class: 'form-control',id: 'search-username' %>
+        <%= f.text_field :user_name, value: @user_search_params[:user_name], placeholder: 'ユーザー名', class: 'form-control',id: 'search-username' %>
       </div>
       <div class='actions'>
         <%= f.submit '検索', class: 'btn btn-primary', id: 'search-submit-btn' %>

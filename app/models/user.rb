@@ -83,7 +83,11 @@ class User < ApplicationRecord
   end
 
   # ユーザー名での絞り込み
-  scope :searched, -> (search){ where(['name Like ?', "%#{search}%"]) }
+  scope :searched, -> (search_params) do 
+    return if search_params.blank?
+    name = search_params[:user_name]
+    where(['name Like ?', "%#{name}%"])
+  end
 
   private
     def downcase_email

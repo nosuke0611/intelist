@@ -15,9 +15,10 @@ import './post_loading'
 
 const images = require.context('../images', true)
 const imagePath = (name) => images(name, true)
-
-$(function(){
-  $('.tags-form').tagsinput('refresh');
+document.addEventListener("turbolinks:load", function () {
+  $(function(){
+    $('.tags-form').tagsinput('refresh');
+  });
 });
 
 Rails.start()
