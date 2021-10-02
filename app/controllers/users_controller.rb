@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   
   def index
     @user_search_params = user_search_params
-    @users = User.searched(@user_search_params).page(params[:page]).per(20).order("#{sort_column} #{sort_direction}")
+    @users = User.searched(@user_search_params).page(params[:page]).per(20).order("#{users_sort_column} #{users_sort_direction}")
   end
 
   def show
@@ -60,34 +60,47 @@ class UsersController < ApplicationController
   # マイアイテム
   def myitems
     @user = User.find(params[:id])
-    @user_posts = Post.includes(:tags, :item).where(user_id: @user.id)
+    @user_posts = Post.includes(%i[tags post_tag_maps item]).where(user_id: @user.id)
     @post = Post.new
-    if params[:tag_name]
-      tag_name = params[:tag_name]
-      @search_params = { searched: { tag_name: tag_name } }
-      @posts = @user_posts.searched(@search_params).page(params[:page]).per(20)
-    else
-      @search_params = post_search_params
-      @posts = @user_posts.searched(@search_params).page(params[:page]).per(20)
-    end
+    @search_params = post_search_params
+    @posts = @user_posts.searched(@search_params).page(params[:page]).per(20).reorder("#{myitems_sort_column} #{myitems_sort_direction}")
   end
 
-  # ソート用メソッド（デフォルトはid降順）
-  def sort_column
+  # ユーザー一覧ソート用メソッド（デフォルトはid降順）
+  def users_sort_column
     User.column_names.include?(params[:column]) ? params[:column] : 'id'
   end
-  def sort_direction
+
+  # ユーザー一覧ソート方向変更用メソッド
+  def users_sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
   
+  # マイアイテム一覧ソート用メソッド（デフォルトはid降順）
+  def myitems_sort_column
+    if Post.column_names.include?(params[:column])
+      "posts.#{params[:column]}"
+    elsif Item.column_names.include?(params[:column])
+      "items.#{params[:column]}"
+    else
+      'posts.created_at'
+    end
+  end
+
+  # マイアイテム一覧ソート方向変更用メソッド
+  def myitems_sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
+
   # ソート時に検索条件を引き継ぐためのメソッド
   def take_user_search_params
-    { searched: {
-        user_name: @user_search_params.try(:[], :user_name),
-    }}
+    { searched: { user_name: @user_search_params.try(:[], :user_name),
+                  item_name: @search_params.try(:[], :item_name),
+                  tag_name: @search_params.try(:[], :tag_name),
+                  status: @search_params.try(:[], :status) } }
   end
-  
-  helper_method :sort_column, :sort_direction, :take_user_search_params
+
+  helper_method :users_sort_column, :users_sort_direction, :myitems_sort_column, :myitems_sort_direction, :take_user_search_params
 
   private
     def post_search_params

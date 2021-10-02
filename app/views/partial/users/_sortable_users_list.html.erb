@@ -1,10 +1,10 @@
 <table class='table'>
   <thead>
     <th scope='col' class='col-md-1'></th>
-    <th scope='col' class='col-md-3'>ユーザー名</th>
-    <th scope='col' class='col-md-2'>投稿数</th>
-    <th scope='col' class='col-md-2'>フォロー数</th>
-    <th scope='col' class='col-md-2'>フォロワー数</th>
+    <th scope='col' class='col-md-3'><%= users_sortable 'name', 'ユーザー名', take_user_search_params %></th>
+    <th scope='col' class='col-md-2'><%= users_sortable 'posts_count', '投稿数', take_user_search_params %></th>
+    <th scope='col' class='col-md-2'><%= users_sortable 'followings_count', 'フォロー数', take_user_search_params %></th>
+    <th scope='col' class='col-md-2'><%= users_sortable 'followers_count', 'フォロワー数', take_user_search_params %></th>
     <th scope='col' class='col-md-2'></th>
   </thead>
   <tbody>

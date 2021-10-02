@@ -74,13 +74,15 @@ RSpec.describe User, type: :model do
 
     context 'いずれかのユーザー名に含まれる文字列で検索した場合' do
       it 'ユーザー名に検索文字列を含むユーザーのみを返す' do
-        expect(User.searched('テスト')).to include(user)
-        expect(User.searched('テスト')).not_to include(other_users)
+        searched_params = { user_name: 'テスト' }
+        expect(User.searched(searched_params)).to include(user)
+        expect(User.searched(searched_params)).not_to include(other_users)
       end
     end
     context 'どのユーザー名とも合致しない文字列で検索した場合' do
       it '空のコレクションを返す' do
-        expect(User.searched('BLANK')).to be_empty
+        searched_params = { user_name: 'BLANK' }
+        expect(User.searched(searched_params)).to be_empty
       end
     end
   end
