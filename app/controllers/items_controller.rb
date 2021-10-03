@@ -2,14 +2,9 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if params[:tag_name]
-      tag_name = params[:tag_name]
-      @search_params = { searched: { tag_name: tag_name } }
-      @items = Item.searched(@search_params).page(params[:page]).per(20)
-    else
-      @search_params = item_search_params
-      @items = Item.searched(@search_params).page(params[:page]).per(20)
-    end
+    @search_params = item_search_params
+    @base_items = Item.searched(@search_params).unscope(:order).distinct
+    @items = @base_items.page(params[:page]).per(20).order("#{items_sort_column} #{items_sort_direction}")
   end
   
   def show
@@ -54,6 +49,25 @@ class ItemsController < ApplicationController
       @items = @base_items.group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
     end
   end
+
+  # アイテム一覧ソート用メソッド（デフォルトはid降順）
+  def items_sort_column
+    Item.column_names.include?(params[:column]) ? params[:column] : 'id'
+  end
+
+  # アイテムー一覧ソート方向変更用メソッド
+  def items_sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+  end
+
+  # ソート時に検索条件を引き継ぐためのメソッド
+  def take_item_search_params
+    { searched: { item_name: @search_params.try(:[], :item_name),
+                  tag_name: @search_params.try(:[], :tag_name),
+                  user_name: @search_params.try(:[], :user_name) } }
+  end
+
+  helper_method :items_sort_column, :items_sort_direction, :take_item_search_params
 
   private
     def item_params

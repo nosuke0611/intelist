@@ -5,12 +5,13 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :post_tag_maps, dependent: :destroy
   has_many :tags, through: :post_tag_maps
   belongs_to :item
+  counter_culture :item
   has_many :likes, dependent: :destroy
   has_many :users, through: :likes
   has_many :comments, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  default_scope -> { order(created_at: :desc) }
+  default_scope -> { order('posts.created_at desc') }
   validates :user_id, presence: true, uniqueness: { scope: :item_id } # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :item_id, presence: true
 

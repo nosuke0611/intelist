@@ -1,12 +1,12 @@
 <table class='table col-md-12'>
   <thead>
-    <th scope='col' class='col-md-3'>アイテム名</th>
+    <th scope='col' class='col-md-3'><%= items_sortable 'item_name', 'アイテム名', take_item_search_params %></th>
     <th scope='col' class='col-md-4'>タグ</th>
-    <th scope='col' class='col-md-2'>投稿数</th>
+    <th scope='col' class='col-md-2'><%= items_sortable 'posts_count', '投稿数', take_item_search_params %></th>
     <th scope='col' class='col-md-3'>興味を持っているフォロー</th>
   </thead>
   <tbody>
-    <% items.uniq.each do |item| %>
+    <% items.each do |item| %>
       <tr>
         <th><%= link_to item.item_name, item %></th>
         <td>
@@ -14,7 +14,7 @@
             <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
           <% end %>
         </td>
-        <td><%= item.users.count %></td>
+        <td><%= item.posts_count %></td>
         <td>
           <% item.users.each do |user| %>
             <% if current_user.following?(user) %>

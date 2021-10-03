@@ -15,14 +15,16 @@ module UsersHelper
   # ユーザー一覧画面でのソート機能
   def users_sortable(column, title, hash_params = {})
     title ||= column.titleize
+    css_class = users_sort_column.include?(column) ? "current_#{users_sort_direction}" : nil
     direction = users_sort_direction == 'desc' ? 'asc' : 'desc'
-    link_to title, { column: column, direction: direction }.merge(hash_params), remote: true
+    link_to title, { column: column, direction: direction }.merge(hash_params), class: "sort_header #{css_class}", remote: true
   end
 
   # マイアイテム一覧画面でのソート機能
   def myitems_sortable(column, title, hash_params = {})
     title ||= column.titleize
+    css_class = myitems_sort_column.include?(column) ? "current_#{myitems_sort_direction}" : nil
     direction = myitems_sort_direction == 'asc' ? 'desc' : 'asc'
-    link_to title, { column: column, direction: direction }.merge(hash_params), remote: true
+    link_to title, { column: column, direction: direction }.merge(hash_params), class: "sort_header #{css_class}", remote: true
   end
 end

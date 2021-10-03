@@ -53,3 +53,20 @@ li {
   display: inline-block;
   margin-bottom: 3px;
 }
+
+th {
+  .sort_header {
+    background-image: url('../images/sort.png');
+    background-size: 14px;
+    background-repeat: no-repeat;
+    background-position: right;
+    padding-right: 20px;
+    color: black;
+    &.current_asc {
+      background-image: url('../images/sort-up.png');
+    }
+    &.current_desc {
+      background-image: url('../images/sort-down.png');
+    }
+  }
+}
