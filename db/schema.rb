@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_14_143442) do
+ActiveRecord::Schema.define(version: 2021_10_03_085041) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "comment", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_09_14_143442) do
     t.string "item_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "posts_count", default: 0, null: false
   end
 
   create_table "likes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

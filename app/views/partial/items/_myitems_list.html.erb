@@ -1,10 +1,10 @@
 <% if posts.any? %>
   <table class='table col-md-12'>
     <thead>
-      <th scope='col' class='col-md-3'>アイテム名</th>
+      <th scope='col' class='col-md-3'><%= myitems_sortable 'item_name', 'アイテム名', take_user_search_params %></th>
       <th scope='col' class='col-md-2'>タグ</th>
-      <th scope='col' class='col-md-2'>投稿日</th>
-      <th scope='col' class='col-md-2'>ステータス</th>
+      <th scope='col' class='col-md-2'><%= myitems_sortable 'created_at', '投稿日', take_user_search_params %></th>
+      <th scope='col' class='col-md-2'><%= myitems_sortable 'completed_at', 'ステータス', take_user_search_params %></th>
       <th scope='col' class='col-md-2'></th>
     </thead>
     <tbody>

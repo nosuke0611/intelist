@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe '投稿機能のテスト', type: :system do
   let(:user) { create(:user) }
-  let(:item) { create(:item) }
 
   describe 'トップページでの投稿作成処理' do
     before(:each) do 
@@ -15,7 +14,6 @@ RSpec.describe '投稿機能のテスト', type: :system do
         expect(page).to have_content '投稿はまだありません'
       end
     end
-
     # 無効なデータ
     context 'アイテム名が空欄の場合' do
       it '投稿が作成されないこと', js: true do
@@ -28,7 +26,6 @@ RSpec.describe '投稿機能のテスト', type: :system do
         expect(page).to have_content 'アイテム名は必須です'
       end
     end
-
     # 正常なデータ
     context 'アイテム名、投稿内容、タグが入力されている場合' do
       it '投稿が作成されること', js: true do
@@ -43,7 +40,6 @@ RSpec.describe '投稿機能のテスト', type: :system do
         end.to change(Post, :count).by(1)
       end
     end
-
     context 'アイテム名、タグのみが入力されている場合' do
       it '投稿が作成されること', js: true do
         visit root_path
@@ -57,7 +53,6 @@ RSpec.describe '投稿機能のテスト', type: :system do
         end.to change(Post, :count).by(1)
       end
     end
-
     context 'アイテム名、投稿内容のみが入力されている場合' do
       it '投稿が作成されること', js: true do
         visit root_path
