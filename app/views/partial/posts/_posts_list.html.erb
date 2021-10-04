@@ -12,8 +12,8 @@
             <% if current_user.own?(post) %>
               <%= link_to '編集', '#', data: { toggle: 'modal', target: "#editpost-#{ post.id }-ModalCenter" }, class: 'btn btn-sm btn-outline-success edit-btn' %>
               <%= link_to '削除', post, method: :delete, data: {confirm: '投稿を削除しますか?' }, class: 'btn btn-sm btn-outline-danger delete-btn' %>
+              <%= render 'partial/posts/edit_form', post: post %>
             <% end %>
-            <%= render 'partial/posts/edit_form', post: post %>
           </div>
         </div>
         <div class='row no-gutters p-md-3'>
