@@ -1,6 +1,7 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
-  
+  before_action :correct_user, except: :create
+
   def create
     @like = current_user.likes.build(like_params)
     @post = @like.post
@@ -11,7 +12,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = Like.find_by(id: params[:id])
+    @like = Like.find(params[:id])
     @post = @like.post
     if @like.destroy
       respond_to :js
@@ -21,5 +22,10 @@ class LikesController < ApplicationController
   private
     def like_params
       params.permit(:post_id)
+    end
+
+    def correct_user
+      @like = current_user.likes.find(params[:id])
+      redirect_back(follback_location: root_path) if @like.nil?
     end
 end

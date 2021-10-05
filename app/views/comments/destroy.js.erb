@@ -1,2 +1,2 @@
-$('#comment-post-<%= @post.id.to_s %>').
-  html('<%= j render "partial/posts/comment_list", post: @post %>');
+$('#comment-post-<%= @post.id.to_s %>').html('<%= j render "partial/posts/comment_list", post: @post %>');
+$('#comment-count-<%= @post.id.to_s %>').html('(<%= @post.comments.count %>件)');
