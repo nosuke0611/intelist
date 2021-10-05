@@ -40,3 +40,8 @@ ClassAndModuleChildren:
 # 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+# テストコードに関してはトータル行数を無視
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
