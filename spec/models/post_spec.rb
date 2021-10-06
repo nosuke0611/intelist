@@ -16,7 +16,7 @@ RSpec.describe Post, type: :model do
       end
       it '同一ユーザーが同じアイテムについて二度目の投稿はできない' do
         same_user = create(:user, id: 1)
-        same_item = create(:item, id: 1, item_name:'same-name')
+        same_item = create(:item, id: 1, item_name: 'same-name')
         create(:post, user: same_user, item: same_item)
         expect(build(:post, user: same_user, item: same_item)).to be_invalid
       end

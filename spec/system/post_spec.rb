@@ -64,7 +64,7 @@ RSpec.describe '投稿機能のテスト', type: :system do
     before(:each) do
       test_user = user
       sign_in test_user
-      post_first = create(:post, user: test_user)
+      create(:post, user: test_user)
     end
     context '投稿を正常に編集できるケース' do
       it 'アイテム名を変更した場合問題なく保存できる' do
