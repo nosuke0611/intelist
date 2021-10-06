@@ -4,32 +4,50 @@ RSpec.describe User, type: :model do
   describe 'Userモデルの登録処理' do
     let(:user) { build(:user) }
 
-    context 'バリデーションを通過する例' do
+    context 'バリデーションを通過するケース' do
       it '有効な情報でであれば正常に登録される' do
         expect(user).to be_valid
       end
     end
 
-    context 'バリデーションを通過しない例' do
-      it 'nameがnilの場合無効になる' do
+    context 'バリデーションを通過しないケース' do
+      it 'nameがnilの場合は無効になる' do
         user.name = nil
         user.valid?
         expect(user.errors[:name]).to include(':ユーザー名が入力されていません')
       end
 
-      it 'emailがnilの場合無効になる' do
+      it 'nameが30文字を超えた場合は無効になる' do
+        user.name = 'a' * 31
+        expect(user).to be_invalid
+      end
+
+      it 'emailがnilの場合は無効になる' do
         user.email = nil
         user.valid?
         expect(user.errors[:email]).to include(':メールアドレスが入力されていません')
       end
 
-      it 'nameが30文字を超えると無効になる' do
-        user.name = 'a' * 31
+      it 'emailが255文字を超えた場合は無効になる' do
+        user.email = 'a' * 244 + 'example.com'
         expect(user).to be_invalid
       end
 
-      it 'emailが255文字を超えると無効になる' do
-        user.email = 'a' *244 + 'example.com'
+      it 'emailが既存ユーザーと重複している場合無効になる' do
+        dup_user = user.dup
+        user.save
+        expect(dup_user).to be_invalid
+      end
+
+      it 'emailは大文字と小文字を区別せず、同じ文字列の場合は無効になる' do
+        dup_user = user.dup
+        dup_user.email = user.email.upcase
+        user.save
+        expect(dup_user).to be_invalid
+      end
+
+      it 'passwordが8文字未満の場合は無効になる' do
+        user.password = user.password_confirmation = 'a' * 5
         expect(user).to be_invalid
       end
     end

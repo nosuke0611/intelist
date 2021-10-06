@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :correct_user, except: :create
   
   def create
     @comment = Comment.new(comment_params)
@@ -13,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find_by(id: params[:id])
+    @comment = Comment.find(params[:id])
     @post = @comment.post
     if @comment.destroy
       respond_to :js
@@ -25,5 +26,10 @@ class CommentsController < ApplicationController
   private
     def comment_params
       params.required(:comment).permit(:user_id, :post_id, :comment)
+    end
+
+    def correct_user
+      @comment = current_user.comments.find(params[:id])
+      redirect_back(follback_location: root_path) if @comment.nil?
     end
 end

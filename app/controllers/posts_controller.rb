@@ -71,6 +71,6 @@ class PostsController < ApplicationController
     def correct_user
       @post = current_user.posts.find(params[:post_id]) if action_name == 'complete' || action_name == 'uncomplete' 
       @post = current_user.posts.find(params[:id])      if action_name == 'update' || action_name == 'destroy'
-      redirect_to root_url if @post.nil?
+      redirect_back(fallback_location: root_path) if @post.nil?
     end
 end

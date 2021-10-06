@@ -1,6 +1,8 @@
-<% if controller_name == 'posts' && action_name == 'show' %>
+<% if controller_name == 'posts' && action_name == 'show' %> <%# 投稿詳細ページではコメントを全件表示 %>
   <% comments = post.comments %>
-<% else %>
+<% elsif request.referer&.include?('posts') && request.url.include?('comments') %> <%# 投稿詳細ページではコメントを全件表示(Ajaxでコメント作成時の分岐) %>
+  <% comments = post.comments %>
+<% else %> <%# その他のページではコメントを最新2件表示 %>
   <% comments = post.comments.first(2) %>
   <% all_counts = post.comments.count %>
   <% other_counts = all_counts - 2 %>
