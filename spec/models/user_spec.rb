@@ -4,13 +4,13 @@ RSpec.describe User, type: :model do
   describe 'Userモデルの登録処理' do
     let(:user) { build(:user) }
 
-    context 'バリデーションを通過する例' do
+    context 'バリデーションを通過するケース' do
       it '有効な情報でであれば正常に登録される' do
         expect(user).to be_valid
       end
     end
 
-    context 'バリデーションを通過しない例' do
+    context 'バリデーションを通過しないケース' do
       it 'nameがnilの場合は無効になる' do
         user.name = nil
         user.valid?

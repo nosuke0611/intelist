@@ -2,21 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   describe 'Postモデルのバリデーション確認' do
-    # バリデーションを通過するケース
-    context 'ユーザー、アイテム、投稿内容、タグがある場合' do
-      it '正常に登録できる' do
+    context 'バリデーションを通過するケース' do
+      it 'ユーザー、アイテム、投稿内容、タグがある場合は正常に登録できる' do
         expect(build(:post)).to be_valid
       end
     end
-    # バリデーションを通過しないケース
-    context 'ユーザーがいない場合' do
-      it '投稿が作成できない' do
+    context 'バリデーションを通過しないケース' do
+      it 'ユーザーがいない場合は投稿が作成できない' do
         expect(build(:post, user: nil)).to be_invalid
       end
-    end
-    context 'アイテムがない場合' do
-      it '投稿が作成できない' do
+      it 'アイテムがない場合は投稿が作成できない' do
         expect(build(:post, item: nil)).to be_invalid
+      end
+      it '同一ユーザーが同じアイテムについて二度目の投稿はできない' do
+        same_user = create(:user, id: 1)
+        same_item = create(:item, id: 1, item_name:'same-name')
+        create(:post, user: same_user, item: same_item)
+        expect(build(:post, user: same_user, item: same_item)).to be_invalid
       end
     end
   end
