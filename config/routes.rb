@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: %i(create destroy)
   resources :notifications, only: :index
-  
+  resources :tags, only: :index
+
   resources :items, only: %i(destroy index show) do
     member do
       get :show_links, :show_users
