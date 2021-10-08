@@ -9,7 +9,7 @@ RSpec.describe '検索機能のテスト', type: :system do
       other_users
     end
     context 'ユーザー名「テスト」で検索すると' do
-      it '「テストユーザー」のみ表示される' do
+      it '「TESTUSER]は表示されない' do
         visit users_path
         fill_in 'search-username', with: 'テスト'
         find_by_id('search-submit-btn').click
@@ -51,7 +51,7 @@ RSpec.describe '検索機能のテスト', type: :system do
       end
     end
     context 'タグ名で検索すると' do
-      it '対象のタグを持つアイテムのみが表示される' do
+      it '対象の文字列を含むタグと紐づいたアイテムのみが表示される' do
         visit items_path
         fill_in 'search-tagname', with: 'テストタグ'
         find_by_id('search-submit-btn').click
@@ -73,6 +73,26 @@ RSpec.describe '検索機能のテスト', type: :system do
         expect(page).not_to have_content 'テストアイテム'
         find_by_id('search-reset-btn').click
         expect(page).to have_content 'TESTITEM'
+      end
+    end
+  end
+  describe 'タグ一覧画面での検索機能テスト', js: true do
+    let(:user) { create(:user) }
+    let!(:post) { create(:post) }
+    let!(:tagpost) { create(:changed_tagname_post) }
+    before(:each) do
+      sign_in user
+    end
+    context 'タグ名で検索すると' do
+      it '対象のタグのみが表示される' do
+        visit tags_path
+        expect(page).to have_content 'TESTTAG'
+        fill_in 'search-tagname', with: 'テストタグ'
+        find_by_id('search-submit-btn').click
+        expect(page).to have_content 'テストタグ'
+        expect(page).not_to have_content 'TESTTAG'
+        find_by_id('search-reset-btn').click
+        expect(page).to have_content 'TESTTAG'
       end
     end
   end

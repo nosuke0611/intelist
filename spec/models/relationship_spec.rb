@@ -5,26 +5,34 @@ RSpec.describe Relationship, type: :model do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) }
     let(:relationship) { user.active_relationships.build(followed_id: other_user.id) }
-
-    # バリデーションを通過する例
-    context 'フォロー、フォロワーが正しく存在する場合' do
-      it '正常に登録される' do
+    context 'バリデーションを通過するケース' do
+      it 'フォロー、フォロワーともに存在する場合は正常に登録される' do
         expect(relationship).to be_valid
       end
     end
-
-    # バリデーションを通過しない例
-    context 'フォロワーIDがnilの場合' do
-      it 'リレーションシップを作成できない' do
+    context 'バリデーションを通過しないケース' do
+      it 'フォロワーがnilの場合はリレーションシップを作成できない' do
         relationship.follower_id = nil
         expect(relationship).to be_invalid
       end
-    end
-
-    context ' フォローIDがnilの場合' do
-      it 'リレーションシップを作成できない' do
+      it 'フォローがnilの場合はリレーションシップを作成できない' do
         relationship.followed_id = nil
         expect(relationship).to be_invalid
+      end
+    end
+  end
+  describe 'Relationshipモデルの削除処理' do
+    let!(:user) { create(:user) }
+    let!(:other_user) { create(:user) }
+    let!(:relationship) { user.active_relationships.create(followed_id: other_user.id) }
+    context 'フォローしている側のユーザーが削除された場合' do
+      it 'フォローされていた側のユーザーのフォロワーから削除される' do
+        expect { user.destroy }.to change { other_user.passive_relationships.count }.by(-1)
+      end
+    end
+    context 'フォローされている側のユーザーが削除された場合' do
+      it 'フォローしている側のユーザーのフォローから削除される' do
+        expect { other_user.destroy }.to change { user.active_relationships.count }.by(-1)
       end
     end
   end

@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   has_many :posts, dependent: :nullify
   has_many :users, through: :posts
+  validates :item_name, presence: true
 
   # 紐づいた投稿のタグをすべて取得
   def tags
