@@ -22,12 +22,11 @@ RSpec.describe Post, type: :model do
       end
     end
   end
-
   describe 'Postモデルの削除処理' do
-    context 'Userモデルを削除した場合' do
+    context '投稿したユーザーを削除した場合' do
       it '紐づく投稿も削除される' do
-        testpost = create(:post)
-        expect { testpost.user.destroy }.to change { Post.count }.by(-1)
+        test_post = create(:post)
+        expect { test_post.user.destroy }.to change { Post.count }.by(-1)
       end
     end
   end

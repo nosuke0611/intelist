@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
       respond_to :js
     else
       flash[:alert] = 'コメントに失敗しました'
+      redirect_to request.referer
     end
   end
 
@@ -20,6 +21,7 @@ class CommentsController < ApplicationController
       respond_to :js
     else
       flash[:alert] = 'コメントの削除に失敗しました'
+      redirect_to request.referer
     end
   end
 
