@@ -18,7 +18,7 @@ class TagsController < ApplicationController
 
   # タグ一覧ソート方向変更用メソッド
   def tags_sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
 
   # ソート時に検索条件を引き継ぐためのメソッド
