@@ -44,11 +44,15 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
-    flash[:notice] = '投稿を削除しました'
-    if request.referer&.include?('posts')
-      redirect_to root_path
+    if @post.destroy
+      flash[:notice] = '投稿を削除しました'
+      if request.referer&.include?('posts')
+        redirect_to root_path
+      else
+        redirect_back(fallback_location: root_path)
+      end
     else
+      flash[:alert] = '投稿の削除に失敗しました'
       redirect_back(fallback_location: root_path)
     end
   end
@@ -69,8 +73,8 @@ class PostsController < ApplicationController
     end
 
     def correct_user
-      @post = current_user.posts.find(params[:post_id]) if action_name == 'complete' || action_name == 'uncomplete' 
-      @post = current_user.posts.find(params[:id])      if action_name == 'update' || action_name == 'destroy'
+      @post = current_user.posts.find_by(id: params[:post_id]) if action_name == 'complete' || action_name == 'uncomplete' 
+      @post = current_user.posts.find_by(id: params[:id])      if action_name == 'update' || action_name == 'destroy'
       redirect_back(fallback_location: root_path) if @post.nil?
     end
 end
