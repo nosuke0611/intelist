@@ -7,7 +7,10 @@ class CommentsController < ApplicationController
     @post = @comment.post
     if @comment.save
       @post.create_notification_comment!(current_user, @comment.id)
-      respond_to :js
+      respond_to do |format|
+        format.html { redirect_back(fallback_location: root_path) }
+        format.js
+      end
     else
       flash[:alert] = 'コメントに失敗しました'
       redirect_to request.referer
@@ -18,7 +21,10 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @post = @comment.post
     if @comment.destroy
-      respond_to :js
+      respond_to do |format|
+        format.html { redirect_back(fallback_location: root_path) }
+        format.js
+      end
     else
       flash[:alert] = 'コメントの削除に失敗しました'
       redirect_to request.referer
@@ -32,6 +38,6 @@ class CommentsController < ApplicationController
 
     def correct_user
       @comment = current_user.comments.find_by(id: params[:id])
-      redirect_back(follback_location: root_path) if @comment.nil?
+      redirect_back(fallback_location: root_path) if @comment.nil?
     end
 end

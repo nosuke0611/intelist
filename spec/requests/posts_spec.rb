@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
-  describe 'create' do
+  describe 'Post/ create' do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) } 
-    context 'postリクエストのparams内容による挙動確認' do
+    context 'params内容による挙動確認' do
       it 'アイテム名、タグ名ともに新規の場合は新規投稿作成を作成できる' do
         sign_in user
         test_params = { post: { item_name: 'テストアイテム', content: 'テスト投稿です', tag_name: 'テストタグ' } }
@@ -33,7 +33,7 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
-  describe 'delete' do
+  describe 'Delete/ destroy' do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) }
     context '本人による削除の場合' do

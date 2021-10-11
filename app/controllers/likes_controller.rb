@@ -11,6 +11,9 @@ class LikesController < ApplicationController
         format.html { redirect_back(fallback_location: root_path) }
         format.js
       end
+    else
+      flash[:alert] = 'いいねに失敗しました'
+      redirect_to request.referer
     end
   end
 
@@ -22,6 +25,9 @@ class LikesController < ApplicationController
         format.html { redirect_back(fallback_location: root_path) }
         format.js
       end
+    else
+      flash[:alert] = 'いいねの削除に失敗しました'
+      redirect_to request.referer
     end
   end
 
@@ -32,6 +38,6 @@ class LikesController < ApplicationController
 
     def correct_user
       @like = current_user.likes.find_by(id: params[:id])
-      redirect_back(follback_location: root_path) if @like.nil?
+      redirect_back(fallback_location: root_path) if @like.nil?
     end
 end
