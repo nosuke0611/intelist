@@ -89,10 +89,14 @@ RSpec.describe '検索機能のテスト', type: :system do
         expect(page).to have_content 'TESTTAG'
         fill_in 'search-tagname', with: 'テストタグ'
         find_by_id('search-submit-btn').click
-        expect(page).to have_content 'テストタグ'
-        expect(page).not_to have_content 'TESTTAG'
+        within('.main-tag') do
+          expect(page).to have_content 'テストタグ'
+          expect(page).not_to have_content 'TESTTAG'
+        end
         find_by_id('search-reset-btn').click
-        expect(page).to have_content 'TESTTAG'
+        within('.main-tag') do
+          expect(page).to have_content 'TESTTAG'
+        end
       end
     end
   end

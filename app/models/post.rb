@@ -106,7 +106,7 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   # いいね通知作成用
   def create_notification_like!(current_user)
-    temp = Notification.where(["visitor_id = ? and visited_id = ? and post_id = ? and action = ? ", current_user.id, user_id, id, 'like'])
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id, user_id, id, 'like'])
     return if temp.present?
     notification = current_user.active_notifications.build(
       post_id: id,

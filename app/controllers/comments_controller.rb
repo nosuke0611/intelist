@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
     end
 
     def correct_user
-      @comment = current_user.comments.find(params[:id])
+      @comment = current_user.comments.find_by(id: params[:id])
       redirect_back(follback_location: root_path) if @comment.nil?
     end
 end

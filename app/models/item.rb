@@ -10,7 +10,7 @@ class Item < ApplicationRecord
     posts.each do |post|
       tags_array << post.tags
     end
-    return tags_array.flatten
+    return tags_array.flatten.uniq
   end
 
   # 紐づいた投稿のユーザーをすべて取得
