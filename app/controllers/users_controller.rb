@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post = Post.new
-    @myposts = @user.posts.includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20)
+    @myposts = @user.posts.includes([:tags, :item, { comments: [:user] }]).public_and_by(current_user).page(params[:page]).per(20)
     @favposts = Post.all_liked_by(@user).includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20) if @myposts.blank?
     @composts = Post.all_commented_by(@user).includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20)\
       if (@myposts.blank? && @favposts.blank?) 
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   # マイページ投稿表示切替用
   def myposts
     @user = User.find(params[:id])
-    @myposts = @user.posts.includes([:tags, { comments: [:user] }]).page(params[:page]).per(20)
+    @myposts = @user.posts.includes([:tags, { comments: [:user] }]).public_and_by(current_user).page(params[:page]).per(20)
     @post = Post.new
   end
 
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   # マイアイテム
   def myitems
     @user = User.find(params[:id])
-    @user_posts = Post.includes(%i[tags post_tag_maps item]).where(user_id: @user.id)
+    @user_posts = Post.includes(%i[tags post_tag_maps item]).where(user_id: @user.id).public_and_by(current_user)
     @post = Post.new
     @search_params = post_search_params
     @posts = @user_posts.searched(@search_params).page(params[:page]).per(20).reorder("#{myitems_sort_column} #{myitems_sort_direction}")

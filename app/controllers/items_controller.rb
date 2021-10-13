@@ -10,9 +10,9 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @tags = @item.tags.uniq
-    @users = @item.users.uniq
+    @users = @item.public_users_and(current_user).uniq
     @post = Post.new
-    @show_posts = @item.posts.includes([:user, :tags, { comments: [:user] }]).page(params[:page]).per(20)
+    @show_posts = @item.posts.includes([:user, :tags, { comments: [:user] }]).public_and_by(current_user).page(params[:page]).per(20)
   end
 
   def show_links
@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @tags = @item.tags.uniq
     @post = Post.new
-    @users = @item.users.uniq
+    @users = @item.public_users_and(current_user).uniq
     @related_users = Kaminari.paginate_array(@users).page(params[:page]).per(20)
   end
 
