@@ -30,4 +30,26 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+  describe '取得範囲メソッドの動作確認' do
+    let(:user) { create(:user) }
+    let(:other_user) { create(:user) }
+    let!(:unfollowing_public_posts) { create(:post) }
+    context 'follow_onlyメソッドを使用した場合' do
+      it 'フォローしているユーザーの投稿のみを取得する' do
+        user.follow(other_user)
+        following_post = create(:post, user: other_user)
+        expect(Post.follow_only(user)).to include(following_post)
+        expect(Post.follow_only(user)).not_to include(unfollowing_public_posts)
+      end
+    end
+    context 'public_and_byメソッドを使用した場合' do
+      it '自分の投稿と公開投稿のみを取得する' do
+        self_post = create(:private_post, user: user)
+        private_post = create(:private_post, user: other_user)
+        expect(Post.public_and_by(user)).to include(self_post)
+        expect(Post.public_and_by(user)).to include(unfollowing_public_posts)
+        expect(Post.public_and_by(user)).not_to include(private_post)
+      end
+    end
+  end
 end

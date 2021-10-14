@@ -78,11 +78,6 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
     where(user_id: current_user.id).or(where(private: false))
   end
 
-  # 公開投稿のみ表示
-  scope :public_only, -> do
-    where(private: false)
-  end
-
   # マイアイテム絞り込み用
   scope :searched, -> (search_params) do
     return if search_params.blank?

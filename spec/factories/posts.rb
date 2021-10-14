@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :post do
     sequence(:id) { |n| n }
     sequence(:content) { |n| "TESTCONTENT-#{n}" }
+    private { false }
     association :user
     association :item
     after(:build) do |post|
@@ -25,6 +26,12 @@ FactoryBot.define do
     factory :completed_post do
       completed { true }
       association :item, item_name: '完了済アイテム'
+    end
+
+    factory :private_post do
+      private { true }
+      content { '非公開投稿' }
+      association :item, item_name: '非公開アイテム'
     end
   end
 end
