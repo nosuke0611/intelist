@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_03_085041) do
+ActiveRecord::Schema.define(version: 2021_10_12_154224) do
 
   create_table "comments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "comment", null: false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_10_03_085041) do
     t.datetime "completed_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "private", default: false, null: false
     t.index ["item_id"], name: "index_posts_on_item_id"
     t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
     t.index ["user_id", "item_id"], name: "index_posts_on_user_id_and_item_id"

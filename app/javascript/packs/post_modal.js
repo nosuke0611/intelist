@@ -1,3 +1,4 @@
+// 投稿中のローディング表示
 document.addEventListener("turbolinks:load", function () {
   $(function(){
     $('#post-submit-btn').on('click', function(){

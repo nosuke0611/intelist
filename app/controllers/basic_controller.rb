@@ -4,8 +4,11 @@ class BasicController < ApplicationController
   def home  
     if user_signed_in?
       @following_posts = Post.includes([:tags, :user, :item,
-                                        { comments: [:user] }]).where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).per(20)
-      @all_posts = Post.includes([:tags, :user, :item, { comments: [:user] }]).all.page(params[:page]).per(20) if @following_posts.blank?
+                                        { comments: [:user] }]).follow_only(current_user).public_and_by(current_user).page(params[:page]).per(20)
+      if @following_posts.blank?
+        @all_posts = Post.includes([:tags, :user, :item, 
+                                    { comments: [:user] }]).all.public_and_by(current_user).page(params[:page]).per(20)
+      end
       @post = Post.new
     else
       @posts = Post.new
@@ -15,12 +18,12 @@ class BasicController < ApplicationController
 
   # タイムライン切替用
   def followingtl
-    @following_posts = Post.where(user_id: [current_user.id, *current_user.following_ids]).page(params[:page]).per(20)
+    @following_posts = Post.follow_only(current_user).public_and_by(current_user).page(params[:page]).per(20)
     @post = Post.new 
   end
 
   def alltl
-    @all_posts = Post.all.page(params[:page]).per(20)
+    @all_posts = Post.all.public_and_by(current_user).page(params[:page]).per(20)
     @post = Post.new
   end
 end

@@ -16,7 +16,7 @@
         </td>
         <td><%= item.posts_count %></td>
         <td>
-          <% item.users.each do |user| %>
+          <% item.public_users_and(current_user).each do |user| %>
             <% if current_user.following?(user) %>
               <%= link_to user.name, user_path(user) %>
             <% end %>

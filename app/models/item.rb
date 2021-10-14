@@ -13,9 +13,9 @@ class Item < ApplicationRecord
     return tags_array.flatten.uniq
   end
 
-  # 紐づいた投稿のユーザーをすべて取得
-  def users
-    posts = self.posts.includes(:user)
+  # 紐づいた投稿のユーザーをすべて取得（非公開で投稿しているユーザーは除外）
+  def public_users_and(current_user)
+    posts = self.posts.includes(:user).public_and_by(current_user)
     users_array = Array.new
     posts.each do |post|
       users_array << post.user

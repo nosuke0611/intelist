@@ -68,6 +68,16 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.completed
   end
 
+  # 自分とフォローの投稿のみ表示
+  scope :follow_only, -> (current_user) do
+    where(user_id: [current_user.id, *current_user.following_ids])
+  end
+
+  # 自分の全投稿と他のユーザーの公開投稿のみ表示
+  scope :public_and_by, -> (current_user) do
+    where(user_id: current_user.id).or(where(private: false))
+  end
+
   # マイアイテム絞り込み用
   scope :searched, -> (search_params) do
     return if search_params.blank?
