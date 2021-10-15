@@ -92,13 +92,13 @@
 ### フロントエンド
 + HTML
 + Sass
-+ JavaScript（jQuery3.6.0）
-+ Bootstrap4.6.0
++ JavaScript（jQuery 3.6.0）
++ Bootstrap 4.6.0
 
 ### バックエンド
-+ Ruby3.0.2
++ Ruby 3.0.2
 + Ruby on Rails 6.1.4
-+ MySQL8.0.23
++ MySQL 8.0.23
 + 各種gem
 
 | gem名| 用途（記載している#は機能一覧の#を表します） |
@@ -115,16 +115,16 @@
 ### インフラ
 + 本番環境
     + AWS（VPC、EC2、RDS、S3、Route53、ALB、ACM、IAM）
-    + Nginx1.20.0
-    + Unicorn6.0.0
-    + Capistrano3.16.0
-    + CircleCI2.1
+    + Nginx 1.20.0
+    + Unicorn 6.0.0
+    + Capistrano 3.16.0
+    + CircleCI 2.1
 + 開発環境
-    + Docker20.10.8
-    + docker-compose1.29.2
+    + Docker 20.10.8
+    + docker-compose 1.29.2
 
 ### その他のツール
-+ git2.25.1 / GitHub
++ git 2.25.1 / GitHub
 <br>
 
 
