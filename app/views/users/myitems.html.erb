@@ -8,31 +8,31 @@
     <div class='my-3'><strong>絞り込み検索</strong></div>
       <%= form_with scope: :searched, url: myitems_user_path, class: 'search_form', method: :get, local: false do |f| %>
         <div class='form-group'>
-          <%= f.text_field :item_name, class: 'form-control', value: @search_params[:item_name], placeholder: 'アイテム名'%>
+          <%= f.text_field :item_name, class: 'form-control', value: @search_params[:item_name], placeholder: 'アイテム名', id: 'search-itemname' %>
         </div>
         <div class='form-group'>
-          <%= f.text_field :tag_name, class: 'form-control', value: @search_params[:tag_name], placeholder: 'タグ名'%>
+          <%= f.text_field :tag_name, class: 'form-control', value: @search_params[:tag_name], placeholder: 'タグ名', id: 'search-tagname' %>
         </div>
         <div class='form-group'>
           <div>
-            <%= f.radio_button :status, :both, checked: (@search_params[:status].blank? || @search_params[:status] == 'both') %>
+            <%= f.radio_button :status, :both, checked: (@search_params[:status].blank? || @search_params[:status] == 'both'), id: 'search-status-both' %>
             <%= f.label :status_both, 'どちらも' %>
           </div>
           <div>
-            <%= f.radio_button :status, :completed, checked: (@search_params[:status] == 'completed') %>
+            <%= f.radio_button :status, :completed, checked: (@search_params[:status] == 'completed'), id: 'search-status-completed' %>
             <%= f.label :status_completed, '完了済のみ' %>
           </div>
           <div>
-            <%= f.radio_button :status, :uncompleted, checked: (@search_params[:status] == 'uncompleted') %>
+            <%= f.radio_button :status, :uncompleted, checked: (@search_params[:status] == 'uncompleted'), id: 'search-status-uncompleted' %>
             <%= f.label :status_uncompleted, '未完了のみ' %>
           </div>
         </div>
         <div class='actions'>
-          <%= f.submit '検索', class: 'btn btn-primary' %>
+          <%= f.submit '検索', class: 'btn btn-primary', id: 'search-submit-btn' %>
         </div>
       <% end %>
     <div class='reset'>
-      <%= link_to 'リセット', myitems_user_path, class: 'btn btn-secondary mt-2' %>
+      <%= link_to 'リセット', myitems_user_path, class: 'btn btn-secondary mt-2', id: 'search-reset-btn' %>
     </div>
   </aside>
   <div class='items-area col-md-10'>

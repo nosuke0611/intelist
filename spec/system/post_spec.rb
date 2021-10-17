@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe '投稿機能のテスト', type: :system do
   let(:user) { create(:user) }
-
   describe 'トップページでの投稿作成処理' do
     before(:each) do 
       sign_in user
@@ -62,9 +61,8 @@ RSpec.describe '投稿機能のテスト', type: :system do
   end
   describe 'トップページでの投稿編集テスト' do
     before(:each) do
-      test_user = user
-      sign_in test_user
-      create(:post, user: test_user)
+      sign_in user
+      create(:post, user: user)
     end
     context '投稿を正常に編集できるケース' do
       it 'アイテム名を変更した場合問題なく保存できる' do

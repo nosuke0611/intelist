@@ -41,7 +41,22 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-  describe 'Item検索メソッドの動作確認' do
+  describe '取得範囲限定メソッドの動作確認' do
+    let(:user) { create(:user) }
+    let(:private_user) { create(:user, name: '非公開ユーザー') }
+    let(:test_item) { create(:item, item_name: 'テストアイテム') }
+    let(:post) { create(:post, item: test_item) }
+    context 'public_users_andメソッドを使用した場合' do
+      it '非公開で投稿したユーザーは取得されない' do
+        public_user = post.user
+        create(:post, item: test_item, user: user)
+        create(:post, item: test_item, user: private_user, private: true)
+        expect(test_item.public_users_and(user)).to include(user, public_user)
+        expect(test_item.public_users_and(user)).not_to include(private_user)
+      end
+    end
+  end
+  describe 'Item検索メソッドの動作確認' do 
     let!(:test_user) { create(:user, name: 'テストユーザー') }
     let!(:other_items) { create_list(:item, 3) }
     let!(:changed_item_post) { create(:changed_itemname_post) } 
@@ -50,32 +65,34 @@ RSpec.describe Item, type: :model do
       it '該当する名前のアイテムのみが表示される' do
         search_params = { item_name: 'テスト' } 
         expect(Item.searched(search_params)).to include(changed_item_post.item)
-        expect(Item.searched(search_params)).not_to include(other_items)
-        expect(Item.searched(search_params)).not_to include(changed_tag_post.item)
+        expect(Item.searched(search_params)).not_to include(other_items, changed_tag_post.item)
       end
     end
     context 'タグ名で検索した場合' do
       it '該当するタグが紐づいたアイテムのみが表示される' do
         search_params = { tag_name: 'テスト' } 
         expect(Item.searched(search_params)).to include(changed_tag_post.item)
-        expect(Item.searched(search_params)).not_to include(other_items)
-        expect(Item.searched(search_params)).not_to include(changed_item_post.item)
+        expect(Item.searched(search_params)).not_to include(other_items, changed_item_post.item)
       end
     end
     context 'ユーザー名で検索した場合' do
       it '該当するユーザーが投稿したアイテムのみが表示される' do
         search_params = { user_name: 'テスト' } 
         expect(Item.searched(search_params)).to include(changed_tag_post.item)
-        expect(Item.searched(search_params)).not_to include(other_items)
-        expect(Item.searched(search_params)).not_to include(changed_item_post.item)
+        expect(Item.searched(search_params)).not_to include(other_items, changed_item_post.item)
       end
     end
     context '複数条件で検索した場合' do
       it 'AND条件として該当するアイテムのみが表示される' do
         search_params = { user_name: 'テスト', tag_name: 'テスト' } 
         expect(Item.searched(search_params)).to include(changed_tag_post.item)
-        expect(Item.searched(search_params)).not_to include(other_items)
-        expect(Item.searched(search_params)).not_to include(changed_item_post.item)
+        expect(Item.searched(search_params)).not_to include(other_items, changed_item_post.item)
+      end
+    end
+    context '該当しない条件で検索した場合' do
+      it '空のコレクションを返す' do
+        search_params = { user_name: 'テスト', tag_name: 'BLANK' } 
+        expect(Item.searched(search_params)).to be_empty
       end
     end
   end

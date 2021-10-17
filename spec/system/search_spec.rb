@@ -100,4 +100,62 @@ RSpec.describe '検索機能のテスト', type: :system do
       end
     end
   end
+  describe 'マイアイテム一覧画面での検索機能テスト', js: true do
+    let(:user) { create(:user) }
+    let!(:post) { create(:post, user: user) }
+    let!(:itempost) { create(:changed_itemname_post, user: user) }
+    let!(:tagpost) { create(:changed_tagname_post, user: user) }
+    let!(:completedpost) { create(:completed_post, user: user) }
+    before(:each) do
+      sign_in user
+    end
+    context 'アイテム名で検索すると' do
+      it '対象のアイテムのみが表示される' do
+        visit myitems_user_path(user)
+        expect(page).to have_content 'TESTITEM'
+        fill_in 'search-itemname', with: 'テスト'
+        find_by_id('search-submit-btn').click
+        expect(page).to have_content 'テストアイテム'
+        expect(page).not_to have_content 'TESTITEM'
+        find_by_id('search-reset-btn').click
+        expect(page).to have_content 'TESTITEM'
+      end
+    end
+    context 'タグ名で検索すると' do
+      it '対象のアイテムのみが表示される' do
+        visit myitems_user_path(user)
+        expect(page).to have_content 'TESTITEM'
+        fill_in 'search-tagname', with: 'テスト'
+        find_by_id('search-submit-btn').click
+        expect(page).to have_content 'タグ名変更アイテム'
+        expect(page).not_to have_content 'TESTITEM'
+        find_by_id('search-reset-btn').click
+        expect(page).to have_content 'TESTITEM'
+      end
+    end
+    context '完了済のみで検索すると' do
+      it '対象のアイテムのみが表示される' do
+        visit myitems_user_path(user)
+        expect(page).to have_content 'TESTITEM'
+        choose 'search-status-completed'
+        find_by_id('search-submit-btn').click
+        expect(page).to have_content '完了済アイテム'
+        expect(page).not_to have_content 'TESTITEM'
+        find_by_id('search-reset-btn').click
+        expect(page).to have_content 'TESTITEM'
+      end
+    end
+    context '未完了のみで検索すると' do
+      it '対象のアイテムのみが表示される' do
+        visit myitems_user_path(user)
+        expect(page).to have_content '完了済アイテム'
+        choose 'search-status-uncompleted'
+        find_by_id('search-submit-btn').click
+        expect(page).to have_content 'TESTITEM'
+        expect(page).not_to have_content '完了済アイテム'
+        find_by_id('search-reset-btn').click
+        expect(page).to have_content '完了済アイテム'
+      end
+    end
+  end
 end
