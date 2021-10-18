@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :post do
     sequence(:id) { |n| n }
     sequence(:content) { |n| "TESTCONTENT-#{n}" }
+    completed { false }
     private { false }
     association :user
     association :item
@@ -25,6 +26,7 @@ FactoryBot.define do
 
     factory :completed_post do
       completed { true }
+      completed_at { Time.zone.now }
       association :item, item_name: '完了済アイテム'
     end
 

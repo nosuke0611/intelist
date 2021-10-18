@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
   def index
     @search_params = item_search_params
     @base_items = Item.searched(@search_params).unscope(:order).distinct
-    @items = @base_items.page(params[:page]).per(20).order("#{items_sort_column} #{items_sort_direction}")
+    @items = @base_items.page(params[:page]).per(20).order("#{items_sort_column} #{sort_direction}")
   end
   
   def show
@@ -55,19 +55,7 @@ class ItemsController < ApplicationController
     Item.column_names.include?(params[:column]) ? params[:column] : 'id'
   end
 
-  # アイテムー一覧ソート方向変更用メソッド
-  def items_sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
-  end
-
-  # ソート時に検索条件を引き継ぐためのメソッド
-  def take_item_search_params
-    { searched: { item_name: @search_params.try(:[], :item_name),
-                  tag_name: @search_params.try(:[], :tag_name),
-                  user_name: @search_params.try(:[], :user_name) } }
-  end
-
-  helper_method :items_sort_column, :items_sort_direction, :take_item_search_params
+  helper_method :items_sort_column
 
   private
     def item_params

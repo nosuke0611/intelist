@@ -99,6 +99,12 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
     joins(:user).merge(User.where('name LIKE ?', "%#{user_name}%"))
   }
 
+  scope :comp_status, ->(status){
+    return                         if status == 'both'
+    return where(completed: true)  if status == 'completed'
+    return where(completed: false) if status == 'uncompleted'
+  }
+
   # 投稿絞り込み用
   scope :all_liked_by, -> (user){
     joins(:likes).merge(Like.where(user_id: user.id))
@@ -106,12 +112,6 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   scope :all_commented_by, ->(user){
     joins(:comments).merge(Comment.where(user_id: user.id))
-  }
-
-  scope :comp_status, ->(status){
-    return                         if status == 'both'
-    return where(completed: true)  if status == 'completed'
-    return where(completed: false) if status == 'uncompleted'
   }
 
   # いいね通知作成用

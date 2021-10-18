@@ -11,7 +11,6 @@ RSpec.describe 'フォロー機能のテスト', type: :system do
       end
       sign_in user
     end
-    
     context 'フォロー解除をクリックした場合' do
       it '自身のフォロー数が－１' do
         visit user_path(user.following.first.id)
@@ -22,7 +21,6 @@ RSpec.describe 'フォロー機能のテスト', type: :system do
         end.to change(user.following, :count).by(-1)
       end
     end
-
     context 'フォローをクリックした場合' do
       it '自身のフォロー数が＋１' do
         visit user_path(other_users.last.id)
