@@ -1,19 +1,19 @@
 <table class='table'>
   <thead>
-    <th scope='col' class='col-md-1'></th>
-    <th scope='col' class='col-md-3'><%= users_sortable 'name', 'ユーザー名', take_search_params %></th>
-    <th scope='col' class='col-md-2'><%= users_sortable 'posts_count', '投稿数', take_search_params %></th>
-    <th scope='col' class='col-md-2'><%= users_sortable 'followings_count', 'フォロー数', take_search_params %></th>
-    <th scope='col' class='col-md-2'><%= users_sortable 'followers_count', 'フォロワー数', take_search_params %></th>
-    <th scope='col' class='col-md-2'></th>
+    <th scope='col' class='col-md-1' id='usericon-header'></th>
+    <th scope='col' class='col-md-3' id='username-header'><%= users_sortable 'name', 'ユーザー名', take_search_params %></th>
+    <th scope='col' class='col-md-2' id='postcount-header'><%= users_sortable 'posts_count', '投稿数', take_search_params %></th>
+    <th scope='col' class='col-md-2' id='followingscount-header'><%= users_sortable 'followings_count', 'フォロー数', take_search_params %></th>
+    <th scope='col' class='col-md-2' id='followerscount-header'><%= users_sortable 'followers_count', 'フォロワー数', take_search_params %></th>
+    <th scope='col' class='col-md-2' id='followform-header'></th>
   </thead>
   <tbody>
     <% users.each do |user| %>
-      <tr>
+      <tr class='user-list'>
         <td class='align-middle'>
           <%= show_avatar(user) %>
         </td>
-        <th class='align-middle'><%= link_to user.name, user_path(user) %></th>
+        <th class='align-middle user-name'><%= link_to user.name, user_path(user) %></th>
         <td class='align-middle'><%= link_to user.posts_count, user_path(user) %></td>
         <td class='align-middle'><%= link_to user.followings_count, relationships_user_path(user, link_name: 'following') %></td>
         <td id="user-<%= user.id %>-followers" class='align-middle'><%= link_to user.followers_count, relationships_user_path(user, link_name: 'followers') %></td>
