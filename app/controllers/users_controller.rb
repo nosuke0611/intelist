@@ -3,16 +3,23 @@ class UsersController < ApplicationController
   
   def index
     @search_params = user_search_params
-    @users = User.searched(@search_params).page(params[:page]).per(20).order("#{users_sort_column} #{sort_direction}")
+    @users = User.searched(@search_params).page(params[:page]).per(20)
+                 .order("#{users_sort_column} #{sort_direction}")
   end
 
   def show
     @user = User.find(params[:id])
     @post = Post.new
-    @myposts = @user.posts.includes([:tags, :item, { comments: [:user] }]).public_and_by(current_user).page(params[:page]).per(20)
-    @favposts = Post.all_liked_by(@user).includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20) if @myposts.blank?
-    @composts = Post.all_commented_by(@user).includes([:tags, :item, { comments: [:user] }]).page(params[:page]).per(20)\
-      if (@myposts.blank? && @favposts.blank?) 
+    @myposts = @user.posts.includes([:tags, :item, { comments: [:user] }])
+                    .public_and_by(current_user).page(params[:page]).per(20)
+    return if @myposts.present?
+
+    @favposts = Post.includes([:tags, :item, { comments: [:user] }])
+                    .all_liked_by(@user).page(params[:page]).per(20)
+    return if @favposts.present?
+
+    @composts = Post.includes([:tags, :item, { comments: [:user] }])
+                    .all_commented_by(@user).page(params[:page]).per(20)
   end
 
   # マイページフォロー/フォロワー表示
@@ -41,29 +48,34 @@ class UsersController < ApplicationController
   # マイページ投稿表示切替用
   def myposts
     @user = User.find(params[:id])
-    @myposts = @user.posts.includes([:tags, { comments: [:user] }]).public_and_by(current_user).page(params[:page]).per(20)
+    @myposts = @user.posts.includes([:tags, { comments: [:user] }])
+                    .public_and_by(current_user).page(params[:page]).per(20)
     @post = Post.new
   end
 
   def favposts
     @user = User.find(params[:id])
-    @favposts = Post.includes([:tags, { comments: [:user] }]).all_liked_by(@user).page(params[:page]).per(20)
+    @favposts = Post.includes([:tags, { comments: [:user] }])
+                    .all_liked_by(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 
   def composts
     @user = User.find(params[:id])
-    @composts = Post.includes([:tags, { comments: [:user] }]).all_commented_by(@user).page(params[:page]).per(20)
+    @composts = Post.includes([:tags, { comments: [:user] }])
+                    .all_commented_by(@user).page(params[:page]).per(20)
     @post = Post.new
   end
 
   # マイアイテム
   def myitems
     @user = User.find(params[:id])
-    @user_posts = Post.includes(%i[tags post_tag_maps item]).where(user_id: @user.id).public_and_by(current_user)
+    @user_posts = Post.includes(%i[tags post_tag_maps item])
+                      .where(user_id: @user.id).public_and_by(current_user)
     @post = Post.new
     @search_params = post_search_params
-    @posts = @user_posts.searched(@search_params).page(params[:page]).per(20).reorder("#{myitems_sort_column} #{sort_direction}")
+    @posts = @user_posts.searched(@search_params).page(params[:page]).per(20)
+                        .reorder("#{myitems_sort_column} #{sort_direction}")
   end
 
   # ユーザー一覧ソート用メソッド（デフォルトはid降順）

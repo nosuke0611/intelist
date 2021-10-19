@@ -10,14 +10,14 @@
   <tbody>
     <% users.each do |user| %>
       <tr class='user-list'>
-        <td class='align-middle'>
+        <td class='align-middle user-icon'>
           <%= show_avatar(user) %>
         </td>
         <th class='align-middle user-name'><%= link_to user.name, user_path(user) %></th>
-        <td class='align-middle'><%= link_to user.posts_count, user_path(user) %></td>
-        <td class='align-middle'><%= link_to user.followings_count, relationships_user_path(user, link_name: 'following') %></td>
-        <td id="user-<%= user.id %>-followers" class='align-middle'><%= link_to user.followers_count, relationships_user_path(user, link_name: 'followers') %></td>
-        <td>
+        <td class='align-middle post-count'><%= link_to user.posts_count, user_path(user) %></td>
+        <td class='align-middle followings-count'><%= link_to user.followings_count, relationships_user_path(user, link_name: 'following') %></td>
+        <td class='align-middle followers-count' id="user-<%= user.id %>-followers"><%= link_to user.followers_count, relationships_user_path(user, link_name: 'followers') %></td>
+        <td class='align-middle follow-form'>
           <%= render 'partial/users/follow_form',  user: user %>
         </td>
       </tr>

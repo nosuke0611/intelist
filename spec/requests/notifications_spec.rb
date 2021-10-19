@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Notifications", type: :request do
+RSpec.describe 'Notifications', type: :request do
   describe '通知の作成確認' do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) }

@@ -3,11 +3,11 @@ class BasicController < ApplicationController
   
   def home  
     if user_signed_in?
-      @following_posts = Post.includes([:tags, :user, :item,
-                                        { comments: [:user] }]).follow_only(current_user).public_and_by(current_user).page(params[:page]).per(20)
+      @following_posts = Post.includes([:tags, :user, :item, { comments: [:user] }])
+                             .follow_only(current_user).public_and_by(current_user).page(params[:page]).per(20)
       if @following_posts.blank?
-        @all_posts = Post.includes([:tags, :user, :item, 
-                                    { comments: [:user] }]).all.public_and_by(current_user).page(params[:page]).per(20)
+        @all_posts = Post.includes([:tags, :user, :item, { comments: [:user] }])
+                         .all.public_and_by(current_user).page(params[:page]).per(20)
       end
       @post = Post.new
     else

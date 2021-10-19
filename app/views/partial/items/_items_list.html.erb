@@ -1,21 +1,21 @@
-<table class='table col-md-12'>
+<table class='table'>
   <thead>
-    <th scope='col' class='col-md-3'><%= items_sortable 'item_name', 'アイテム名', take_search_params %></th>
-    <th scope='col' class='col-md-4'>タグ</th>
-    <th scope='col' class='col-md-2'><%= items_sortable 'posts_count', '投稿数', take_search_params %></th>
-    <th scope='col' class='col-md-3'>興味を持っているフォロー</th>
+    <th scope='col' class='col-md-3' id='itemname-header'><%= items_sortable 'item_name', 'アイテム名', take_search_params %></th>
+    <th scope='col' class='col-md-4' id='relatedtag-header'>タグ</th>
+    <th scope='col' class='col-md-2' id='postcount-header'><%= items_sortable 'posts_count', '投稿数', take_search_params %></th>
+    <th scope='col' class='col-md-3' id='relatedfollowing-header'>興味を持っているフォロー</th>
   </thead>
   <tbody>
     <% items.each do |item| %>
-      <tr>
-        <th><%= link_to item.item_name, item %></th>
-        <td>
+      <tr class='item-list'>
+        <th class='align-midele item-name'><%= link_to item.item_name, item %></th>
+        <td class='align-midele related-tag'>
           <% item.tags.each do |tag| %>
             <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
           <% end %>
         </td>
-        <td><%= item.posts_count %></td>
-        <td>
+        <td class='align-midele post-count'><%= item.posts_count %></td>
+        <td class='align-midele related-following'>
           <% item.public_users_and(current_user).each do |user| %>
             <% if current_user.following?(user) %>
               <%= link_to user.name, user_path(user) %>
