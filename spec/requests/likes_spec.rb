@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Likes", type: :request do
+RSpec.describe 'Likes', type: :request do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let(:self_post) { create(:post, user: user) }

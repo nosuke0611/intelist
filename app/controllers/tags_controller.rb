@@ -4,7 +4,8 @@ class TagsController < ApplicationController
   def index
     @search_params = tag_search_params
     @all_tags = Tag.joins(:post_tag_maps).group(:tag_id)
-    @tags = @all_tags.searched(@search_params).page(params[:page]).per(40).order("#{tags_sort_column} #{sort_direction}")
+    @tags = @all_tags.searched(@search_params).page(params[:page]).per(40)
+                     .order("#{tags_sort_column} #{sort_direction}")
   end
 
   # タグ一覧ソート用メソッド（デフォルトは投稿数降順）

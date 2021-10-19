@@ -39,7 +39,8 @@ class PostsController < ApplicationController
       @post.save_tags(tag_list)
       if @post.url.present?
         thumbnails = @post.thumbnail
-        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], 
+                     ref_image: thumbnails[:image])
       end
       flash[:notice] = '投稿を編集しました'
       redirect_back(fallback_location: root_path)
@@ -79,8 +80,10 @@ class PostsController < ApplicationController
     end
 
     def correct_user
-      @post = current_user.posts.find_by(id: params[:post_id]) if action_name == 'complete' || action_name == 'uncomplete' 
-      @post = current_user.posts.find_by(id: params[:id])      if action_name == 'update' || action_name == 'destroy'
+      if action_name == 'complete' || action_name == 'uncomplete'
+        @post = current_user.posts.find_by(id: params[:post_id])
+      end 
+      @post = current_user.posts.find_by(id: params[:id]) if action_name == 'update' || action_name == 'destroy'
       redirect_back(fallback_location: root_path) if @post.nil?
     end
 end

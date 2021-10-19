@@ -7,7 +7,7 @@ require:
 
 AllCops:
   # Rubyバージョン指定
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.0
   # 除外
   Exclude:
     - 'config.ru'
@@ -18,6 +18,7 @@ AllCops:
     - 'script/**/*'
     - 'node_modules/**/*'
     - 'vendor/**/*'
+    - 'Gemfile'
     - !ruby/regexp /old_and_unused\.rb$/
 
 Rails/FilePath:

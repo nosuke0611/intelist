@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Tags", type: :request do
+RSpec.describe 'Tags', type: :request do
   let(:user) { create(:user) }
   let(:changed_tagname_post) { create(:changed_tagname_post) }
   describe '投稿時のタグに関する挙動確認' do

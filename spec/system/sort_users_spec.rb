@@ -5,6 +5,7 @@ RSpec.describe 'ソート機能のテスト', type: :system do
     let!(:first_user) { create(:user, name: 'ユーザー1') }
     let!(:second_user) { create(:user, name: 'ユーザー2') }
     let!(:third_user) { create(:user, name: 'ユーザー3') }
+    let(:tenth_user) { create(:user, name: 'ユーザー10') }
     before(:each) do
       sign_in first_user
     end
@@ -92,6 +93,37 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         expect(users_list[0]).to have_content 'ユーザー3'
         expect(users_list[1]).to have_content 'ユーザー2'
         expect(users_list[2]).to have_content 'ユーザー1'
+      end
+    end
+    context '検索後にソートを行った場合' do
+      it '検索結果を引き継いでソートする' do
+        tenth_user
+        visit users_path
+        wait_for_css_appear('.users-area')
+        fill_in 'search-username', with: '1'
+        find_by_id('search-submit-btn').click
+        expect(page).to have_content 'ユーザー1'
+        expect(page).to have_content 'ユーザー10'
+        expect(page).not_to have_content 'ユーザー2'
+        expect(page).not_to have_content 'ユーザー3'
+        within('thead') { click_on 'ユーザー名' }
+        wait_for_ajax do
+          expect(page).to have_content 'ユーザー10'
+        end
+        users_list = all('.user-list')
+        expect(users_list[0]).to have_content 'ユーザー1'
+        expect(users_list[1]).to have_content 'ユーザー10'
+        expect(page).not_to have_content 'ユーザー2'
+        expect(page).not_to have_content 'ユーザー3'
+        within('thead') { click_on 'ユーザー名' }
+        wait_for_ajax do
+          expect(page).to have_content 'ユーザー1'
+        end
+        users_list = all('.user-list')
+        expect(users_list[0]).to have_content 'ユーザー10'
+        expect(users_list[1]).to have_content 'ユーザー1'
+        expect(page).not_to have_content 'ユーザー2'
+        expect(page).not_to have_content 'ユーザー3'
       end
     end
   end

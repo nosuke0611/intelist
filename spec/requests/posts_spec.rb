@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Posts", type: :request do
+RSpec.describe 'Posts', type: :request do
   describe 'Post/ create' do
     let(:user) { create(:user) }
     let(:other_user) { create(:user) } 
