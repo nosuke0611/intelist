@@ -17,32 +17,32 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   # タグ作成
   def save_tags(tag_list)
-    current_tags = self.tags.pluck(:tag_name) unless self.tags.nil?
+    current_tags = tags.pluck(:tag_name) unless tags.nil?
     old_tags = current_tags - tag_list
     new_tags = tag_list - current_tags
 
     old_tags.each do |old_tag|
-      self.tags.delete Tag.find_by(tag_name: old_tag)
+      tags.delete Tag.find_by(tag_name: old_tag)
     end
 
     new_tags.each do |new_tag|
       add_tag = Tag.find_or_create_by(tag_name: new_tag)
-      self.tags << add_tag
+      tags << add_tag
     end
   end
 
   # DBへのサムネイル情報保存
   def create_thumbnails
-    return if self.url.blank?
-    thumbnails = self.thumbnail
-    self.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
+    return if url.blank?
+    thumbnails = thumbnail
+    update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
   end
 
   # APIでのデータ取得
   def thumbnail
     api_key = ENV['LINKWABE_API_KEY']
     base_url = 'https://api.linkpreview.net'
-    alt_url = self.url
+    alt_url = url
     HTTParty.post("#{base_url}?key=#{api_key}&q=#{alt_url}").symbolize_keys
   end
 
@@ -55,31 +55,27 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def complete
     self.completed = true
     self.completed_at = Time.current
-    self.save
+    save
   end
 
   def uncomplete
     self.completed = false
     self.completed_at = nil
-    self.save
+    save
   end 
 
-  def completed?
-    self.completed
-  end
-
   # 自分とフォローの投稿のみ表示
-  scope :follow_only, -> (current_user) do
+  scope :follow_only, ->(current_user) do
     where(user_id: [current_user.id, *current_user.following_ids])
   end
 
   # 自分の全投稿と他のユーザーの公開投稿のみ表示
-  scope :public_and_by, -> (current_user) do
+  scope :public_and_by, ->(current_user) do
     where(user_id: current_user.id).or(where(private: false))
   end
 
   # マイアイテム絞り込み用
-  scope :searched, -> (search_params) do
+  scope :searched, ->(search_params) do
     return if search_params.blank?
     has_item_name(search_params[:item_name])
       .has_tag_name(search_params[:tag_name])
@@ -87,15 +83,15 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   # アイテム絞り込み検索用
-  scope :has_item_name, -> (item_name){
+  scope :has_item_name, ->(item_name){
     joins(:item).merge(Item.where('item_name LIKE?', "%#{item_name}%")) if item_name.present?
   }
 
-  scope :has_tag_name, -> (tag_name){
+  scope :has_tag_name, ->(tag_name){
     joins(:tags).merge(Tag.where('tag_name LIKE ?', "%#{tag_name}%")) if tag_name.present?
   }
 
-  scope :has_user_name, -> (user_name){
+  scope :has_user_name, ->(user_name){
     joins(:user).merge(User.where('name LIKE ?', "%#{user_name}%"))
   }
 
@@ -106,7 +102,7 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   }
 
   # 投稿絞り込み用
-  scope :all_liked_by, -> (user){
+  scope :all_liked_by, ->(user){
     joins(:likes).merge(Like.where(user_id: user.id))
   }
 

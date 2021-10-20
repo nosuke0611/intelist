@@ -42,6 +42,10 @@ ClassAndModuleChildren:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+# scopeにおける->表記を許可
+Style/Lambda:
+  Enabled: false
+
 # テストコードに関してはトータル行数を無視
 Metrics/BlockLength:
   Exclude:

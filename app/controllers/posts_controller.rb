@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user, except: %i(create show)
+  before_action :correct_user, except: %i[create show]
 
   def create
     @post = current_user.posts.build(post_params)
