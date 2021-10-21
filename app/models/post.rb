@@ -62,7 +62,7 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.completed = false
     self.completed_at = nil
     save
-  end 
+  end
 
   # 自分とフォローの投稿のみ表示
   scope :follow_only, ->(current_user) do
@@ -83,36 +83,36 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   end
 
   # アイテム絞り込み検索用
-  scope :has_item_name, ->(item_name){
+  scope :has_item_name, ->(item_name) {
     joins(:item).merge(Item.where('item_name LIKE?', "%#{item_name}%")) if item_name.present?
   }
 
-  scope :has_tag_name, ->(tag_name){
+  scope :has_tag_name, ->(tag_name) {
     joins(:tags).merge(Tag.where('tag_name LIKE ?', "%#{tag_name}%")) if tag_name.present?
   }
 
-  scope :has_user_name, ->(user_name){
+  scope :has_user_name, ->(user_name) {
     joins(:user).merge(User.where('name LIKE ?', "%#{user_name}%"))
   }
 
-  scope :comp_status, ->(status){
+  scope :comp_status, ->(status) {
     return                         if status == 'both'
     return where(completed: true)  if status == 'completed'
     return where(completed: false) if status == 'uncompleted'
   }
 
   # 投稿絞り込み用
-  scope :all_liked_by, ->(user){
+  scope :all_liked_by, ->(user) {
     joins(:likes).merge(Like.where(user_id: user.id))
   }
 
-  scope :all_commented_by, ->(user){
+  scope :all_commented_by, ->(user) {
     joins(:comments).merge(Comment.where(user_id: user.id))
   }
 
   # いいね通知作成用
   def create_notification_like!(current_user)
-    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id, 
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id,
                                user_id, id, 'like'])
     return if temp.present?
     notification = current_user.active_notifications.build(

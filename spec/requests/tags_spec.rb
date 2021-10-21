@@ -33,6 +33,6 @@ RSpec.describe 'Tags', type: :request do
           post posts_path, params: post_params
         end.to change(Tag, :count).by(0)
       end
-    end 
+    end
   end
 end

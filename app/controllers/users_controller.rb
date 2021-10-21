@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @search_params = user_search_params
     @users = User.searched(@search_params).page(params[:page]).per(20)
@@ -34,15 +34,15 @@ class UsersController < ApplicationController
   end
 
   def following
-    @user  = User.find(params[:id])
+    @user = User.find(params[:id])
     @post = Post.new
-    @following_users = @user.following.page(params[:page]).per(20) 
+    @following_users = @user.following.page(params[:page]).per(20)
   end
 
   def followers
-    @user  = User.find(params[:id])
+    @user = User.find(params[:id])
     @post = Post.new
-    @followers_users = @user.followers.page(params[:page]).per(20) 
+    @followers_users = @user.followers.page(params[:page]).per(20)
   end
 
   # マイページ投稿表示切替用
@@ -82,7 +82,7 @@ class UsersController < ApplicationController
   def users_sort_column
     User.column_names.include?(params[:column]) ? params[:column] : 'id'
   end
-  
+
   # マイアイテム一覧ソート用メソッド（デフォルトはid降順）
   def myitems_sort_column
     if Post.column_names.include?(params[:column])

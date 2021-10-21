@@ -52,9 +52,9 @@ RSpec.describe Post, type: :model do
     end
   end
   # マイアイテム一覧ページでの検索機能
-  describe '検索メソッドの動作確認' do 
+  describe '検索メソッドの動作確認' do
     let!(:test_user) { create(:user, name: 'テストユーザー') }
-    let!(:changed_item_post) { create(:changed_itemname_post, user: test_user) } 
+    let!(:changed_item_post) { create(:changed_itemname_post, user: test_user) }
     let!(:changed_tag_post) { create(:changed_tagname_post, user: test_user) }
     let!(:completed_post) { create(:completed_post, user: test_user) }
     context 'アイテム名で検索した場合' do

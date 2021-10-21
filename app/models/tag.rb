@@ -16,7 +16,7 @@ class Tag < ApplicationRecord
     end
     related_tag_array.flatten.uniq - self_array
   end
-  
+
   scope :searched, ->(search_params) do
     return if search_params.blank?
 

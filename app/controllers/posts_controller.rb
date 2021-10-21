@@ -16,14 +16,14 @@ class PostsController < ApplicationController
         flash[:alert] = '投稿に失敗しました'
       end
     else
-      flash[:alert] = 'アイテム名は必須です' 
+      flash[:alert] = 'アイテム名は必須です'
     end
     redirect_back(fallback_location: root_path)
   end
 
   def show
     @post = Post.includes([:user, { comments: [:user], likes: [:user] }]).find(params[:id])
-    return if @post.user != current_user 
+    return if @post.user != current_user
 
     return if @post.private != true
 
@@ -39,7 +39,7 @@ class PostsController < ApplicationController
       @post.save_tags(tag_list)
       if @post.url.present?
         thumbnails = @post.thumbnail
-        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], 
+        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description],
                      ref_image: thumbnails[:image])
       end
       flash[:notice] = '投稿を編集しました'
@@ -73,7 +73,7 @@ class PostsController < ApplicationController
     @post.uncomplete
     redirect_back(fallback_location: post_url(@post))
   end
-  
+
   private
     def post_params
       params.require(:post).permit(:content, :url, :private)
@@ -82,7 +82,7 @@ class PostsController < ApplicationController
     def correct_user
       if action_name == 'complete' || action_name == 'uncomplete'
         @post = current_user.posts.find_by(id: params[:post_id])
-      end 
+      end
       @post = current_user.posts.find_by(id: params[:id]) if action_name == 'update' || action_name == 'destroy'
       redirect_back(fallback_location: root_path) if @post.nil?
     end

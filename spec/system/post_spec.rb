@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe '投稿機能のテスト', type: :system do
   let(:user) { create(:user) }
   describe 'トップページでの投稿作成処理' do
-    before(:each) do 
+    before(:each) do
       sign_in user
     end
     context '投稿作成前の場合' do

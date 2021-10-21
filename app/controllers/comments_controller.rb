@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, except: :create
-  
+
   def create
     @comment = Comment.new(comment_params)
     @post = @comment.post

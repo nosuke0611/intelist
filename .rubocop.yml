@@ -12,7 +12,7 @@ AllCops:
   Exclude:
     - 'config.ru'
     - 'bin/**'
-    - 'lib/**'
+    - 'lib/**/*'
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
@@ -50,3 +50,8 @@ Style/Lambda:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+# メソッドの行数を20行までに変更
+Metrics/MethodLength:
+  Max: 20
+
