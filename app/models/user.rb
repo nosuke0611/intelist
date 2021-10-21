@@ -77,18 +77,18 @@ class User < ApplicationRecord
   def like?(post)
     like_posts.include?(post)
   end
-  
+
   def own?(object)
     id == object.user_id
   end
 
   # ユーザー名での絞り込み
-  scope :searched, lambda { |search_params|
+  scope :searched, ->(search_params) do
     return if search_params.blank?
 
     name = search_params[:user_name]
     where(['name Like ?', "%#{name}%"])
-  }
+  end
 
   private
     def downcase_email

@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
         expect(user.errors[:email]).to include(':メールアドレスが入力されていません')
       end
       it 'emailが255文字を超えた場合は無効になる' do
-        user.email = 'a' * 244 + 'example.com'
+        user.email = "#{'a' * 244}example.com"
         expect(user).to be_invalid
       end
       it 'emailが既存ユーザーと重複している場合無効になる' do

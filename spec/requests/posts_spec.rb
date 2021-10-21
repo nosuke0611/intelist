@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Posts', type: :request do
   describe 'Post/ create' do
     let(:user) { create(:user) }
-    let(:other_user) { create(:user) } 
+    let(:other_user) { create(:user) }
     context 'params内容による挙動確認' do
       it 'アイテム名、タグ名ともに新規の場合は新規投稿作成を作成できる' do
         sign_in user

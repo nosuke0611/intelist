@@ -16,11 +16,11 @@ class Tag < ApplicationRecord
     end
     related_tag_array.flatten.uniq - self_array
   end
-  
-  scope :searched, lambda { |search_params|
+
+  scope :searched, ->(search_params) do
     return if search_params.blank?
 
     tag_name = search_params[:tag_name]
     where(['tag_name Like ?', "%#{tag_name}%"])
-  }
+  end
 end

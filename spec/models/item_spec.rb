@@ -56,42 +56,42 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-  describe 'Item検索メソッドの動作確認' do 
+  describe 'Item検索メソッドの動作確認' do
     let!(:test_user) { create(:user, name: 'テストユーザー') }
     let!(:other_items) { create_list(:item, 3) }
-    let!(:changed_item_post) { create(:changed_itemname_post) } 
+    let!(:changed_item_post) { create(:changed_itemname_post) }
     let!(:changed_tag_post) { create(:changed_tagname_post, user: test_user) }
     context 'アイテム名で検索した場合' do
       it '該当する名前のアイテムのみが表示される' do
-        search_params = { item_name: 'テスト' } 
+        search_params = { item_name: 'テスト' }
         expect(Item.searched(search_params)).to include(changed_item_post.item)
         expect(Item.searched(search_params)).not_to include(other_items, changed_tag_post.item)
       end
     end
     context 'タグ名で検索した場合' do
       it '該当するタグが紐づいたアイテムのみが表示される' do
-        search_params = { tag_name: 'テスト' } 
+        search_params = { tag_name: 'テスト' }
         expect(Item.searched(search_params)).to include(changed_tag_post.item)
         expect(Item.searched(search_params)).not_to include(other_items, changed_item_post.item)
       end
     end
     context 'ユーザー名で検索した場合' do
       it '該当するユーザーが投稿したアイテムのみが表示される' do
-        search_params = { user_name: 'テスト' } 
+        search_params = { user_name: 'テスト' }
         expect(Item.searched(search_params)).to include(changed_tag_post.item)
         expect(Item.searched(search_params)).not_to include(other_items, changed_item_post.item)
       end
     end
     context '複数条件で検索した場合' do
       it 'AND条件として該当するアイテムのみが表示される' do
-        search_params = { user_name: 'テスト', tag_name: 'テスト' } 
+        search_params = { user_name: 'テスト', tag_name: 'テスト' }
         expect(Item.searched(search_params)).to include(changed_tag_post.item)
         expect(Item.searched(search_params)).not_to include(other_items, changed_item_post.item)
       end
     end
     context '該当しない条件で検索した場合' do
       it '空のコレクションを返す' do
-        search_params = { user_name: 'テスト', tag_name: 'BLANK' } 
+        search_params = { user_name: 'テスト', tag_name: 'BLANK' }
         expect(Item.searched(search_params)).to be_empty
       end
     end

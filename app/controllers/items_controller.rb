@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     @items = @base_items.page(params[:page]).per(20)
                         .order("#{items_sort_column} #{sort_direction}")
   end
-  
+
   def show
     @item = Item.find(params[:id])
     @tags = @item.tags.uniq
