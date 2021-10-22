@@ -26,12 +26,14 @@ class Item < ApplicationRecord
   # アイテムの期間別投稿数を取得
   def period_count(period)
     return posts.count if period == 'all'
+
     posts.where('created_at >= ?', period).count
   end
 
   # 絞り込み検索用
   scope :searched, ->(search_params) do
     return if search_params.blank?
+
     has_name(search_params[:item_name])
       .has_tag(search_params[:tag_name])
       .has_user(search_params[:user_name])
