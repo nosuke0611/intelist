@@ -23,12 +23,14 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.includes([:user, { comments: [:user], likes: [:user] }]).find(params[:id])
-    return if @post.user != current_user
+    return unless @post.private == true
 
-    return if @post.private != true
-
-    flash[:alert] = '投稿は非公開です'
-    redirect_back(fallback_location: root_path)
+    if @post.user == current_user
+      @post
+    else
+      flash[:alert] = '投稿は非公開です'
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def update

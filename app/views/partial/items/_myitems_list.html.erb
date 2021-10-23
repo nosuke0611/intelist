@@ -10,7 +10,12 @@
     <tbody>
       <% posts.each do |post| %>
         <tr>
-          <th><%= link_to post.item.item_name, post.item %></th>
+          <th>
+            <%= link_to post.item.item_name, post.item %>
+            <% if post.private? %>
+              <i class='fas fa-lock'></i>
+            <% end %>
+          </th>
           <td>
             <% post.tags.each do |tag| %>
               <%= link_to tag.tag_name, myitems_user_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
