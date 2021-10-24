@@ -20,9 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def destroy_internal; end
 
   protected
+
     # パスワード入力なしで自身のユーザー情報を変更可能に
     def update_resource(resource, params)
       resource.update_without_current_password(params)
     end
-
 end

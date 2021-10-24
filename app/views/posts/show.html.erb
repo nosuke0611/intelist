@@ -21,7 +21,11 @@
         <div class='timestamp pl-1'><%= l(@post.created_at) %> の投稿</div>
         <ul class='list-group list-group-flush'>
           <li class='list-group-item'>
-            <span>アイテム名｜　<strong><%= link_to @post.item.item_name, @post.item, class: 'item-name' %></strong></span>
+            <span>アイテム名｜　<strong><%= link_to @post.item.item_name, @post.item, class: 'item-name' %></strong>
+              <% if @post.private? %>
+                <i class='fas fa-lock'></i>
+              <% end %>
+            </span>
           </li>
           <li class='list-group-item tags-list'><span>タグ　　　｜　</span>
             <% @post.tags.each do |tag| %>

@@ -35,13 +35,12 @@ class ItemsController < ApplicationController
 
   def ranking
     @base_items = if params[:follow_status] == 'only_follow'
-      Item.joins(:posts).where(posts: { user_id: current_user.following_ids })
+                    Item.joins(:posts).where(posts: { user_id: current_user.following_ids })
                   else
-      Item.joins(:posts)
+                    Item.joins(:posts)
                   end
     case params[:period]
     when 'all'
-      @from = 'all'
       @items = @base_items.group(:item_id).order('count(item_id) desc').limit(10)
     when 'monthly'
       @from = Time.current - 30.days
@@ -60,6 +59,7 @@ class ItemsController < ApplicationController
   helper_method :items_sort_column
 
   private
+
     def item_params
       params.require(:item).permit(:item_name)
     end

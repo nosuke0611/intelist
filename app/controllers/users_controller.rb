@@ -97,6 +97,7 @@ class UsersController < ApplicationController
   helper_method :users_sort_column, :myitems_sort_column
 
   private
+
     def post_search_params
       params.fetch(:searched, {}).permit(:item_name, :tag_name, :status)
     end

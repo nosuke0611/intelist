@@ -21,7 +21,7 @@ class TagsController < ApplicationController
 
   private
 
-  def tag_search_params
-    params.fetch(:searched, {}).permit(:tag_name)
-  end
+    def tag_search_params
+      params.fetch(:searched, {}).permit(:tag_name)
+    end
 end

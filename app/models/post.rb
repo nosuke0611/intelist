@@ -34,6 +34,7 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # DBへのサムネイル情報保存
   def create_thumbnails
     return if url.blank?
+
     thumbnails = thumbnail
     update(ref_title: thumbnails[:title], ref_description: thumbnails[:description], ref_image: thumbnails[:image])
   end
@@ -77,6 +78,7 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # マイアイテム絞り込み用
   scope :searched, ->(search_params) do
     return if search_params.blank?
+
     has_item_name(search_params[:item_name])
       .has_tag_name(search_params[:tag_name])
       .comp_status(search_params[:status])
@@ -115,6 +117,7 @@ class Post < ApplicationRecord # rubocop:disable Metrics/ClassLength
     temp = Notification.where(['visitor_id = ? and visited_id = ? and post_id = ? and action = ? ', current_user.id,
                                user_id, id, 'like'])
     return if temp.present?
+
     notification = current_user.active_notifications.build(
       post_id: id,
       visited_id: user_id,
