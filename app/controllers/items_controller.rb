@@ -41,7 +41,6 @@ class ItemsController < ApplicationController
                   end
     case params[:period]
     when 'all'
-      @from = 'all'
       @items = @base_items.group(:item_id).order('count(item_id) desc').limit(10)
     when 'monthly'
       @from = Time.current - 30.days

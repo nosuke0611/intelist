@@ -20,7 +20,7 @@ RSpec.describe '投稿機能のテスト', type: :system do
         fill_in 'newpost-content',  with: 'test-content'
         fill_in 'newpost-tags',     with: 'test-tag1, test-tag2'
         find_by_id('post-submit-btn').click
-        expect(page).to have_content 'アイテム名は必須です'
+        expect(page).to have_content '投稿に失敗しました'
       end
     end
     context '投稿を正常に作成できるケース' do

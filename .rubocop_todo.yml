@@ -11,6 +11,6 @@
 Metrics/AbcSize:
   Max: 31
 
-# メソッドの行数を20行までに変更
+# メソッドの行数を10から15までに変更
 Metrics/MethodLength:
-  Max: 20
+  Max: 15

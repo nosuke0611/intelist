@@ -17,7 +17,7 @@
       <%= form_with model: @post, local: true do |f| %>
         <div class='modal-body'>
           <div class='form-group'>
-            <%= f.label :item_name, 'アイテム名' %>
+            <%= f.label :item_name, 'アイテム名（必須）' %>
             <% if @item.blank? %>
               <%= f.text_field :item_name, placeholder: '気になるものを入力', class: 'form-control', id: 'newpost-itemname' %>
             <% else %>

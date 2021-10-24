@@ -4,19 +4,15 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    if params[:post][:item_name].present?
-      @item = Item.find_or_create_by(item_name: params[:post][:item_name])
-      @post.item_id = @item.id
-      tag_list = params[:post][:tag_name].split(/,|\s/)
-      if @post.save
-        @post.save_tags(tag_list)
-        @post.create_thumbnails
-        flash[:notice] = '投稿に成功しました'
-      else
-        flash[:alert] = '投稿に失敗しました'
-      end
+    @item = Item.find_or_create_by(item_name: params[:post][:item_name])
+    @post.item_id = @item.id
+    tag_list = params[:post][:tag_name].split(/,|\s/)
+    if @post.save
+      @post.save_tags(tag_list)
+      @post.create_thumbnails
+      flash[:notice] = '投稿に成功しました'
     else
-      flash[:alert] = 'アイテム名は必須です'
+      flash[:alert] = '投稿に失敗しました'
     end
     redirect_back(fallback_location: root_path)
   end
@@ -39,11 +35,7 @@ class PostsController < ApplicationController
     tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.update(post_params)
       @post.save_tags(tag_list)
-      if @post.url.present?
-        thumbnails = @post.thumbnail
-        @post.update(ref_title: thumbnails[:title], ref_description: thumbnails[:description],
-                     ref_image: thumbnails[:image])
-      end
+      @post.create_thumbnails
       flash[:notice] = '投稿を編集しました'
       redirect_back(fallback_location: root_path)
     else
