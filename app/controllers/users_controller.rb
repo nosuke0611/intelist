@@ -12,14 +12,6 @@ class UsersController < ApplicationController
     @post = Post.new
     @myposts = @user.posts.includes([:tags, :item, { comments: [:user] }])
                     .public_and_by(current_user).page(params[:page]).per(20)
-    return if @myposts.present?
-
-    @favposts = Post.includes([:tags, :item, { comments: [:user] }])
-                    .all_liked_by(@user).page(params[:page]).per(20)
-    return if @favposts.present?
-
-    @composts = Post.includes([:tags, :item, { comments: [:user] }])
-                    .all_commented_by(@user).page(params[:page]).per(20)
   end
 
   # マイページフォロー/フォロワー表示

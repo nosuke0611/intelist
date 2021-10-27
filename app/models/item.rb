@@ -25,9 +25,15 @@ class Item < ApplicationRecord
 
   # アイテムの期間別投稿数を取得
   def period_count(period)
-    return posts.count if period == 'all'
-
-    posts.where('created_at >= ?', period).count
+    case period
+    when 'all'
+      return posts.count if period == 'all'
+    when 'monthly'
+      from = Time.current - 30.days
+    else # weekly
+      from = Time.current - 6.days
+    end
+    posts.where('created_at >= ?', from).count
   end
 
   # 絞り込み検索用
@@ -41,4 +47,29 @@ class Item < ApplicationRecord
   scope :has_name, ->(item_name) { where('item_name LIKE ?', "%#{item_name}%") if item_name.present? }
   scope :has_tag, ->(tag_name) { joins(:posts).merge(Post.has_tag_name(tag_name)) if tag_name.present? }
   scope :has_user, ->(user_name) { joins(:posts).merge(Post.has_user_name(user_name)) if user_name.present? }
+
+  # ランキング機能用
+  scope :ranking, ->(temp_user, period) do
+    follow_only(temp_user)
+      .period_only(period)
+  end
+
+  scope :follow_only, ->(current_user) do
+    return joins(:posts).unscope(:order) if current_user.nil?
+
+    joins(:posts).merge(Post.where(user_id: current_user.following_ids)).unscope(:order)
+  end
+
+  scope :period_only, ->(period) do
+    case period
+    when 'all'
+      group(:item_id).order('count(item_id) desc').limit(10)
+    when 'monthly'
+      from = Time.current - 30.days
+      group(:item_id).where('posts.created_at >= ?', from).order('count(item_id) desc').limit(10)
+    else # weekly
+      from = Time.current - 6.days
+      group(:item_id).where('posts.created_at >= ?', from).order('count(item_id) desc').limit(10)
+    end
+  end
 end

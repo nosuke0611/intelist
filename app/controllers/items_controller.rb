@@ -34,21 +34,9 @@ class ItemsController < ApplicationController
   end
 
   def ranking
-    @base_items = if params[:follow_status] == 'only_follow'
-                    Item.joins(:posts).where(posts: { user_id: current_user.following_ids })
-                  else
-                    Item.joins(:posts)
-                  end
-    case params[:period]
-    when 'all'
-      @items = @base_items.group(:item_id).order('count(item_id) desc').limit(10)
-    when 'monthly'
-      @from = Time.current - 30.days
-      @items = @base_items.group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
-    else # weekly
-      @from = Time.current - 6.days
-      @items = @base_items.group(:item_id).where('posts.created_at >= ?', @from).order('count(item_id) desc').limit(10)
-    end
+    temp_user = params[:follow_status] == 'follow_only' ? current_user : nil
+    @period = params[:period]
+    @items = Item.ranking(temp_user, @period)
   end
 
   # アイテム一覧ソート用メソッド（デフォルトはid降順）
