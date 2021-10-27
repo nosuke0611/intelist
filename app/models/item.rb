@@ -25,9 +25,15 @@ class Item < ApplicationRecord
 
   # アイテムの期間別投稿数を取得
   def period_count(period)
-    return posts.count if period == 'all'
-
-    posts.where('created_at >= ?', period).count
+    case period
+    when 'all'
+      return posts.count if period == 'all'
+    when 'monthly'
+      from = Time.current - 30.days
+    else # weekly
+      from = Time.current - 6.days
+    end
+    posts.where('created_at >= ?', from).count
   end
 
   # 絞り込み検索用

@@ -35,7 +35,8 @@ class ItemsController < ApplicationController
 
   def ranking
     temp_user = params[:follow_status] == 'follow_only' ? current_user : nil
-    @items = Item.ranking(temp_user, params[:period])
+    @period = params[:period]
+    @items = Item.ranking(temp_user, @period)
   end
 
   # アイテム一覧ソート用メソッド（デフォルトはid降順）
