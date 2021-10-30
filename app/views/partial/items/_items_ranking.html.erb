@@ -9,16 +9,16 @@
     </thead>
     <tbody>
       <% items.each.with_index(1) do |item, i| %>
-        <tr>
-          <th><%= i %>位</th>
-          <td><%= link_to item.item_name, item %></td>
-          <td>
+        <tr class='item-list'>
+          <th class='align-midele rank'><%= i %>位</th>
+          <td class='align-midele item-name'><%= link_to item.item_name, item %></td>
+          <td class='align-midele related-tag'>
             <% item.tags.each do |tag| %>
               <%= link_to tag.tag_name, items_path(searched: { tag_name: tag.tag_name }), class: 'btn-sm btn-info tag' %>
             <% end %>
           </td>
-          <td><%= item.period_count(@period) %>件</td>
-          <td>
+          <td class='align-midele post-count'><%= item.period_count(@period) %>件</td>
+          <td class='align-midele related-link'>
             <%= render 'partial/posts/thumbnail', post: item.posts.first, ref_length: 60 if item.posts.first.url.present? %>
           </td>
         </tr>

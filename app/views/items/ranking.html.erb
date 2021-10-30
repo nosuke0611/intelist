@@ -7,10 +7,10 @@
         <%= f.label :follow_status, '対象ユーザー', class: 'form-label' %>
       </div>
       <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-        <label class='btn btn-outline-secondary active' >
+        <label class='btn btn-outline-secondary active' id='all-user-search'>
           <%= f.radio_button :follow_status, :all %>全ユーザー
         </label>
-        <label class='btn btn-outline-secondary'>
+        <label class='btn btn-outline-secondary' id='follow-only-search'>
           <%= f.radio_button :follow_status, :follow_only %>フォローのみ
         </label>
       </div>
@@ -20,13 +20,13 @@
         <%= f.label :period, '対象期間', class: 'form-label' %>
       </div>
       <div class='btn-group btn-group-toggle' data-toggle='buttons'>
-        <label class='btn btn-outline-secondary active' >
+        <label class='btn btn-outline-secondary active' id='weekly-search' >
           <%= f.radio_button :period, :weekly %>週間
         </label>
-        <label class='btn btn-outline-secondary'>
+        <label class='btn btn-outline-secondary' id='monthly-search'>
           <%= f.radio_button :period, :monthly %>月間
         </label>
-        <label class='btn btn-outline-secondary'>
+        <label class='btn btn-outline-secondary' id='all-period-search'>
           <%= f.radio_button :period, :all %>全期間
         </label>
       </div>
