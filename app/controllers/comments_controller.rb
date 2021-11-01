@@ -7,13 +7,12 @@ class CommentsController < ApplicationController
     @post = @comment.post
     if @comment.save
       @post.create_notification_comment!(current_user, @comment.id)
-      respond_to do |format|
-        format.html { redirect_back(fallback_location: root_path) }
-        format.js
-      end
     else
       flash[:alert] = 'コメントに失敗しました'
-      redirect_to request.referer
+    end
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.js
     end
   end
 

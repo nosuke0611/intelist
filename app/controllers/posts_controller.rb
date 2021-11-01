@@ -4,10 +4,9 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
-    @item = Item.find_or_create_by(item_name: params[:post][:item_name])
-    @post.item_id = @item.id
-    tag_list = params[:post][:tag_name].split(/,|\s/)
+    @post.item_id = Item.find_or_create_by(item_name: params[:post][:item_name]).id
     if @post.save
+      tag_list = params[:post][:tag_name].split(/,|\s/)
       @post.save_tags(tag_list)
       @post.create_thumbnails
       flash[:notice] = '投稿に成功しました'
@@ -30,18 +29,16 @@ class PostsController < ApplicationController
   end
 
   def update
-    @item = Item.find_or_create_by(item_name: params[:post][:item_name])
-    @post.item_id = @item.id
+    @post.item_id = Item.find_or_create_by(item_name: params[:post][:item_name]).id
     tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.update(post_params)
       @post.save_tags(tag_list)
       @post.create_thumbnails
       flash[:notice] = '投稿を編集しました'
-      redirect_back(fallback_location: root_path)
     else
       flash[:alert] = '投稿の編集に失敗しました'
-      render 'edit'
     end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy

@@ -8,8 +8,7 @@ class Tag < ApplicationRecord
     related_post_ids.each do |related_post_id|
       used_tag_ids << PostTagMap.where(post_id: related_post_id).pluck(:tag_id)
     end
-    self_array = []
-    self_array << self
+    self_array = Array.new([self])
     related_tag_array = []
     used_tag_ids.flatten.each do |used_tag_id|
       related_tag_array << Tag.find(used_tag_id)
