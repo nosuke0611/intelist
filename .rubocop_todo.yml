@@ -7,10 +7,10 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # メソッドの簡潔さを評価(代入、関数呼び出し、制御構文など)
-# デフォルトの15から31にひとまず変更
+# デフォルトの15から24にひとまず変更
 Metrics/AbcSize:
-  Max: 25
+  Max: 24
 
-# メソッドの行数を10から15までに変更
+# メソッドの行数を10から11までに変更
 Metrics/MethodLength:
-  Max: 12
+  Max: 11

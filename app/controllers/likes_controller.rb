@@ -7,13 +7,12 @@ class LikesController < ApplicationController
     @post = @like.post
     if @like.save
       @post.create_notification_like!(current_user)
-      respond_to do |format|
-        format.html { redirect_back(fallback_location: root_path) }
-        format.js
-      end
     else
       flash[:alert] = 'いいねに失敗しました'
-      redirect_to request.referer
+    end
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.js
     end
   end
 
