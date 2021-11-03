@@ -15,9 +15,8 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit items_path
         wait_for_css_appear('.items-area')
         within('thead') { click_on 'アイテム名' }
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム3'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム2'
@@ -31,9 +30,8 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit items_path
         wait_for_css_appear('.items-area')
         within('thead') { click_on '投稿数' }
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム3'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム2'
@@ -45,17 +43,15 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit items_path
         wait_for_css_appear('.items-area')
         within('thead') { click_on 'アイテム名' }
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム3'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム2'
         expect(items_list[2]).to have_content 'アイテム3'
         within('thead') { click_on 'アイテム名' }
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム1'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム1'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム3'
         expect(items_list[1]).to have_content 'アイテム2'
@@ -74,18 +70,16 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         expect(page).not_to have_content 'アイテム2'
         expect(page).not_to have_content 'アイテム3'
         within('thead') { click_on 'アイテム名' }
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム10'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム10'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム10'
         expect(page).not_to have_content 'アイテム2'
         expect(page).not_to have_content 'アイテム3'
         within('thead') { click_on 'アイテム名' }
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム1'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム1'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム10'
         expect(items_list[1]).to have_content 'アイテム1'
