@@ -6,8 +6,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     @post.item_id = Item.find_or_create_by(item_name: params[:post][:item_name]).id
     if @post.save
-      tag_list = params[:post][:tag_name].split(/,|\s/)
-      @post.save_tags(tag_list)
+      @post.save_tags(params[:post][:tag_name].split(/,|\s/))
       @post.create_thumbnails
       flash[:notice] = '投稿に成功しました'
     else
@@ -30,9 +29,8 @@ class PostsController < ApplicationController
 
   def update
     @post.item_id = Item.find_or_create_by(item_name: params[:post][:item_name]).id
-    tag_list = params[:post][:tag_name].split(/,|\s/)
     if @post.update(post_params)
-      @post.save_tags(tag_list)
+      @post.save_tags(params[:post][:tag_name].split(/,|\s/))
       @post.create_thumbnails
       flash[:notice] = '投稿を編集しました'
     else

@@ -4,9 +4,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new(comment_params)
-    @post = @comment.post
     if @comment.save
-      @post.create_notification_comment!(current_user, @comment.id)
+      @comment.post.create_notification_comment!(current_user, @comment.id)
     else
       flash[:alert] = 'コメントに失敗しました'
     end
@@ -18,7 +17,6 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment = Comment.find(params[:id])
-    @post = @comment.post
     if @comment.destroy
       respond_to do |format|
         format.html { redirect_back(fallback_location: root_path) }

@@ -27,9 +27,8 @@ RSpec.describe 'ランキング機能のテスト', type: :system do
           find('#weekly-search').click
           click_on '変更'
         end
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム2'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム2'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム2'
@@ -48,9 +47,8 @@ RSpec.describe 'ランキング機能のテスト', type: :system do
           find('#monthly-search').click
           click_on '変更'
         end
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム4'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム4'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム2'
@@ -69,9 +67,8 @@ RSpec.describe 'ランキング機能のテスト', type: :system do
           find('#all-period-search').click
           click_on '変更'
         end
-        wait_for_ajax do
-          expect(page).to have_content 'アイテム6'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'アイテム6'
         items_list = all('.item-list')
         expect(items_list[0]).to have_content 'アイテム1'
         expect(items_list[1]).to have_content 'アイテム2'

@@ -14,9 +14,8 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit users_path
         wait_for_css_appear('.users-area')
         within('thead') { click_on 'ユーザー名' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー3'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー1'
         expect(users_list[1]).to have_content 'ユーザー2'
@@ -30,9 +29,8 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit users_path
         wait_for_css_appear('.users-area')
         within('thead') { click_on '投稿数' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー3'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー1'
         expect(users_list[1]).to have_content 'ユーザー2'
@@ -47,9 +45,8 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit users_path
         wait_for_css_appear('.users-area')
         within('thead') { click_on 'フォロー数' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー3'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー3'
         expect(users_list[1]).to have_content 'ユーザー2'
@@ -64,9 +61,8 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit users_path
         wait_for_css_appear('.users-area')
         within('thead') { click_on 'フォロワー数' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー3'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー1'
         expect(users_list[1]).to have_content 'ユーザー2'
@@ -78,17 +74,15 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         visit users_path
         wait_for_css_appear('.users-area')
         within('thead') { click_on 'ユーザー名' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー3'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー3'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー1'
         expect(users_list[1]).to have_content 'ユーザー2'
         expect(users_list[2]).to have_content 'ユーザー3'
         within('thead') { click_on 'ユーザー名' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー1'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー1'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー3'
         expect(users_list[1]).to have_content 'ユーザー2'
@@ -107,18 +101,16 @@ RSpec.describe 'ソート機能のテスト', type: :system do
         expect(page).not_to have_content 'ユーザー2'
         expect(page).not_to have_content 'ユーザー3'
         within('thead') { click_on 'ユーザー名' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー10'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー10'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー1'
         expect(users_list[1]).to have_content 'ユーザー10'
         expect(page).not_to have_content 'ユーザー2'
         expect(page).not_to have_content 'ユーザー3'
         within('thead') { click_on 'ユーザー名' }
-        wait_for_ajax do
-          expect(page).to have_content 'ユーザー1'
-        end
+        wait_for_ajax
+        expect(page).to have_content 'ユーザー1'
         users_list = all('.user-list')
         expect(users_list[0]).to have_content 'ユーザー10'
         expect(users_list[1]).to have_content 'ユーザー1'

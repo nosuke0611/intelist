@@ -4,9 +4,8 @@ class LikesController < ApplicationController
 
   def create
     @like = current_user.likes.build(like_params)
-    @post = @like.post
     if @like.save
-      @post.create_notification_like!(current_user)
+      @like.post.create_notification_like!(current_user)
     else
       flash[:alert] = 'いいねに失敗しました'
     end
@@ -18,7 +17,6 @@ class LikesController < ApplicationController
 
   def destroy
     @like = Like.find(params[:id])
-    @post = @like.post
     if @like.destroy
       respond_to do |format|
         format.html { redirect_back(fallback_location: root_path) }
